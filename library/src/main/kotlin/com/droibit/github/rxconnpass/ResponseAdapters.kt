@@ -12,11 +12,12 @@ import java.util.*
 internal object ResponseAdapters {
 
     val factory: JsonAdapter.Factory = JsonAdapter.Factory { type, annotations, moshi ->
-        when (type) {
-            Date::class.java -> dateJsonAdapter
-            Uri::class.java  -> uriJsonAdapter
-            else -> null
+        if (type == Date::class.java) {
+            dateJsonAdapter
+        } else if (type == Date::class.java) {
+            uriJsonAdapter
         }
+        null
     }
 }
 
