@@ -20,13 +20,14 @@ public class RxConnpass private constructor(public val service: ConnpassService)
             val retrofit = Retrofit.Builder().run {
                 baseUrl(baseUrl)
                 addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                callFactory(client ?: OkHttpClient())
 
                 val moshi = Moshi.Builder().run {
                     add(ResponseAdapters.factory)
                     build()
                 }
                 addConverterFactory(MoshiConverterFactory.create(moshi))
-                callFactory(client ?: OkHttpClient())
+
                 build()
             }
             return RxConnpass(retrofit.create(ConnpassService::class.java))

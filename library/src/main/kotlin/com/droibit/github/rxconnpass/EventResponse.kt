@@ -47,21 +47,21 @@ public data class Event(
         val description: String,
         @Json(name="event_url") val url: String,
         @Json(name="hash_tag") val hashTag: String,
-        @Json(name="started_at") val startedAt: Date,
-        @Json(name="ended_at") val endedAt: Date,
-        val limit: Int,
+        @ISO8601 @Json(name="started_at") val startedAt: Date,
+        @ISO8601 @Json(name="ended_at") val endedAt: Date,
+        val limit: Int?,
         @Json(name="event_type") val type: EventType,
         val series: Series,
         val address: String,
         val place: String,
-        val lat: Float,
-        val lon: Float,
+        val lat: Double?,
+        val lon: Double?,
         @Json(name="owner_id") val ownerId: Int,
         @Json(name="owner_nickname") val ownerNickname: String,
         @Json(name="owner_display_name") val ownerDisplayName: String,
         val accepted: Int,
         val waiting: Int,
-        @Json(name="updated_at") val updatedAt: Date
+        @ISO8601 @Json(name="updated_at") val updatedAt: Date
 )
 
 /**
