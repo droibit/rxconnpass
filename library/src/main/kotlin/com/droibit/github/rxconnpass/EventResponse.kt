@@ -1,6 +1,5 @@
 package com.droibit.github.rxconnpass
 
-import android.net.Uri
 import com.squareup.moshi.Json
 import java.util.*
 
@@ -11,7 +10,7 @@ import java.util.*
  * @param resultsAvailable 検索結果の総件数
  * @param resultsStart 検索の開始位置
  */
-public data class Response(
+public data class EventResponse(
         @Json(name="results_returned") val resultsReturned: Int,
         @Json(name="results_available") val resultsAvailable: Int,
         @Json(name="results_start") val resultsStart: Int,
@@ -46,7 +45,7 @@ public data class Event(
         val title: String,
         val catch: String,
         val description: String,
-        @Json(name="event_url") val url: Uri,
+        @Json(name="event_url") val url: String,
         @Json(name="hash_tag") val hashTag: String,
         @Json(name="started_at") val startedAt: Date,
         @Json(name="ended_at") val endedAt: Date,
@@ -73,7 +72,7 @@ public data class Event(
 public data class Series(
         val id: Int,
         val title: String,
-        val url: Uri
+        val url: String
 )
 
 /**

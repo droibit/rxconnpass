@@ -1,6 +1,5 @@
 package com.droibit.github.rxconnpass
 
-import android.net.Uri
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.JsonDataException
 import com.squareup.moshi.JsonReader
@@ -14,8 +13,6 @@ internal object ResponseAdapters {
     val factory: JsonAdapter.Factory = JsonAdapter.Factory { type, annotations, moshi ->
         if (type == Date::class.java) {
             dateJsonAdapter
-        } else if (type == Date::class.java) {
-            uriJsonAdapter
         }
         null
     }
@@ -35,12 +32,4 @@ private val dateJsonAdapter = object: JsonAdapter<Date>() {
     }
 
     override fun toString() = "JsonAdapter(Date)"
-}
-
-private val uriJsonAdapter = object: JsonAdapter<Uri>() {
-    override fun toJson(writer: JsonWriter, value: Uri) {}
-
-    override fun fromJson(reader: JsonReader) = Uri.parse(reader.nextString())
-
-    override fun toString() = "JsonAdapter(Uri)"
 }
