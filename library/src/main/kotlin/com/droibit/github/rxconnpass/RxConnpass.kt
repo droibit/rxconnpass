@@ -16,7 +16,9 @@ public class RxConnpass private constructor(public val service: ConnpassService)
 
     companion object {
 
-        fun newConnpass(client: Call.Factory? = null): RxConnpass {
+        public fun newClient(client: Call.Factory? = null) = newClient(baseUrl, client)
+
+        internal fun newClient(baseUrl: String, client: Call.Factory? = null): RxConnpass {
             val retrofit = Retrofit.Builder().run {
                 baseUrl(baseUrl)
                 addCallAdapterFactory(RxJavaCallAdapterFactory.create())

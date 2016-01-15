@@ -20,7 +20,7 @@ public data class EventResponse(
 /**
  * @param id イベントID
  * @param title タイトル
- * @param catch キャッチ
+ * @param catchCopy キャッチ
  * @param description 概要(HTML形式)
  * @param url connpass.com 上のURL
  * @param hashTag Twitterのハッシュタグ
@@ -43,10 +43,10 @@ public data class EventResponse(
 public data class Event(
         @Json(name="event_id") val id: Int,
         val title: String,
-        val catch: String,
-        val description: String,
+        @Json(name="catch") val catchCopy: String,
+        @Transient val description: String? = null,
         @Json(name="event_url") val url: String,
-        @Json(name="hash_tag") val hashTag: String,
+        @Json(name="hash_tag") val hashTag: String = "",
         @ISO8601 @Json(name="started_at") val startedAt: Date,
         @ISO8601 @Json(name="ended_at") val endedAt: Date,
         val limit: Int?,

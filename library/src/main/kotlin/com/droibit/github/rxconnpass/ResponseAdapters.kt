@@ -22,8 +22,8 @@ internal object ResponseAdapters {
     }
 }
 
-private val iso8601Format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX")
-private val dateJsonAdapter = object: JsonAdapter<Date>() {
+internal val iso8601Format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX")
+internal val dateJsonAdapter = object: JsonAdapter<Date>() {
     override fun toJson(writer: JsonWriter, value: Date) {}
 
     override fun fromJson(reader: JsonReader): Date {
