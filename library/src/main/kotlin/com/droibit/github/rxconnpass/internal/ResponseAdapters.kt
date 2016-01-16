@@ -1,4 +1,4 @@
-package com.droibit.github.rxconnpass
+package com.droibit.github.rxconnpass.internal
 
 import com.squareup.moshi.*
 import java.text.ParseException

@@ -1,5 +1,6 @@
 package com.droibit.github.rxconnpass
 
+import com.droibit.github.rxconnpass.internal.ISO8601
 import com.squareup.moshi.Json
 import java.util.*
 
