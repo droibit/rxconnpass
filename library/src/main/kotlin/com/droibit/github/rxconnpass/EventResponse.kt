@@ -15,7 +15,7 @@ public data class EventResponse(
         @Json(name="results_returned") val resultsReturned: Int,
         @Json(name="results_available") val resultsAvailable: Int,
         @Json(name="results_start") val resultsStart: Int,
-        val events: Array<Event>
+        val events: List<Event>
 )
 
 /**

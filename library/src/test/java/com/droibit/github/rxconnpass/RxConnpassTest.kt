@@ -56,8 +56,7 @@ public class RxConnpassTest {
         val subscriber = TestSubscriber<EventResponse>()
         service.search("python").subscribe(subscriber)
 
-        // FIXME:
         subscriber.assertNoErrors()
-        //subscriber.assertReceivedOnNext(listOf(singleEvent))
+        subscriber.assertReceivedOnNext(listOf(singleEvent))
     }
 }

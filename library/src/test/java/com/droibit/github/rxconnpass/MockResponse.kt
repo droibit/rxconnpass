@@ -6,7 +6,7 @@ internal val singleEvent = EventResponse(
         resultsReturned = 1,
         resultsStart = 1,
         resultsAvailable = 683,
-        events = arrayOf(
+        events = arrayListOf(
                 Event(
                         id = 24503,
                         title = "でじぽろ #3",
