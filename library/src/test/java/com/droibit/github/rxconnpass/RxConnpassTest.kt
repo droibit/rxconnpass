@@ -23,7 +23,7 @@ public class RxConnpassTest {
         server.enqueue(mockResponse)
 
         val subscriber = TestSubscriber<EventResponse>()
-        service.search("python").subscribe(subscriber)
+        service.searchByKeyword("python").subscribe(subscriber)
 
         subscriber.assertNoErrors()
     }
@@ -39,13 +39,13 @@ public class RxConnpassTest {
         server.enqueue(mockResponse)
 
         val subscriber = TestSubscriber<EventResponse>()
-        service.search("python").subscribe(subscriber)
+        service.searchByKeyword("python").subscribe(subscriber)
 
         subscriber.assertError(HttpException::class.java)
     }
 
     @Test
-    public fun requestThenParseEvent() {
+    public fun checkParsedEventResponse() {
         val service = RxConnpass.newClient("${server.url("/")}").service
 
         val mockResponse = MockResponse().apply {
@@ -54,7 +54,7 @@ public class RxConnpassTest {
         server.enqueue(mockResponse)
 
         val subscriber = TestSubscriber<EventResponse>()
-        service.search("python").subscribe(subscriber)
+        service.searchByKeyword("python").subscribe(subscriber)
 
         subscriber.assertNoErrors()
         subscriber.assertReceivedOnNext(listOf(singleEvent))
