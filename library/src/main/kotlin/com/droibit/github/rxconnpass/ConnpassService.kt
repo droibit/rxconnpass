@@ -1,18 +1,20 @@
 package com.droibit.github.rxconnpass
 
-import com.droibit.github.rxconnpass.internal.GetQuery
+import com.droibit.github.rxconnpass.internal.QueryNames
+import com.droibit.github.rxconnpass.internal.toYmDateString
+import com.droibit.github.rxconnpass.internal.toYmdDateString
 import retrofit2.http.GET
 import retrofit2.http.QueryMap
 import rx.Observable
+import java.util.*
 
 /**
  * [API Reference](http://connpass.com/about/api/)
  */
 public interface ConnpassService {
 
-
     @GET("/api/v1/event/")
-    fun search(@QueryMap query: Map<String, String>): Observable<EventResponse>
+    fun search(@QueryMap query: Map<String, @JvmSuppressWildcards Any?>): Observable<EventResponse>
 }
 
 enum class Order(val index: Int) {
@@ -21,16 +23,21 @@ enum class Order(val index: Int) {
     NEW(2),     // 新着順
 }
 
+/**
+ * TODO: 日付のことを明示する
+ */
 public fun ConnpassService.searchByKeyword(keyword: String,
-                                           date: String? = null,
+                                           ymdDates: List<Date>? = null,
+                                           ymDates: List<Date>? = null,
                                            order: Order = Order.UPDATED,
                                            start: Int = 0,
                                            count: Int = 10): Observable<EventResponse> {
-    // TODO: dateパース
     return search(hashMapOf(
-            GetQuery.keyword to keyword,
-            GetQuery.order to order.index.toString(),
-            GetQuery.start to start.toString(),
-            GetQuery.count to count.toString()
-    ))
+            QueryNames.keyword to keyword,
+            QueryNames.ymd to ymdDates?.toYmdDateString(),
+            QueryNames.ym to ymDates?.toYmDateString(),
+            QueryNames.order to order.index,
+            QueryNames.start to start,
+            QueryNames.count to count)
+    )
 }

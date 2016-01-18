@@ -1,6 +1,6 @@
 package com.droibit.github.rxconnpass.internal
 
-internal object GetQuery {
+internal object QueryNames {
     internal const val eventId = "event_id"
     internal const val keyword = "keyword"
     internal const val keywordOr = "keyword_or"
