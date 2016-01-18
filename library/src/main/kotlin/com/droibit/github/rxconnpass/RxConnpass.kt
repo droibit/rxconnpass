@@ -13,12 +13,12 @@ private val baseUrl = "http://connpass.com"
 /**
  * Created by kumagai on 2016/01/13.
  */
-public class RxConnpass private constructor(public val service: ConnpassService) {
+class RxConnpass private constructor(public val service: ConnpassService) {
 
     companion object {
 
         @JvmStatic
-        public fun newClient(client: Call.Factory? = null) = newClient(baseUrl, client)
+        fun newClient(client: Call.Factory? = null) = newClient(baseUrl, client)
 
         internal fun newClient(baseUrl: String, client: Call.Factory? = null): RxConnpass {
             val moshi = Moshi.Builder()

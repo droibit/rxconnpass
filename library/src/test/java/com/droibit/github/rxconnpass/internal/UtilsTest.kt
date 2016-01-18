@@ -5,7 +5,7 @@ import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 import java.util.Collections.singletonList
 
-public class UtilsTest {
+class UtilsTest {
 
     @Test
     fun convertDateToYmdFormat() {

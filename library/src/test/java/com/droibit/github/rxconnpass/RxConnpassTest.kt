@@ -7,14 +7,14 @@ import org.junit.Test
 import retrofit2.HttpException
 import rx.observers.TestSubscriber
 
-public class RxConnpassTest {
+class RxConnpassTest {
 
     @Rule
     @JvmField
-    public val server = MockWebServer()
+    val server = MockWebServer()
 
     @Test
-    public fun requestThenSuccess() {
+    fun requestThenSuccess() {
         val service = RxConnpass.newClient("${server.url("/")}").service
 
         val mockResponse = MockResponse().apply {
@@ -29,7 +29,7 @@ public class RxConnpassTest {
     }
 
     @Test
-    public fun requestThenNotFound() {
+    fun requestThenNotFound() {
         val service = RxConnpass.newClient("${server.url("/")}").service
 
         val mockResponse = MockResponse().apply {
@@ -45,7 +45,7 @@ public class RxConnpassTest {
     }
 
     @Test
-    public fun checkParsedEventResponse() {
+    fun checkParsedEventResponse() {
         val service = RxConnpass.newClient("${server.url("/")}").service
 
         val mockResponse = MockResponse().apply {

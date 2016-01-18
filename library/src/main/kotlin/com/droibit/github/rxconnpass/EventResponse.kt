@@ -1,8 +1,13 @@
 package com.droibit.github.rxconnpass
 
-import com.droibit.github.rxconnpass.internal.ISO8601
 import com.squareup.moshi.Json
+import com.squareup.moshi.JsonQualifier
 import java.util.*
+
+@Retention(AnnotationRetention.RUNTIME)
+@Target(AnnotationTarget.FIELD, AnnotationTarget.PROPERTY)
+@JsonQualifier
+annotation class ISO8601
 
 /**
  * [API Reference](http://connpass.com/about/api/)
@@ -11,7 +16,7 @@ import java.util.*
  * @param resultsAvailable 検索結果の総件数
  * @param resultsStart 検索の開始位置
  */
-public data class EventResponse(
+data class EventResponse(
         @Json(name="results_returned") val resultsReturned: Int,
         @Json(name="results_available") val resultsAvailable: Int,
         @Json(name="results_start") val resultsStart: Int,
@@ -41,7 +46,7 @@ public data class EventResponse(
  * @param waiting 補欠者数
  * @param updatedAt 更新日時 (ISO-8601形式)
  */
-public data class Event(
+data class Event(
         @Json(name="event_id") val id: Int,
         val title: String,
         @Json(name="catch") val catchCopy: String,
@@ -70,7 +75,7 @@ public data class Event(
  * @param title グループタイトル
  * @param url グループのconnpass.com 上のURL
  */
-public data class Series(
+data class Series(
         val id: Int,
         val title: String,
         val url: String
@@ -80,7 +85,7 @@ public data class Series(
  * @property participation connpassで参加受付あり
  * @property advertisement 告知のみ
  */
-public enum class EventType {
+enum class EventType {
     participation,
     advertisement
 }

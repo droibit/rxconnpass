@@ -5,11 +5,6 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
-@Retention(AnnotationRetention.RUNTIME)
-@Target(AnnotationTarget.FIELD, AnnotationTarget.PROPERTY)
-@JsonQualifier
-public annotation class ISO8601
-
 internal object ResponseAdapters {
 
     val factory: JsonAdapter.Factory = JsonAdapter.Factory { type, annotations, moshi ->

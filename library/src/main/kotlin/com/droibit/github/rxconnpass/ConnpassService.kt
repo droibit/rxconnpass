@@ -11,7 +11,7 @@ import java.util.*
 /**
  * [API Reference](http://connpass.com/about/api/)
  */
-public interface ConnpassService {
+interface ConnpassService {
 
     @GET("/api/v1/event/")
     fun search(@QueryMap query: Map<String, @JvmSuppressWildcards Any?>): Observable<EventResponse>
@@ -26,12 +26,12 @@ enum class Order(val index: Int) {
 /**
  * TODO: 日付のことを明示する
  */
-public fun ConnpassService.searchByKeyword(keyword: String,
-                                           ymdDates: List<Date>? = null,
-                                           ymDates: List<Date>? = null,
-                                           order: Order = Order.UPDATED,
-                                           start: Int = 0,
-                                           count: Int = 10): Observable<EventResponse> {
+fun ConnpassService.searchByKeyword(keyword: String,
+                                    ymdDates: List<Date>? = null,
+                                    ymDates: List<Date>? = null,
+                                    order: Order = Order.UPDATED,
+                                    start: Int = 0,
+                                    count: Int = 10): Observable<EventResponse> {
     return search(hashMapOf(
             QueryNames.keyword to keyword,
             QueryNames.ymd to ymdDates?.toYmdDateString(),
