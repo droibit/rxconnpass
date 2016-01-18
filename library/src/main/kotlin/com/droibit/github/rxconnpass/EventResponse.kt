@@ -4,11 +4,6 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonQualifier
 import java.util.*
 
-@Retention(AnnotationRetention.RUNTIME)
-@Target(AnnotationTarget.FIELD, AnnotationTarget.PROPERTY)
-@JsonQualifier
-annotation class ISO8601
-
 /**
  * [API Reference](http://connpass.com/about/api/)
  *
@@ -17,10 +12,10 @@ annotation class ISO8601
  * @param resultsStart 検索の開始位置
  */
 data class EventResponse(
-        @Json(name="results_returned") val resultsReturned: Int,
-        @Json(name="results_available") val resultsAvailable: Int,
-        @Json(name="results_start") val resultsStart: Int,
-        val events: List<Event>
+        @JvmField @Json(name="results_returned")  val resultsReturned: Int,
+        @JvmField @Json(name="results_available") val resultsAvailable: Int,
+        @JvmField @Json(name="results_start")     val resultsStart: Int,
+        @JvmField @Json(name="events")            val events: List<Event>
 )
 
 /**
@@ -47,27 +42,27 @@ data class EventResponse(
  * @param updatedAt 更新日時 (ISO-8601形式)
  */
 data class Event(
-        @Json(name="event_id") val id: Int,
-        val title: String,
-        @Json(name="catch") val catchCopy: String,
-        @Transient val description: String? = null,
-        @Json(name="event_url") val url: String,
-        @Json(name="hash_tag") val hashTag: String = "",
-        @ISO8601 @Json(name="started_at") val startedAt: Date,
-        @ISO8601 @Json(name="ended_at") val endedAt: Date,
-        val limit: Int?,
-        @Json(name="event_type") val type: EventType,
-        val series: Series,
-        val address: String,
-        val place: String,
-        val lat: Double?,
-        val lon: Double?,
-        @Json(name="owner_id") val ownerId: Int,
-        @Json(name="owner_nickname") val ownerNickname: String,
-        @Json(name="owner_display_name") val ownerDisplayName: String,
-        val accepted: Int,
-        val waiting: Int,
-        @ISO8601 @Json(name="updated_at") val updatedAt: Date
+        @JvmField @Json(name="event_id")           val id: Int,
+        @JvmField @Json(name="title")              val title: String,
+        @JvmField @Json(name="catch")              val catchCopy: String,
+        @JvmField @Transient                       val description: String? = null,
+        @JvmField @Json(name="event_url")          val url: String,
+        @JvmField @Json(name="hash_tag")           val hashTag: String = "",
+        @JvmField @Json(name="started_at")         val startedAt: Date,
+        @JvmField @Json(name="ended_at")           val endedAt: Date,
+        @JvmField @Json(name="limit")              val limit: Int?,
+        @JvmField @Json(name="event_type")         val type: EventType,
+        @JvmField @Json(name="series")             val series: Series,
+        @JvmField @Json(name="address")            val address: String,
+        @JvmField @Json(name="place")              val place: String,
+        @JvmField @Json(name="lat")                val lat: Double?,
+        @JvmField @Json(name="lon")                val lon: Double?,
+        @JvmField @Json(name="owner_id")           val ownerId: Int,
+        @JvmField @Json(name="owner_nickname")     val ownerNickname: String,
+        @JvmField @Json(name="owner_display_name") val ownerDisplayName: String,
+        @JvmField @Json(name="accepted")           val accepted: Int,
+        @JvmField @Json(name="waiting")            val waiting: Int,
+        @JvmField @Json(name="updated_at")         val updatedAt: Date
 )
 
 /**
@@ -76,9 +71,9 @@ data class Event(
  * @param url グループのconnpass.com 上のURL
  */
 data class Series(
-        val id: Int,
-        val title: String,
-        val url: String
+        @JvmField @Json(name="id")    val id: Int,
+        @JvmField @Json(name="title") val title: String,
+        @JvmField @Json(name="url")   val url: String
 )
 
 /**

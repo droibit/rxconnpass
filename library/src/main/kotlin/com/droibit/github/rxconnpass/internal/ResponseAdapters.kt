@@ -9,7 +9,6 @@ internal object ResponseAdapters {
 
     val factory: JsonAdapter.Factory = JsonAdapter.Factory { type, annotations, moshi ->
         if (type == Date::class.java) {
-            // FIXME: 本来はアノテーションのチェックがいる
             dateJsonAdapter
         } else {
             null
