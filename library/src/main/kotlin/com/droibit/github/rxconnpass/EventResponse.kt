@@ -1,7 +1,6 @@
 package com.droibit.github.rxconnpass
 
 import com.squareup.moshi.Json
-import com.squareup.moshi.JsonQualifier
 import java.util.*
 
 /**
@@ -44,19 +43,19 @@ data class EventResponse(
 data class Event(
         @JvmField @Json(name="event_id")           val id: Int,
         @JvmField @Json(name="title")              val title: String,
-        @JvmField @Json(name="catch")              val catchCopy: String,
+        @JvmField @Json(name="catch")              val catchCopy: String = "",
         @JvmField @Transient                       val description: String? = null,
         @JvmField @Json(name="event_url")          val url: String,
         @JvmField @Json(name="hash_tag")           val hashTag: String = "",
         @JvmField @Json(name="started_at")         val startedAt: Date,
         @JvmField @Json(name="ended_at")           val endedAt: Date,
-        @JvmField @Json(name="limit")              val limit: Int?,
+        @JvmField @Json(name="limit")              val limit: Int? = null,
         @JvmField @Json(name="event_type")         val type: EventType,
-        @JvmField @Json(name="series")             val series: Series,
-        @JvmField @Json(name="address")            val address: String,
-        @JvmField @Json(name="place")              val place: String,
-        @JvmField @Json(name="lat")                val lat: Double?,
-        @JvmField @Json(name="lon")                val lon: Double?,
+        @JvmField @Json(name="series")             val series: Series? = null,
+        @JvmField @Json(name="address")            val address: String? = null,
+        @JvmField @Json(name="place")              val place: String? = null,
+        @JvmField @Json(name="lat")                val lat: Double? = null,
+        @JvmField @Json(name="lon")                val lon: Double? = null,
         @JvmField @Json(name="owner_id")           val ownerId: Int,
         @JvmField @Json(name="owner_nickname")     val ownerNickname: String,
         @JvmField @Json(name="owner_display_name") val ownerDisplayName: String,

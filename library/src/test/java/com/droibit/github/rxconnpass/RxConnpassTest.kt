@@ -43,20 +43,4 @@ class RxConnpassTest {
 
         subscriber.assertError(HttpException::class.java)
     }
-
-    @Test
-    fun checkParsedEventResponse() {
-        val service = RxConnpass.newClient("${server.url("/")}").service
-
-        val mockResponse = MockResponse().apply {
-            setBody(mockSingleEventResponse)
-        }
-        server.enqueue(mockResponse)
-
-        val subscriber = TestSubscriber<EventResponse>()
-        service.searchByKeyword("python").subscribe(subscriber)
-
-        subscriber.assertNoErrors()
-        subscriber.assertReceivedOnNext(listOf(singleEvent))
-    }
 }

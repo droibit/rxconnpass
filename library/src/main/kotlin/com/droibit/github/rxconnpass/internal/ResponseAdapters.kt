@@ -1,6 +1,9 @@
 package com.droibit.github.rxconnpass.internal
 
-import com.squareup.moshi.*
+import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.JsonDataException
+import com.squareup.moshi.JsonReader
+import com.squareup.moshi.JsonWriter
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
