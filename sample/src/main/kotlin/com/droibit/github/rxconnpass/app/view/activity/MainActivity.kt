@@ -1,7 +1,8 @@
-package com.droibit.github.rxconnpass.app
+package com.droibit.github.rxconnpass.app.view.activity
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.droibit.github.rxconnpass.app.R
 
 class MainActivity : AppCompatActivity() {
 
