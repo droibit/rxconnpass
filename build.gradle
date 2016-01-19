@@ -3,11 +3,9 @@
 buildscript {
 
     ext {
-        support_lib_version = '23.1.1'
         retrofit_version = '2.0.0-beta3'
         okhttp_version = '3.0.1'
         kotlin_version = '1.0.0-beta-4584'
-        dagger2_version = '2.0.2'
         rxjava_version = '1.1.0'
         rxkotlin_version = '0.30.1'
     }
@@ -16,6 +14,7 @@ buildscript {
         jcenter()
         mavenCentral()
     }
+
     dependencies {
         classpath 'com.android.tools.build:gradle:1.5.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
