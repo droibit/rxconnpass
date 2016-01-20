@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">retrofit2rx</string>
+    <string name="app_name" translatable="false">RxConnpass</string>
+    <string name="action_settings">Settings</string>
 </resources>
