@@ -1,5 +1,6 @@
 package com.droibit.github.rxconnpass
 
+import com.droibit.github.rxconnpass.internal.DEFAULT_RETURN_COUNT
 import com.droibit.github.rxconnpass.internal.QueryNames
 import com.droibit.github.rxconnpass.internal.toYmDateString
 import com.droibit.github.rxconnpass.internal.toYmdDateString
@@ -31,7 +32,7 @@ fun ConnpassService.searchByKeyword(keyword: String,
                                     ymDates: List<Date>? = null,
                                     order: Order = Order.UPDATED,
                                     start: Int = 0,
-                                    count: Int = 10): Observable<EventResponse> {
+                                    count: Int = DEFAULT_RETURN_COUNT): Observable<EventResponse> {
     return search(hashMapOf(
             QueryNames.keyword to keyword,
             QueryNames.ymd to ymdDates?.toYmdDateString(),
