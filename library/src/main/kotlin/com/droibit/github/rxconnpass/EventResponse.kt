@@ -1,6 +1,7 @@
 package com.droibit.github.rxconnpass
 
 import com.squareup.moshi.Json
+import java.io.Serializable
 import java.util.*
 
 /**
@@ -15,7 +16,7 @@ data class EventResponse(
         @JvmField @Json(name="results_available") val resultsAvailable: Int,
         @JvmField @Json(name="results_start")     val resultsStart: Int,
         @JvmField @Json(name="events")            val events: List<Event>
-)
+): Serializable
 
 /**
  * @param id イベントID
@@ -62,7 +63,7 @@ data class Event(
         @JvmField @Json(name="accepted")           val accepted: Int,
         @JvmField @Json(name="waiting")            val waiting: Int,
         @JvmField @Json(name="updated_at")         val updatedAt: Date
-)
+): Serializable
 
 /**
  * @param id グループID
@@ -73,7 +74,7 @@ data class Series(
         @JvmField @Json(name="id")    val id: Int,
         @JvmField @Json(name="title") val title: String,
         @JvmField @Json(name="url")   val url: String
-)
+): Serializable
 
 /**
  * @property participation connpassで参加受付あり
