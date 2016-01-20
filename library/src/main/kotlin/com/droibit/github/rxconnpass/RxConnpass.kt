@@ -18,9 +18,9 @@ class RxConnpass private constructor(public val service: ConnpassService) {
     companion object {
 
         @JvmStatic
-        fun newClient(client: Call.Factory? = null) = newClient(baseUrl, client)
+        fun newConnpass(client: Call.Factory? = null) = newConnpass(baseUrl, client)
 
-        internal fun newClient(baseUrl: String, client: Call.Factory? = null): RxConnpass {
+        internal fun newConnpass(baseUrl: String, client: Call.Factory? = null): RxConnpass {
             val moshi = Moshi.Builder()
                              .add(ResponseAdapters.factory)
                              .build()

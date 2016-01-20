@@ -15,7 +15,7 @@ class RxConnpassTest {
 
     @Test
     fun requestThenSuccess() {
-        val service = RxConnpass.newClient("${server.url("/")}").service
+        val service = RxConnpass.newConnpass("${server.url("/")}").service
 
         val mockResponse = MockResponse().apply {
             setBody(mockMultiEventResponse)
@@ -30,7 +30,7 @@ class RxConnpassTest {
 
     @Test
     fun requestThenNotFound() {
-        val service = RxConnpass.newClient("${server.url("/")}").service
+        val service = RxConnpass.newConnpass("${server.url("/")}").service
 
         val mockResponse = MockResponse().apply {
             setResponseCode(404)
