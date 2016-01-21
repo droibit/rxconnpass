@@ -1,6 +1,6 @@
 package com.droibit.github.rxconnpass
 
-import com.droibit.github.rxconnpass.internal.ResponseAdapters
+import com.droibit.github.rxconnpass.ResponseAdapters
 import com.squareup.moshi.Moshi
 import okhttp3.Call
 import okhttp3.OkHttpClient

@@ -1,7 +1,7 @@
 package com.droibit.github.rxconnpass.data
 
 import com.droibit.github.rxconnpass.*
-import com.droibit.github.rxconnpass.internal.ResponseAdapters
+import com.droibit.github.rxconnpass.ResponseAdapters
 import com.squareup.moshi.Moshi
 import org.junit.Test
 import com.google.common.truth.Truth.assertThat
