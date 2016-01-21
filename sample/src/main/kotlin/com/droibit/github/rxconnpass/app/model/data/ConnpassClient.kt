@@ -6,6 +6,7 @@ import com.droibit.github.rxconnpass.BuildConfig
 import com.droibit.github.rxconnpass.EventResponse
 import com.droibit.github.rxconnpass.ResponseAdapters
 import com.droibit.github.rxconnpass.RxConnpass
+import com.droibit.github.rxconnpass.app.extension.readText
 import com.squareup.moshi.Moshi
 import rx.Observable
 
@@ -61,9 +62,7 @@ internal class MockClient(val context: Context, rxConnpass: RxConnpass): CoreCli
     }
 
     private fun readMockResponse(assets: AssetManager): EventResponse {
-        val json = assets.open("response_15events.json").run {
-            reader().use { it.readText() }
-        }
+        val json = assets.open("response_15events.json").readText()
         val moshi = Moshi.Builder()
                          .add(ResponseAdapters.factory)
                          .build()
