@@ -2,8 +2,9 @@ package com.droibit.github.rxconnpass.app
 
 import android.app.Application
 import com.droibit.github.rxconnpass.RxConnpass
-import com.droibit.github.rxconnpass.app.model.api.ConnpassClient
-import com.droibit.github.rxconnpass.app.model.api.StandardClient
+import com.droibit.github.rxconnpass.app.model.data.ConnpassClient
+import com.droibit.github.rxconnpass.app.model.data.MockClient
+import com.droibit.github.rxconnpass.app.model.data.StandardClient
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level
@@ -30,6 +31,6 @@ class RxConnpassApplication: Application() {
             build()
         }
         val rxConnpass = RxConnpass.newConnpass(okhttp)
-        _connpassClient = ConnpassClient(delegate = StandardClient(this, rxConnpass))
+        _connpassClient = ConnpassClient(delegate = MockClient(this, rxConnpass))
     }
 }

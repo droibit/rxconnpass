@@ -1,6 +1,7 @@
 package com.droibit.github.rxconnpass
 
-import com.droibit.github.rxconnpass.internal.iso8601Format
+import com.droibit.github.rxconnpass.ResponseAdapters.iso8601Format
+
 
 internal const val mockNoEventResponse = """
 {"results_returned": 0, "events": [], "results_start": 1, "results_available": 0}
