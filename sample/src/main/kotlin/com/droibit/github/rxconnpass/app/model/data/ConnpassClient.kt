@@ -51,9 +51,7 @@ internal class StandardClient(private val context: Context, rxConnpass: RxConnpa
  */
 internal class MockClient(val context: Context, rxConnpass: RxConnpass): CoreClient {
 
-    private val service = rxConnpass.service
     private val mockResponse: EventResponse by lazy { readMockResponse(context.assets) }
-
     private var current: ConnpassClient.Current? = null
 
     override fun searchByKeyword(keyword: String, searchMore: Boolean): Observable<EventResponse> {

@@ -4,7 +4,7 @@ import android.app.Application
 import com.droibit.github.rxconnpass.RxConnpass
 import com.droibit.github.rxconnpass.app.model.data.ConnpassClient
 import com.droibit.github.rxconnpass.app.model.data.MockClient
-import com.droibit.github.rxconnpass.app.model.data.StandardClient
+import com.squareup.leakcanary.LeakCanary
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level
@@ -16,13 +16,15 @@ import okhttp3.logging.HttpLoggingInterceptor.Level
  */
 class RxConnpassApplication: Application() {
 
-    val connpassClient: ConnpassClient
-        get() = _connpassClient
-    private lateinit var _connpassClient: ConnpassClient
+    val connpassClient: ConnpassClient by lazy { makeConnpass() }
 
     override fun onCreate() {
         super.onCreate()
 
+        LeakCanary.install(this)
+    }
+
+    private fun makeConnpass(): ConnpassClient {
         val okhttp = OkHttpClient.Builder().run {
             if (BuildConfig.DEBUG) {
                 val interceptor = HttpLoggingInterceptor().apply { setLevel(Level.BASIC) }
@@ -31,6 +33,6 @@ class RxConnpassApplication: Application() {
             build()
         }
         val rxConnpass = RxConnpass.newConnpass(okhttp)
-        _connpassClient = ConnpassClient(delegate = MockClient(this, rxConnpass))
+        return ConnpassClient(delegate = MockClient(this, rxConnpass))
     }
 }

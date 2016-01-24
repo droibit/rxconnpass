@@ -37,5 +37,10 @@
 
         </android.support.design.widget.AppBarLayout>
 
+        <FrameLayout
+            android:id="@android:id/content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
     </android.support.design.widget.CoordinatorLayout>
 </layout>
