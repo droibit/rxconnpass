@@ -8,6 +8,7 @@ import com.squareup.leakcanary.LeakCanary
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level
+import timber.log.Timber
 
 /**
  *
@@ -21,6 +22,9 @@ class RxConnpassApplication: Application() {
     override fun onCreate() {
         super.onCreate()
 
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
         LeakCanary.install(this)
     }
 
