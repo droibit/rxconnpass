@@ -2,17 +2,16 @@ package com.github.droibit.rxconnpass.app.view.activity
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.github.droibit.rxconnpass.app.R
+import com.github.droibit.rxconnpass.app.view.binding.EventListActivityBinding
 
 class EventListActivity : AppCompatActivity() {
 
-    //private lateinit var mBinding: ActivityMainBinding
+    private lateinit var binding: EventListActivityBinding
 
     /** {@inheritDoc}  */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_event_list)
-        //mBinding = DataBindingUtil.setContentView(this, R.layout.activity_event_list)
+        binding = EventListActivityBinding(this)
     }
 }
