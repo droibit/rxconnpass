@@ -1,4 +1,4 @@
-package com.github.droibit.rxconnpass.app.view.fragment
+package com.github.droibit.rxconnpass.app.ui.event.list
 
 import android.support.v4.app.Fragment
 

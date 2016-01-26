@@ -1,4 +1,4 @@
-package com.github.droibit.rxconnpass.app.view.binding;
+package com.github.droibit.rxconnpass.app.ui.event.list;
 
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.Toolbar;
@@ -6,7 +6,6 @@ import android.view.View;
 
 import com.github.droibit.rxconnpass.app.R;
 import com.github.droibit.rxconnpass.app.databinding.ActivityEventListBinding;
-import com.github.droibit.rxconnpass.app.view.activity.EventListActivity;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 /**

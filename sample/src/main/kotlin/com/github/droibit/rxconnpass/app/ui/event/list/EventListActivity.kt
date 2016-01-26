@@ -1,8 +1,8 @@
-package com.github.droibit.rxconnpass.app.view.activity
+package com.github.droibit.rxconnpass.app.ui.event.list
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.github.droibit.rxconnpass.app.view.binding.EventListActivityBinding
+import com.github.droibit.rxconnpass.app.ui.event.list.EventListActivityBinding
 
 class EventListActivity : AppCompatActivity() {
 

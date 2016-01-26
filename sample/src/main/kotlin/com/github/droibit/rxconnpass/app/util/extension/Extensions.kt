@@ -1,4 +1,4 @@
-package com.github.droibit.rxconnpass.app.extension
+package com.github.droibit.rxconnpass.app.util.extension
 
 import android.app.Activity
 import android.support.v4.app.Fragment

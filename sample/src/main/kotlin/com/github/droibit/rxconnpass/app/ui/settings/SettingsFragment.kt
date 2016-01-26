@@ -1,4 +1,4 @@
-package com.github.droibit.rxconnpass.app.view.fragment
+package com.github.droibit.rxconnpass.app.ui.settings
 
 import android.os.Bundle
 import android.support.v7.preference.PreferenceFragmentCompat
