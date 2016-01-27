@@ -1,4 +1,4 @@
-package com.github.droibit.rxconnpass.app.ui.event.list
+package com.github.droibit.rxconnpass.app.ui.viewmodel
 
 /**
  * @author kumagai
