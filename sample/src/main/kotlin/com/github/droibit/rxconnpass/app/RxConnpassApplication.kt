@@ -4,6 +4,9 @@ import android.app.Application
 import com.github.droibit.rxconnpass.RxConnpass
 import com.github.droibit.rxconnpass.app.model.data.ConnpassClient
 import com.github.droibit.rxconnpass.app.model.data.MockClient
+import com.github.droibit.rxconnpass.app.ui.di.AppComponent
+import com.github.droibit.rxconnpass.app.ui.di.AppModule
+import com.github.droibit.rxconnpass.app.ui.di.DaggerAppComponent
 import com.squareup.leakcanary.LeakCanary
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -17,7 +20,12 @@ import timber.log.Timber
  */
 class RxConnpassApplication: Application() {
 
-    val connpassClient: ConnpassClient by lazy { makeConnpass() }
+    companion object {
+        @JvmStatic
+        lateinit var component: AppComponent
+    }
+
+    //var connpassClient: ConnpassClient by lazy { makeConnpass() }
 
     override fun onCreate() {
         super.onCreate()
@@ -26,6 +34,10 @@ class RxConnpassApplication: Application() {
             Timber.plant(Timber.DebugTree())
         }
         LeakCanary.install(this)
+
+        component = DaggerAppComponent.builder()
+            .appModule(AppModule(this))
+            .build()
     }
 
     private fun makeConnpass(): ConnpassClient {

@@ -56,6 +56,12 @@ dependencies {
     compile "com.android.support:preference-v14:$support_lib_version"
     compile "com.android.support:customtabs:$support_lib_version"
 
+    kapt 'com.android.databinding:compiler:1.0-rc5'
+
+    compile "com.google.dagger:dagger:$dagger2_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger2_version"
+    provided 'org.glassfish:javax.annotation:10.0-b28'
+
     compile 'io.reactivex:rxandroid:1.1.0'
     compile 'com.jakewharton.rxbinding:rxbinding:0.3.0'
 
@@ -68,4 +74,8 @@ dependencies {
     releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanary_version"
 
     testCompile 'junit:junit:4.12'
+}
+
+kapt {
+    generateStubs = true
 }
