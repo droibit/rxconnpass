@@ -37,10 +37,12 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <!--<FrameLayout-->
-        <!--android:id="@android:id/content"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content" />-->
+        <fragment android:id="@+id/event_list"
+                  android:name="com.github.droibit.rxconnpass.app.ui.fragment.EventListFragment"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:tag="@string/tag_event_list_fragment"
+                  tools:layout="@android:layout/list_content"/>
 
     </android.support.design.widget.CoordinatorLayout>
 </layout>
