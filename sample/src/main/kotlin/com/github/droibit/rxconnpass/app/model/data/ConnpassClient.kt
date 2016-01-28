@@ -1,3 +1,5 @@
+@file:JvmName("ConnpassClients")
+
 package com.github.droibit.rxconnpass.app.model.data
 
 import android.content.Context
@@ -12,31 +14,27 @@ import java.io.Serializable
 
 /**
  *
- *
  * @author kumagai
  */
-interface CoreClient {
-
-    fun searchByKeyword(keyword: String, searchMore: ConnpassClient.More? = null): Observable<EventResponse>
-}
-
-/**
- *
- *
- */
-class ConnpassClient(delegate: CoreClient): CoreClient by delegate {
+class ConnpassClient internal constructor(core: CoreClient): CoreClient by core {
 
     class More: Serializable {
         var start = 0
         var available = 0
     }
-
 }
 
 /**
  *
+ *
+ * @author kumagai
  */
-internal class StandardClient(private val context: Context, rxConnpass: RxConnpass): CoreClient {
+internal interface CoreClient {
+
+    fun searchByKeyword(keyword: String, searchMore: ConnpassClient.More? = null): Observable<EventResponse>
+}
+
+internal class StandardCore(rxConnpass: RxConnpass): CoreClient {
 
     private val service = rxConnpass.service
 
@@ -45,10 +43,7 @@ internal class StandardClient(private val context: Context, rxConnpass: RxConnpa
     }
 }
 
-/**
- *
- */
-internal class MockClient(val context: Context, rxConnpass: RxConnpass): CoreClient {
+internal class MockCore(val context: Context): CoreClient {
 
     private val mockResponse: EventResponse by lazy { readMockResponse(context.assets) }
 
