@@ -13,3 +13,8 @@ fun Activity.connpassApp() = applicationContext as RxConnpassApplication
 fun Fragment.connpassApp() = context.applicationContext as RxConnpassApplication
 
 fun InputStream.readText() = reader().use { it.readText() }
+
+inline fun <reified T> Any.castAs(f: T.()->Unit) {
+    val casted = this as T
+    casted?.f()
+}
