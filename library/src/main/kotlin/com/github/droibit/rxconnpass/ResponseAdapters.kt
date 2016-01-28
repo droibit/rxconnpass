@@ -18,8 +18,9 @@ object ResponseAdapters {
         }
     }
 
-    internal val dateJsonAdapter = object: JsonAdapter<Date>() {
-        override fun toJson(writer: JsonWriter, value: Date) {}
+    internal val dateJsonAdapter = object : JsonAdapter<Date>() {
+        override fun toJson(writer: JsonWriter, value: Date) {
+        }
 
         override fun fromJson(reader: JsonReader): Date {
             val dateString = reader.nextString()

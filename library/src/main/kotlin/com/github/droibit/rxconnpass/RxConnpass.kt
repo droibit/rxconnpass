@@ -21,16 +21,16 @@ class RxConnpass private constructor(public val service: ConnpassService) {
 
         internal fun newConnpass(baseUrl: String, client: Call.Factory? = null): RxConnpass {
             val moshi = Moshi.Builder()
-                             .add(ResponseAdapters.factory)
-                             .build()
+                    .add(ResponseAdapters.factory)
+                    .build()
 
             val retrofit = Retrofit.Builder()
-                                   .baseUrl(baseUrl)
-                                   .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                                   .callFactory(client ?: OkHttpClient())
-                                   .addConverterFactory(MoshiConverterFactory.create(moshi))
-                                   .build()
-            
+                    .baseUrl(baseUrl)
+                    .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                    .callFactory(client ?: OkHttpClient())
+                    .addConverterFactory(MoshiConverterFactory.create(moshi))
+                    .build()
+
             return RxConnpass(retrofit.create(ConnpassService::class.java))
         }
     }

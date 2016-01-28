@@ -8,9 +8,9 @@ import org.junit.Test
 class EventResponseTest {
 
     val adapter = Moshi.Builder()
-                       .add(ResponseAdapters.factory)
-                       .build()
-                       .adapter(EventResponse::class.java)
+            .add(ResponseAdapters.factory)
+            .build()
+            .adapter(EventResponse::class.java)
 
     @Test
     fun parseSingleEvent() {
