@@ -1,4 +1,4 @@
-package com.github.droibit.rxconnpass.app.ui.di
+package com.github.droibit.rxconnpass.app.di
 
 import android.app.Application
 import android.content.Context

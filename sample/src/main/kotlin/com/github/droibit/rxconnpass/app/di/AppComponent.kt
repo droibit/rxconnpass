@@ -1,4 +1,4 @@
-package com.github.droibit.rxconnpass.app.ui.di
+package com.github.droibit.rxconnpass.app.di
 
 import com.github.droibit.rxconnpass.app.RxConnpassApplication
 import dagger.Component
