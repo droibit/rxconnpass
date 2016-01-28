@@ -8,6 +8,7 @@ import com.github.droibit.rxconnpass.RxConnpass
 import com.github.droibit.rxconnpass.app.util.extension.readText
 import com.squareup.moshi.Moshi
 import rx.Observable
+import java.io.Serializable
 
 /**
  *
@@ -16,7 +17,7 @@ import rx.Observable
  */
 interface CoreClient {
 
-    fun searchByKeyword(keyword: String, searchMore: Boolean = false): Observable<EventResponse>
+    fun searchByKeyword(keyword: String, searchMore: ConnpassClient.More? = null): Observable<EventResponse>
 }
 
 /**
@@ -25,7 +26,7 @@ interface CoreClient {
  */
 class ConnpassClient(delegate: CoreClient): CoreClient by delegate {
 
-    internal class Current {
+    class More: Serializable {
         var start = 0
         var available = 0
     }
@@ -38,9 +39,8 @@ class ConnpassClient(delegate: CoreClient): CoreClient by delegate {
 internal class StandardClient(private val context: Context, rxConnpass: RxConnpass): CoreClient {
 
     private val service = rxConnpass.service
-    private var current: ConnpassClient.Current? = null
 
-    override fun searchByKeyword(keyword: String, searchMore: Boolean): Observable<EventResponse> {
+    override fun searchByKeyword(keyword: String, searchMore: ConnpassClient.More?): Observable<EventResponse> {
         throw UnsupportedOperationException()
     }
 }
@@ -51,9 +51,8 @@ internal class StandardClient(private val context: Context, rxConnpass: RxConnpa
 internal class MockClient(val context: Context, rxConnpass: RxConnpass): CoreClient {
 
     private val mockResponse: EventResponse by lazy { readMockResponse(context.assets) }
-    private var current: ConnpassClient.Current? = null
 
-    override fun searchByKeyword(keyword: String, searchMore: Boolean): Observable<EventResponse> {
+    override fun searchByKeyword(keyword: String, searchMore: ConnpassClient.More?): Observable<EventResponse> {
         // TODO: searchMoreによって返すEvent数を変える
         return Observable.just(mockResponse)
     }
