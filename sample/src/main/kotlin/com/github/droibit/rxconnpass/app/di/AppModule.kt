@@ -10,8 +10,9 @@ import javax.inject.Singleton
  * @author kumagai
  */
 @Module
-class AppModule(val application: Application) {
+class AppModule(private val application: Application) {
 
+    @Singleton
     @Provides
     fun provideAppContext(): Context = application
 }

@@ -8,13 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.*
 import com.github.droibit.rxconnpass.app.R
-import com.github.droibit.rxconnpass.app.RxConnpassApplication
 import com.github.droibit.rxconnpass.app.databinding.FragmentEventListBinding
-import com.github.droibit.rxconnpass.app.di.DaggerEventComponent
-import com.github.droibit.rxconnpass.app.di.EventComponent
-import com.github.droibit.rxconnpass.app.di.EventModule
-import com.github.droibit.rxconnpass.app.di.MockNetworkModule
-import com.github.droibit.rxconnpass.app.ui.activity.EventListActivity
 import com.github.droibit.rxconnpass.app.ui.controller.EventListViewController
 import com.github.droibit.rxconnpass.app.util.extension.castAs
 import javax.inject.Inject
@@ -28,17 +22,19 @@ class EventListFragment : Fragment() {
 
     companion object {
 
-        fun component(): EventComponent {
-            return DaggerEventComponent.builder()
-                    .appComponent(RxConnpassApplication.component)
-                    .eventModule(EventModule())
-                    .mockNetworkModule(MockNetworkModule())
-                    .build()
-        }
+//        fun component(): EventComponent {
+//            return DaggerEventComponent.builder()
+//                    .appComponent(RxConnpassApplication.component)
+//                    .eventModule(EventModule())
+//                    .mockNetworkModule(MockEventModule())
+//                    .build()
+//        }
     }
 
     @Inject
-    private lateinit var viewController: EventListViewController
+    internal lateinit var viewController: EventListViewController
+    @Inject
+    internal lateinit var appContext: Context
 
     private lateinit var binding: FragmentEventListBinding
 
@@ -51,7 +47,7 @@ class EventListFragment : Fragment() {
     override fun onAttach(context: Context?) {
         super.onAttach(context)
 
-        component().inject(this)
+        //component().inject(this)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -71,6 +67,7 @@ class EventListFragment : Fragment() {
         binding.apply {
             recycler.layoutManager = LinearLayoutManager(context)
         }
+        viewController.init(binding)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

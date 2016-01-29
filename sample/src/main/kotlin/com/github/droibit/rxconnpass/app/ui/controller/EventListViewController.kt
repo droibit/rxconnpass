@@ -1,5 +1,6 @@
 package com.github.droibit.rxconnpass.app.ui.controller
 
+import android.content.Context
 import com.github.droibit.rxconnpass.app.databinding.FragmentEventListBinding
 import com.github.droibit.rxconnpass.app.di.scope.PerActivity
 import com.github.droibit.rxconnpass.app.model.SearchAction
@@ -12,12 +13,10 @@ import javax.inject.Inject
  * @author kumagai
  */
 @PerActivity
-class EventListViewController: Lifecycle {
-
-    @Inject
-    private lateinit var action: SearchAction
-    @Inject
-    private lateinit var compositeSubscription: CompositeSubscription
+class EventListViewController @Inject constructor(
+        private val context: Context,
+        private val action: SearchAction,
+        private val compositeSubscription: CompositeSubscription): Lifecycle {
 
     private lateinit var binding: FragmentEventListBinding
 
