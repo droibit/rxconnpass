@@ -7,4 +7,4 @@ import javax.inject.Scope
 
 @Scope
 @Retention(RetentionPolicy.RUNTIME)
-annotation class PerActivity
+annotation class PerEvent

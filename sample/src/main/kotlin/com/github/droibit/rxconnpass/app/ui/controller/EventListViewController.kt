@@ -2,8 +2,8 @@ package com.github.droibit.rxconnpass.app.ui.controller
 
 import android.content.Context
 import com.github.droibit.rxconnpass.app.databinding.FragmentEventListBinding
-import com.github.droibit.rxconnpass.app.di.scope.PerActivity
-import com.github.droibit.rxconnpass.app.model.SearchAction
+import com.github.droibit.rxconnpass.app.di.scope.PerEvent
+import com.github.droibit.rxconnpass.app.model.SearchEventAction
 import rx.subscriptions.CompositeSubscription
 import javax.inject.Inject
 
@@ -12,10 +12,10 @@ import javax.inject.Inject
  *
  * @author kumagai
  */
-@PerActivity
+@PerEvent
 class EventListViewController @Inject constructor(
         private val context: Context,
-        private val action: SearchAction,
+        private val action: SearchEventAction,
         private val compositeSubscription: CompositeSubscription): Lifecycle {
 
     private lateinit var binding: FragmentEventListBinding
@@ -25,10 +25,8 @@ class EventListViewController @Inject constructor(
     }
 
     override fun onResume() {
-        throw UnsupportedOperationException()
     }
 
     override fun onPause() {
-        throw UnsupportedOperationException()
     }
 }

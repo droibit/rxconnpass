@@ -25,6 +25,7 @@ class EventListFragment : Fragment() {
 
     companion object {
 
+        @JvmStatic
         fun component() = RxConnpassApplication.component.add(EventModule())
     }
 
@@ -74,5 +75,15 @@ class EventListFragment : Fragment() {
 
         val item = menu.findItem(R.id.action_search)
         binding.searchView.setMenuItem(item)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewController.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        viewController.onPause()
     }
 }
