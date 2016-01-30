@@ -8,8 +8,8 @@ import dagger.Subcomponent
  * Created by kumagai on 2016/01/29.
  */
 @PerActivity
-@Subcomponent(modules = arrayOf(ActionModule::class))
-interface ActionComponent {
+@Subcomponent(modules = arrayOf(EventModule::class))
+interface EventComponent {
 
     fun inject(fragment: EventListFragment)
 }

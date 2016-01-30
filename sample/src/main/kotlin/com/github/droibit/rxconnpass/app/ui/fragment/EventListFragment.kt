@@ -8,7 +8,10 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.*
 import com.github.droibit.rxconnpass.app.R
+import com.github.droibit.rxconnpass.app.RxConnpassApplication
 import com.github.droibit.rxconnpass.app.databinding.FragmentEventListBinding
+import com.github.droibit.rxconnpass.app.di.EventComponent
+import com.github.droibit.rxconnpass.app.di.EventModule
 import com.github.droibit.rxconnpass.app.ui.controller.EventListViewController
 import com.github.droibit.rxconnpass.app.util.extension.castAs
 import javax.inject.Inject
@@ -22,13 +25,7 @@ class EventListFragment : Fragment() {
 
     companion object {
 
-//        fun component(): EventComponent {
-//            return DaggerEventComponent.builder()
-//                    .appComponent(RxConnpassApplication.component)
-//                    .eventModule(EventModule())
-//                    .mockNetworkModule(MockEventModule())
-//                    .build()
-//        }
+        fun component() = RxConnpassApplication.component.add(EventModule())
     }
 
     @Inject
@@ -47,7 +44,7 @@ class EventListFragment : Fragment() {
     override fun onAttach(context: Context?) {
         super.onAttach(context)
 
-        //component().inject(this)
+        component().inject(this)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {

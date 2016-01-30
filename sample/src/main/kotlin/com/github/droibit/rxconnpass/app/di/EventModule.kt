@@ -8,7 +8,7 @@ import rx.subscriptions.CompositeSubscription
  * Created by kumagai on 2016/01/29.
  */
 @Module
-class ActionModule {
+class EventModule {
 
     @Provides
     fun provideCompositeSubscription() = CompositeSubscription()

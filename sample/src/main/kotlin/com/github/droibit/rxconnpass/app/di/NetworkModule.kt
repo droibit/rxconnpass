@@ -2,8 +2,6 @@ package com.github.droibit.rxconnpass.app.di
 
 import com.github.droibit.rxconnpass.RxConnpass
 import com.github.droibit.rxconnpass.app.BuildConfig
-import com.github.droibit.rxconnpass.app.model.api.core.ConnpassCore
-import com.github.droibit.rxconnpass.app.model.api.core.CoreClient
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -16,7 +14,7 @@ import javax.inject.Singleton
  * @author kumagai
  */
 @Module
-class ConnpassModule {
+class NetworkModule {
 
     @Singleton
     @Provides
@@ -34,5 +32,5 @@ class ConnpassModule {
 
     @Singleton
     @Provides
-    fun provideClientCore(okhttp: OkHttpClient): CoreClient = ConnpassCore(RxConnpass.newConnpass(okhttp))
+    fun provideRxConnpass(okhttp: OkHttpClient) = RxConnpass.newConnpass(okhttp)
 }
