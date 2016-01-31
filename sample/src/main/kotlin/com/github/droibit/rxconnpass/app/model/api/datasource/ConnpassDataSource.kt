@@ -1,4 +1,4 @@
-package com.github.droibit.rxconnpass.app.model.api.core
+package com.github.droibit.rxconnpass.app.model.api.datasource
 
 import com.github.droibit.rxconnpass.EventResponse
 import com.github.droibit.rxconnpass.RxConnpass
@@ -8,9 +8,9 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class ConnpassCore(private val rxConnpass: RxConnpass): CoreClient {
+class ConnpassDataSource(private val rxConnpass: RxConnpass): DataSource {
 
-    override fun searchByKeyword(keyword: String, searchMore: ConnpassClient.More?): Observable<EventResponse> {
+    override fun getByKeyword(keyword: String, searchMore: ConnpassClient.More?): Observable<EventResponse> {
         throw UnsupportedOperationException()
     }
 }

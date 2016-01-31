@@ -1,4 +1,4 @@
-package com.github.droibit.rxconnpass.app.model.api.core
+package com.github.droibit.rxconnpass.app.model.api.datasource
 
 import android.content.Context
 import android.content.res.AssetManager
@@ -13,11 +13,11 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class MockConnpassCore(private val context: Context): CoreClient {
+class MockDataSource(private val context: Context): DataSource {
 
     private val mockResponse: EventResponse by lazy { readMockResponse(context.assets) }
 
-    override fun searchByKeyword(keyword: String, searchMore: ConnpassClient.More?): Observable<EventResponse> {
+    override fun getByKeyword(keyword: String, searchMore: ConnpassClient.More?): Observable<EventResponse> {
         // TODO: searchMoreによって返すEvent数を変える
         return Observable.just(mockResponse)
     }

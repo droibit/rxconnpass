@@ -17,7 +17,7 @@ import javax.inject.Inject
 class SearchEventAction @Inject constructor(private val client: ConnpassClient) : EventAction {
 
     fun searchByKeyword(keyword: String, searchMore: ConnpassClient.More? = null) {
-        client.searchByKeyword(keyword, searchMore)
+        client.getByKeyword(keyword, searchMore)
               .subscribeOn(Schedulers.io())
               .observeOn(AndroidSchedulers.mainThread())
               .onErrorReturn { t ->

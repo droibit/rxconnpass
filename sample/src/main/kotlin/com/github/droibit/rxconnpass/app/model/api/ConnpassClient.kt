@@ -1,6 +1,6 @@
 package com.github.droibit.rxconnpass.app.model.api
 
-import com.github.droibit.rxconnpass.app.model.api.core.CoreClient
+import com.github.droibit.rxconnpass.app.model.api.datasource.DataSource
 import java.io.Serializable
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -11,7 +11,7 @@ import javax.inject.Singleton
  * @author kumagai
  */
 @Singleton
-class ConnpassClient @Inject constructor(core: CoreClient): CoreClient by core {
+class ConnpassClient @Inject constructor(source: DataSource): DataSource by source {
 
     class More: Serializable {
         var start = 0
