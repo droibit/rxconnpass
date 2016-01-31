@@ -6,6 +6,4 @@ package com.github.droibit.rxconnpass.app.model
  * @author kumagai
  */
 interface EventAction {
-
-
 }

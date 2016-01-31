@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name" translatable="false">RxConnpass</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_settings">Settings</string>
 
     <string name="tag_event_list_fragment" translatable="false">event_list</string>
 </resources>

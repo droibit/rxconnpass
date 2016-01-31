@@ -10,10 +10,10 @@ import android.view.*
 import com.github.droibit.rxconnpass.app.R
 import com.github.droibit.rxconnpass.app.RxConnpassApplication
 import com.github.droibit.rxconnpass.app.databinding.FragmentEventListBinding
-import com.github.droibit.rxconnpass.app.di.EventComponent
 import com.github.droibit.rxconnpass.app.di.EventModule
 import com.github.droibit.rxconnpass.app.ui.controller.EventListViewController
-import com.github.droibit.rxconnpass.app.util.extension.castAs
+import com.github.droibit.rxconnpass.app.ui.navigator.Navigator
+import com.github.droibit.rxconnpass.app.util.extension.cast
 import javax.inject.Inject
 
 /**
@@ -26,7 +26,7 @@ class EventListFragment : Fragment() {
     companion object {
 
         @JvmStatic
-        fun component() = RxConnpassApplication.component.add(EventModule())
+        fun component() = RxConnpassApplication.component.plus(EventModule())
     }
 
     @Inject
@@ -52,7 +52,7 @@ class EventListFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_event_list, container, false)
 
         return binding.run {
-            activity.castAs<AppCompatActivity> {
+            activity.cast<AppCompatActivity> {
                 setSupportActionBar(toolbar)
             }
             root
@@ -75,6 +75,16 @@ class EventListFragment : Fragment() {
 
         val item = menu.findItem(R.id.action_search)
         binding.searchView.setMenuItem(item)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_settings -> {
+                Navigator.navigateToSettings(context)
+                true
+            }
+            else -> super.onContextItemSelected(item)
+        }
     }
 
     override fun onResume() {
