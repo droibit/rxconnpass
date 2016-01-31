@@ -1,9 +1,10 @@
-package com.github.droibit.rxconnpass.app.ui.controller
+package com.github.droibit.rxconnpass.app.ui.interactor
 
 import android.content.Context
 import com.github.droibit.rxconnpass.app.databinding.FragmentEventListBinding
 import com.github.droibit.rxconnpass.app.di.scope.PerEvent
 import com.github.droibit.rxconnpass.app.model.SearchEventAction
+import com.github.droibit.rxconnpass.app.ui.view.EventListView
 import rx.subscriptions.CompositeSubscription
 import javax.inject.Inject
 
@@ -13,15 +14,15 @@ import javax.inject.Inject
  * @author kumagai
  */
 @PerEvent
-class EventListViewController @Inject constructor(
+class EventListInteractor @Inject constructor(
         private val context: Context,
         private val action: SearchEventAction,
-        private val compositeSubscription: CompositeSubscription): Lifecycle {
+        private val compositeSubscription: CompositeSubscription): Interactor {
 
-    private lateinit var binding: FragmentEventListBinding
+    private lateinit var view: EventListView
 
-    fun init(binding: FragmentEventListBinding) {
-        this.binding = binding
+    fun init(view: EventListView) {
+        this.view = view
     }
 
     override fun onResume() {

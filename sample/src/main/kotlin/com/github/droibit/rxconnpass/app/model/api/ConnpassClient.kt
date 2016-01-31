@@ -16,5 +16,6 @@ class ConnpassClient @Inject constructor(source: DataSource): DataSource by sour
     class More: Serializable {
         var start = 0
         var available = 0
+        var count = 0
     }
 }

@@ -7,12 +7,14 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.*
+import com.github.droibit.rxconnpass.Event
 import com.github.droibit.rxconnpass.app.R
 import com.github.droibit.rxconnpass.app.RxConnpassApplication
 import com.github.droibit.rxconnpass.app.databinding.FragmentEventListBinding
 import com.github.droibit.rxconnpass.app.di.EventModule
-import com.github.droibit.rxconnpass.app.ui.controller.EventListViewController
+import com.github.droibit.rxconnpass.app.ui.interactor.EventListInteractor
 import com.github.droibit.rxconnpass.app.ui.navigator.Navigator
+import com.github.droibit.rxconnpass.app.ui.view.EventListView
 import com.github.droibit.rxconnpass.app.util.extension.cast
 import javax.inject.Inject
 
@@ -21,7 +23,7 @@ import javax.inject.Inject
  *
  * @author kumagai
  */
-class EventListFragment : Fragment() {
+class EventListFragment : Fragment(), EventListView {
 
     companion object {
 
@@ -30,7 +32,7 @@ class EventListFragment : Fragment() {
     }
 
     @Inject
-    internal lateinit var viewController: EventListViewController
+    internal lateinit var interactor: EventListInteractor
     @Inject
     internal lateinit var appContext: Context
 
@@ -65,7 +67,7 @@ class EventListFragment : Fragment() {
         binding.apply {
             recycler.layoutManager = LinearLayoutManager(context)
         }
-        viewController.init(binding)
+        interactor.init(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -89,11 +91,15 @@ class EventListFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        viewController.onResume()
+        interactor.onResume()
     }
 
     override fun onPause() {
         super.onPause()
-        viewController.onPause()
+        interactor.onPause()
+    }
+
+    override fun showEventList(events: List<Event>) {
+        throw UnsupportedOperationException()
     }
 }
