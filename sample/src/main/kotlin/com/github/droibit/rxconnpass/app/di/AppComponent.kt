@@ -15,7 +15,7 @@ interface AppComponent {
 
     fun inject(application: RxConnpassApplication)
 
-    fun add(module: EventModule): EventComponent
+    fun plus(module: EventModule): EventComponent
 
     fun context(): Context
     fun rxConnpass(): RxConnpass
