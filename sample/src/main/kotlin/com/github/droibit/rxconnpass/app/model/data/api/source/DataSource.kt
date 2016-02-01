@@ -1,7 +1,7 @@
-package com.github.droibit.rxconnpass.app.model.api.datasource
+package com.github.droibit.rxconnpass.app.model.data.api.source
 
 import com.github.droibit.rxconnpass.EventResponse
-import com.github.droibit.rxconnpass.app.model.api.ConnpassClient
+import com.github.droibit.rxconnpass.app.model.data.api.ConnpassClient
 import rx.Observable
 import javax.inject.Singleton
 

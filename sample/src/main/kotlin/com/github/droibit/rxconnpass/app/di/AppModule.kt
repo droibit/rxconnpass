@@ -2,6 +2,7 @@ package com.github.droibit.rxconnpass.app.di
 
 import android.app.Application
 import android.content.Context
+import android.support.v7.preference.PreferenceManager
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -15,4 +16,8 @@ class AppModule(private val application: Application) {
     @Singleton
     @Provides
     fun provideAppContext(): Context = application
+
+    @Singleton
+    @Provides
+    fun provideSharedPreference() = PreferenceManager.getDefaultSharedPreferences(application)
 }

@@ -1,6 +1,6 @@
-package com.github.droibit.rxconnpass.app.model.api
+package com.github.droibit.rxconnpass.app.model.data.api
 
-import com.github.droibit.rxconnpass.app.model.api.datasource.DataSource
+import com.github.droibit.rxconnpass.app.model.data.api.source.DataSource
 import java.io.Serializable
 import javax.inject.Inject
 import javax.inject.Singleton

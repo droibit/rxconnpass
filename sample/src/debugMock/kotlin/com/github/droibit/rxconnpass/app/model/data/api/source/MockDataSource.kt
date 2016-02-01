@@ -1,18 +1,19 @@
-package com.github.droibit.rxconnpass.app.model.api.datasource
+package com.github.droibit.rxconnpass.app.model.data.api.source
 
 import android.content.Context
 import android.content.res.AssetManager
 import com.github.droibit.rxconnpass.EventResponse
 import com.github.droibit.rxconnpass.ResponseAdapters
-import com.github.droibit.rxconnpass.app.model.api.ConnpassClient
+import com.github.droibit.rxconnpass.app.model.data.api.ConnpassClient
 import com.github.droibit.rxconnpass.app.util.extension.readText
 import com.squareup.moshi.Moshi
 import rx.Observable
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class MockDataSource(private val context: Context): DataSource {
+class MockDataSource @Inject constructor(private val context: Context): DataSource {
 
     private val mockResponse: EventResponse by lazy { readMockResponse(context.assets) }
 
