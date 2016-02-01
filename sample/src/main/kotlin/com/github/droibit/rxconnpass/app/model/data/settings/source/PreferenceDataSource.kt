@@ -16,14 +16,15 @@ class PreferenceDataSource @Inject constructor(
         private val sharedPrefs: SharedPreferences) : DataSource {
 
     override var countPerRequest: Int
-        get() = getInt(R.string.pref_general_request_per_count_key, 10)
+        get() = getString(R.string.pref_general_request_per_count_key, "10").toInt()
         set(value) {
-            setInt(R.string.pref_general_request_per_count_key, value)
+            setString(R.string.pref_general_request_per_count_key, "$value")
         }
 
-    private fun getInt(@StringRes key: Int, defaultValue: Int) = sharedPrefs.getInt(context.getString(key), defaultValue)
+    private fun getString(@StringRes key: Int, defaultValue: String)
+            = sharedPrefs.getString(context.getString(key), defaultValue)
 
-    private fun setInt(@StringRes key: Int, value: Int) {
-        sharedPrefs.edit().putInt(context.getString(key), value).apply()
+    private fun setString(@StringRes key: Int, value: String) {
+        sharedPrefs.edit().putString(context.getString(key), value).apply()
     }
 }
