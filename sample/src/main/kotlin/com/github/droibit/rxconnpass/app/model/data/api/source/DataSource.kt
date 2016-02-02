@@ -10,7 +10,6 @@ import javax.inject.Singleton
  *
  * @author kumagai
  */
-@Singleton
 interface DataSource {
 
     fun getByKeyword(keyword: String, searchMore: ConnpassClient.More? = null): Observable<EventResponse>

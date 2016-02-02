@@ -16,7 +16,7 @@ import javax.inject.Inject
 class EventListInteractor @Inject constructor(
         private val context: Context,
         private val action: SearchEventAction,
-        private val compositeSubscription: CompositeSubscription): Interactor {
+        private val compositeSubscription: CompositeSubscription): ViewInteractor {
 
     private lateinit var view: EventListView
 
