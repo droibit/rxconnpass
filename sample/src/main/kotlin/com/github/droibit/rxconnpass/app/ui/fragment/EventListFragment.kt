@@ -62,8 +62,6 @@ class EventListFragment : Fragment(), EventListView {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
         binding.apply {
             recycler.layoutManager = LinearLayoutManager(context)
         }
@@ -71,7 +69,6 @@ class EventListFragment : Fragment(), EventListView {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
 
         inflater.inflate(R.menu.menu_main, menu)
 

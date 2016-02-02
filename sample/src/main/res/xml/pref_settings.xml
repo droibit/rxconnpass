@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory android:title="@string/pref_general_category_title">
-        <ListPreference android:key="@string/pref_general_request_per_count_key"
-                        android:title="@string/pref_general_request_per_count_title"
-                        android:summary="10 events"
-                        android:defaultValue="@integer/default_count_per_request"
+        <ListPreference android:defaultValue="@integer/default_count_per_request"
                         android:entries="@array/pref_general_request_per_count_values"
                         android:entryValues="@array/pref_general_request_per_count_values"
+                        android:key="@string/pref_general_request_per_count_key"
                         android:negativeButtonText="@null"
-                        android:positiveButtonText="@null" />
+                        android:positiveButtonText="@null"
+                        android:summary="10 events"
+                        android:title="@string/pref_general_request_per_count_title" />
     </PreferenceCategory>
 </PreferenceScreen>

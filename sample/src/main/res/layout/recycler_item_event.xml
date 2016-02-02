@@ -1,10 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
-            android:orientation="vertical"
+    <data>
+        <variable name="event" type="com.github.droibit.rxconnpass.Event" />
+    </data>
+
+    <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="@dimen/list_item_height"
+            android:paddingLeft="@dimen/list_side_space"
+            android:paddingRight="@dimen/list_side_space"
+            android:paddingTop="@dimen/list_side_half_space"
+            android:paddingBottom="@dimen/list_side_half_space"
+            android:minHeight="?android:attr/listPreferredItemHeightSmall">
 
-    </LinearLayout>
+        <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/owner_display_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:singleLine="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:text="@{event.ownerDisplayName}"
+                tools:text="itadaki" />
+
+
+        <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_alignParentRight="true"
+                android:singleLine="true"
+                android:fontFamily="sans-serif-light"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:layout_alignBaseline="@id/owner_display_name"
+                tools:text="2016/02/01 14:00" />
+
+        <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/owner_display_name"
+                android:layout_marginTop="4dp"
+                android:lines="2"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:text="@{event.title}"
+                tools:text="【満員御礼につき増席！】『事業開発と技術力の成長』ほげほげほげほげ" />
+
+        <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/title"
+                android:layout_marginTop="2dp"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:text="@{event.address ?? @string/empty_address}"
+                tools:text="東京都渋谷区千駄ヶ谷5-32-7" />
+
+        <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/participant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:fontFamily="sans-serif-light"
+                android:layout_alignBaseline="@id/address"
+                tools:text="100/200" />
+
+    </RelativeLayout>
 </layout>
