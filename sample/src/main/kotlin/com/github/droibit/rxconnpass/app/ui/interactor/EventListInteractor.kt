@@ -2,10 +2,11 @@ package com.github.droibit.rxconnpass.app.ui.interactor
 
 import android.content.Context
 import com.github.droibit.rxconnpass.app.di.scope.PerEvent
-import com.github.droibit.rxconnpass.app.model.SearchEventAction
+import com.github.droibit.rxconnpass.app.model.SearchAction
 import com.github.droibit.rxconnpass.app.ui.view.EventListView
 import rx.subscriptions.CompositeSubscription
 import javax.inject.Inject
+import javax.inject.Named
 
 /**
  *
@@ -15,8 +16,8 @@ import javax.inject.Inject
 @PerEvent
 class EventListInteractor @Inject constructor(
         private val context: Context,
-        private val action: SearchEventAction,
-        private val compositeSubscription: CompositeSubscription): ViewInteractor {
+        @Named("searchEvent") private val action: SearchAction,
+        private val compositeSubscription: CompositeSubscription) : ViewInteractor {
 
     private lateinit var view: EventListView
 

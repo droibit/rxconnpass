@@ -8,7 +8,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class ConnpassDataSource @Inject constructor(private val rxConnpass: RxConnpass): DataSource {
+class CloudDataSource @Inject constructor(private val rxConnpass: RxConnpass): DataSource {
 
     override fun getByKeyword(keyword: String, searchMore: ConnpassClient.More?): Observable<EventResponse> {
         throw UnsupportedOperationException()
