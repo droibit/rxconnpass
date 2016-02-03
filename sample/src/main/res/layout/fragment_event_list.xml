@@ -43,11 +43,34 @@
                 android:layout_height="match_parent"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recycler"
-                    android:scrollbars="vertical"
+            <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent">
+
+                <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycler"
+                        android:scrollbars="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+
+                <ProgressBar
+                        android:id="@android:id/progress"
+                        style="?android:attr/indeterminateProgressStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:visibility="invisible" />
+
+                <android.support.v7.widget.AppCompatTextView
+                        android:id="@android:id/empty"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/empty_event_list"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textColor="@color/secondary_text_default_material_light" />
+
+            </FrameLayout>
 
         </android.support.v4.widget.SwipeRefreshLayout>
 

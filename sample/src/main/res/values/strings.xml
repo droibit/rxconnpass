@@ -10,5 +10,6 @@
     <string name="pref_general_request_per_count_summary">%1$s events</string>
     <string name="empty" translatable="false">---</string>
     <string name="participant_format" translatable="false">%1$s / %2$s</string>
+    <string name="empty_event_list">Please search for the event from menu.</string>
 
 </resources>
