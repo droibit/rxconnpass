@@ -16,6 +16,8 @@ import com.github.droibit.rxconnpass.app.ui.interactor.EventListInteractor
 import com.github.droibit.rxconnpass.app.ui.navigator.Navigator
 import com.github.droibit.rxconnpass.app.ui.view.EventListView
 import com.github.droibit.rxconnpass.app.ui.view.adapter.EventListAdapter
+import com.github.droibit.rxconnpass.app.ui.view.widget.DividerItemDecoration
+import com.github.droibit.rxconnpass.app.ui.view.widget.DividerItemDecoration.Companion.VERTICAL_LIST
 import com.github.droibit.rxconnpass.app.util.extension.cast
 import rx.functions.Action1
 import javax.inject.Inject
@@ -76,6 +78,7 @@ class EventListFragment : Fragment(), EventListView {
             recycler.apply {
                 adapter = eventListAdapter
                 layoutManager = LinearLayoutManager(context)
+                addItemDecoration(DividerItemDecoration(context, VERTICAL_LIST))
                 setHasFixedSize(true)
             }
         }
