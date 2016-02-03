@@ -25,6 +25,7 @@
                 android:singleLine="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
                 android:text="@{event.ownerDisplayName}"
+                android:fontFamily="sans-serif-light"
                 tools:text="itadaki" />
 
 
@@ -69,7 +70,7 @@
                 android:fontFamily="sans-serif-light"
                 app:accepted="@{event.accepted}"
                 app:limit="@{event.limit}"
-                tools:text="100/200" />
+                tools:text="100 / 200" />
 
         <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/address"
