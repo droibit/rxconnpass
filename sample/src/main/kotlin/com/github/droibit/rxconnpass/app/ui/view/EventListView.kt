@@ -1,6 +1,7 @@
 package com.github.droibit.rxconnpass.app.ui.view
 
 import com.github.droibit.rxconnpass.Event
+import rx.functions.Action1
 
 /**
  *
@@ -9,6 +10,7 @@ import com.github.droibit.rxconnpass.Event
  */
 interface EventListView {
 
+    val showEventAction: Action1<List<Event>>
 
-    fun showEventList(events: List<Event>)
+    val errorHandler: Action1<Throwable>
 }

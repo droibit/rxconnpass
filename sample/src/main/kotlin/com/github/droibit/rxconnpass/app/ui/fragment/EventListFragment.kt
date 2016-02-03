@@ -15,7 +15,9 @@ import com.github.droibit.rxconnpass.app.di.EventModule
 import com.github.droibit.rxconnpass.app.ui.interactor.EventListInteractor
 import com.github.droibit.rxconnpass.app.ui.navigator.Navigator
 import com.github.droibit.rxconnpass.app.ui.view.EventListView
+import com.github.droibit.rxconnpass.app.ui.view.adapter.EventListAdapter
 import com.github.droibit.rxconnpass.app.util.extension.cast
+import rx.functions.Action1
 import javax.inject.Inject
 
 /**
@@ -31,12 +33,18 @@ class EventListFragment : Fragment(), EventListView {
         fun component() = RxConnpassApplication.component.plus(EventModule())
     }
 
+    override val showEventAction: Action1<List<Event>>
+        get() = eventListAdapter
+    override val errorHandler: Action1<Throwable>
+        get() = throw UnsupportedOperationException()
+
     @Inject
     internal lateinit var interactor: EventListInteractor
     @Inject
     internal lateinit var appContext: Context
 
     private lateinit var binding: FragmentEventListBinding
+    private lateinit var eventListAdapter: EventListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,13 +71,22 @@ class EventListFragment : Fragment(), EventListView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.apply {
-            recycler.layoutManager = LinearLayoutManager(context)
+
+            eventListAdapter = EventListAdapter()
+            recycler.apply {
+                adapter = eventListAdapter
+                layoutManager = LinearLayoutManager(context)
+                setHasFixedSize(true)
+            }
         }
         interactor.init(this)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+    }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_main, menu)
 
         val item = menu.findItem(R.id.action_search)
@@ -94,9 +111,5 @@ class EventListFragment : Fragment(), EventListView {
     override fun onPause() {
         super.onPause()
         interactor.onPause()
-    }
-
-    override fun showEventList(events: List<Event>) {
-        throw UnsupportedOperationException()
     }
 }

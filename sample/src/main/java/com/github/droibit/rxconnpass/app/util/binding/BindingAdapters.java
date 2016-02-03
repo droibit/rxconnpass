@@ -1,6 +1,5 @@
 package com.github.droibit.rxconnpass.app.util.binding;
 
-import com.github.droibit.rxconnpass.Event;
 import com.github.droibit.rxconnpass.app.R;
 
 import android.content.Context;

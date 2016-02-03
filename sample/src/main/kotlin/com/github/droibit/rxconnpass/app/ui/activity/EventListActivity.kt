@@ -13,6 +13,7 @@ class EventListActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
+        super.onBackPressed()
         // TODO: フラグメントへ通知
     }
 }

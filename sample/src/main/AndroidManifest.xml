@@ -3,6 +3,8 @@
           xmlns:tools="http://schemas.android.com/tools"
           package="com.github.droibit.rxconnpass.app" >
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".RxConnpassApplication"
         android:allowBackup="true"
