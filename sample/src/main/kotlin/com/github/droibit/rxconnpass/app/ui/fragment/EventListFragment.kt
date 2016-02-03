@@ -72,15 +72,12 @@ class EventListFragment : Fragment(), EventListView {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.apply {
-
-            eventListAdapter = EventListAdapter()
-            recycler.apply {
-                adapter = eventListAdapter
-                layoutManager = LinearLayoutManager(context)
-                addItemDecoration(DividerItemDecoration(context, VERTICAL_LIST))
-                setHasFixedSize(true)
-            }
+        eventListAdapter = EventListAdapter()
+        binding.recycler.apply {
+            adapter = eventListAdapter
+            layoutManager = LinearLayoutManager(context)
+            addItemDecoration(DividerItemDecoration(context, VERTICAL_LIST))
+            setHasFixedSize(true)
         }
         interactor.init(this)
     }
