@@ -1,6 +1,5 @@
-package com.github.droibit.rxconnpass.data
+package com.github.droibit.rxconnpass
 
-import com.github.droibit.rxconnpass.*
 import com.google.common.truth.Truth.assertThat
 import com.squareup.moshi.Moshi
 import org.junit.Test

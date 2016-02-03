@@ -71,7 +71,13 @@ data class Event(
         @JvmField @Json(name="accepted")           val accepted: Int,
         @JvmField @Json(name="waiting")            val waiting: Int,
         @JvmField @Json(name="updated_at")         val updatedAt: Date
-): Serializable
+): Serializable {
+
+    val overload: Boolean
+        get() = limit != null && limit != 0 && accepted >= limit
+
+    fun isFinished(currentDate: Date) = endedAt < currentDate
+}
 
 /**
  * @param id グループID
