@@ -16,9 +16,13 @@ import com.github.droibit.rxconnpass.app.ui.interactor.EventListInteractor
 import com.github.droibit.rxconnpass.app.ui.navigator.Navigator
 import com.github.droibit.rxconnpass.app.ui.view.EventListView
 import com.github.droibit.rxconnpass.app.ui.view.adapter.EventListAdapter
+import com.github.droibit.rxconnpass.app.ui.view.rx.MaterialSearchViewQueryTextEvent
+import com.github.droibit.rxconnpass.app.ui.view.rx.queryTextChanges
 import com.github.droibit.rxconnpass.app.ui.view.widget.DividerItemDecoration
 import com.github.droibit.rxconnpass.app.ui.view.widget.DividerItemDecoration.Companion.VERTICAL_LIST
 import com.github.droibit.rxconnpass.app.util.extension.cast
+import rx.Observable
+import rx.functions.Action0
 import rx.functions.Action1
 import javax.inject.Inject
 
@@ -35,10 +39,18 @@ class EventListFragment : Fragment(), EventListView {
         fun component() = RxConnpassApplication.component.plus(EventModule())
     }
 
-    override val showEventAction: Action1<List<Event>>
-        get() = eventListAdapter
     override val errorHandler: Action1<Throwable>
-        get() = throw UnsupportedOperationException()
+        get() = Action1 {  }
+
+    override val searchViewTextChanges: Observable<MaterialSearchViewQueryTextEvent>
+        get() = binding.searchView.queryTextChanges()
+
+    override val showContent: Action1<List<Event>>
+        get() = eventListAdapter
+
+    override val showProgress: Action0
+        get() = Action0 {  }
+
 
     @Inject
     internal lateinit var interactor: EventListInteractor

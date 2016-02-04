@@ -8,9 +8,11 @@ import com.github.droibit.rxconnpass.app.model.data.api.ConnpassClient
 import com.github.droibit.rxconnpass.app.util.extension.readText
 import com.squareup.moshi.Moshi
 import rx.Observable
+import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.concurrent.currentThread
 
 @Singleton
 class MockDataSource @Inject constructor(private val context: Context): DataSource {
@@ -19,6 +21,7 @@ class MockDataSource @Inject constructor(private val context: Context): DataSour
 
     override fun getByKeyword(keyword: String, searchMore: ConnpassClient.More?): Observable<EventResponse> {
         // TODO: searchMoreによって返すEvent数を変える
+        Timber.d("return mock response, ${currentThread.name}")
         return Observable.just(mockResponse)
                 .delay(3, TimeUnit.SECONDS)
     }

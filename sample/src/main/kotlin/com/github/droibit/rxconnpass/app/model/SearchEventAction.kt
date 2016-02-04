@@ -27,12 +27,6 @@ class SearchEventAction @Inject constructor(
     @CheckResult
     override fun search(param: String): Observable<List<Event>> {
         return client.getByKeyword(param, searchMore)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .onErrorReturn { t ->
-                    Timber.e(t, "An error has occurred in keyword search.")
-                    emptyEventResponse
-                }
                 .map { it.events }
     }
 }
