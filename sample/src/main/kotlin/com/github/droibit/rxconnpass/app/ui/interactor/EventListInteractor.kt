@@ -23,9 +23,11 @@ import javax.inject.Named
 class EventListInteractor @Inject constructor(
         private val context: Context,
         @Named("searchEvent") private val action: SearchAction,
+        // FIXME: 回転した時に再生成しないとダメ
         private val compositeSubscription: CompositeSubscription) : ViewInteractor {
 
     private lateinit var view: EventListView
+
 
     fun init(view: EventListView) {
         this.view = view
@@ -35,7 +37,7 @@ class EventListInteractor @Inject constructor(
         // https://medium.com/@LiudasSurvila/droidcon-2015-london-part-1-698a6b750f30#.jmmlh8eq6
         compositeSubscription += view.searchViewTextChanges
                 .filter { it.submitted && it.queryText.isNotEmpty() }
-                .concatMap { searchEvent(it.queryText.toString()) }
+                .concatMap { searchEvent("${it.queryText}") }
                 .observeOn(AndroidSchedulers.mainThread())
                 //.subscribeOn(Schedulers.io())
                 .doOnSubscribe(view.showProgress)

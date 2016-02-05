@@ -4,7 +4,7 @@ import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.Rule
 import org.junit.Test
-import retrofit2.HttpException
+import retrofit2.adapter.rxjava.HttpException
 import rx.observers.TestSubscriber
 
 class RxConnpassTest {
