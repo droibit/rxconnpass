@@ -4,14 +4,6 @@ import com.squareup.moshi.Json
 import java.io.Serializable
 import java.util.*
 
-val emptyEventResponse: EventResponse
-        get() = EventResponse(
-                resultsReturned = 0,
-                resultsAvailable = 0,
-                resultsStart = 0,
-                events = emptyList()
-        )
-
 /**
  * [API Reference](http://connpass.com/about/api/)
  *

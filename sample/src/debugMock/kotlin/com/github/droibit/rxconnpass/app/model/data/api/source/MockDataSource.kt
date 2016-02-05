@@ -20,9 +20,7 @@ class MockDataSource @Inject constructor(private val context: Context): DataSour
 
     override fun getByKeyword(keyword: String, searchMore: ConnpassClient.More?): Observable<EventResponse> {
         // TODO: searchMoreによって返すEvent数を変える
-        Timber.d("return mock response, ${Thread.currentThread().name}")
         return Observable.just(mockResponse)
-                .delay(3, TimeUnit.SECONDS)
     }
 
     private fun readMockResponse(assets: AssetManager): EventResponse {

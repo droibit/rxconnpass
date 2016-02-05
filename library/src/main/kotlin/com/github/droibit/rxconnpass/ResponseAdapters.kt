@@ -10,7 +10,7 @@ import java.util.*
 
 object ResponseAdapters {
 
-    @JvmStatic
+    @JvmField
     val factory: JsonAdapter.Factory = JsonAdapter.Factory { type, annotations, moshi ->
         if (type == Date::class.java) {
             dateJsonAdapter
