@@ -8,4 +8,4 @@ import javax.inject.Singleton
  * Created by kumagai on 2016/02/01.
  */
 @Singleton
-class Settings @Inject constructor(datasource: DataSource) : DataSource by datasource
+class Settings @Inject constructor(dataSource: DataSource) : DataSource by dataSource

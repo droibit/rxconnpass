@@ -10,6 +10,7 @@ import java.util.*
 
 object ResponseAdapters {
 
+    @JvmStatic
     val factory: JsonAdapter.Factory = JsonAdapter.Factory { type, annotations, moshi ->
         if (type == Date::class.java) {
             dateJsonAdapter
@@ -33,5 +34,6 @@ object ResponseAdapters {
 
         override fun toString() = "JsonAdapter(Date)"
     }
+
     internal val iso8601Format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
 }

@@ -1,11 +1,11 @@
 package com.github.droibit.rxconnpass.app.ui.view.rx
 
 import android.support.annotation.CheckResult
-import com.jakewharton.rxbinding.internal.MainThreadSubscription
 import com.jakewharton.rxbinding.internal.Preconditions.checkUiThread
 import com.miguelcatalan.materialsearchview.MaterialSearchView
 import rx.Observable
 import rx.Subscriber
+import rx.android.MainThreadSubscription
 
 @CheckResult
 fun MaterialSearchView.queryTextChanges(): Observable<MaterialSearchViewQueryTextEvent> {

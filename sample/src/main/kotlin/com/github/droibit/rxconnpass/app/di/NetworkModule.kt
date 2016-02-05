@@ -22,7 +22,7 @@ class NetworkModule {
         return OkHttpClient.Builder().run {
             if (BuildConfig.DEBUG) {
                 val interceptor = HttpLoggingInterceptor().apply {
-                    setLevel(HttpLoggingInterceptor.Level.BASIC)
+                    level = HttpLoggingInterceptor.Level.BASIC
                 }
                 addInterceptor(interceptor)
             }

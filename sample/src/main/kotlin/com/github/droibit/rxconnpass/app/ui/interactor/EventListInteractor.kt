@@ -13,7 +13,6 @@ import rx.subscriptions.CompositeSubscription
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Named
-import kotlin.concurrent.currentThread
 
 /**
  *
@@ -49,7 +48,7 @@ class EventListInteractor @Inject constructor(
 
     fun searchEvent(keyword: String): Observable<List<Event>> {
         // TODO: ネットワークチェックはActionに投げる?
-        Timber.d("search keyword :$keyword: ${currentThread.name}")
+        Timber.d("search keyword :$keyword: ${Thread.currentThread().name}")
         return action.search(keyword)
     }
 }

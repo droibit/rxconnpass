@@ -12,7 +12,7 @@ private val baseUrl = "http://connpass.com"
 /**
  * Created by kumagai on 2016/01/13.
  */
-class RxConnpass private constructor(public val service: ConnpassService) {
+class RxConnpass private constructor(val service: ConnpassService) {
 
     companion object {
 
