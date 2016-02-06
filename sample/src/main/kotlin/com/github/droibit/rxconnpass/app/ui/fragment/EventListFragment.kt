@@ -6,7 +6,10 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.*
+import android.widget.ProgressBar
+import android.widget.TextView
 import com.github.droibit.rxconnpass.Event
 import com.github.droibit.rxconnpass.app.R
 import com.github.droibit.rxconnpass.app.RxConnpassApplication
@@ -20,10 +23,11 @@ import com.github.droibit.rxconnpass.app.ui.view.rx.MaterialSearchViewQueryTextE
 import com.github.droibit.rxconnpass.app.ui.view.rx.queryTextChanges
 import com.github.droibit.rxconnpass.app.ui.view.widget.DividerItemDecoration
 import com.github.droibit.rxconnpass.app.ui.view.widget.DividerItemDecoration.Companion.VERTICAL_LIST
-import com.github.droibit.rxconnpass.app.util.extension.cast
+import com.github.droibit.rxconnpass.app.util.extension.startAnimation
 import rx.Observable
 import rx.functions.Action0
 import rx.functions.Action1
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -32,6 +36,43 @@ import javax.inject.Inject
  * @author kumagai
  */
 class EventListFragment : Fragment(), EventListView {
+
+    private class ContentDelegate(
+            private val contentView: RecyclerView,
+            private val progressView: ProgressBar,
+            private val emptyView: TextView
+    ): Action1<List<Event>>, Action0 {
+
+        // show content
+        override fun call(events: List<Event>) {
+            (contentView.adapter as? EventListAdapter)?.apply {
+                call(events)
+            }
+            val targetView = if (events.isNotEmpty()) contentView else  emptyView
+            targetView.startAnimation(android.R.anim.fade_in) {
+                visibility = View.VISIBLE
+            }
+            progressView.startAnimation(android.R.anim.fade_out) {
+                visibility = View.GONE
+            }
+            Timber.d("Show content (${events.size} events).")
+        }
+
+        // hide content
+        override fun call() {
+            realContentView().startAnimation(android.R.anim.fade_out) {
+                visibility = View.GONE
+            }
+            progressView.startAnimation(android.R.anim.fade_in) {
+                visibility = View.VISIBLE
+            }
+            Timber.d("Hide content and show progress.")
+        }
+
+        internal fun hide() = call()
+
+        private fun realContentView() = if (contentView.visibility == View.VISIBLE) contentView else emptyView
+    }
 
     companion object {
 
@@ -46,10 +87,10 @@ class EventListFragment : Fragment(), EventListView {
         get() = binding.searchView.queryTextChanges()
 
     override val showContent: Action1<List<Event>>
-        get() = eventListAdapter
+        get() = contentDelegate
 
-    override val showProgress: Action0
-        get() = Action0 {  }
+    override val hideContent: Action0
+        get() = contentDelegate
 
 
     @Inject
@@ -59,6 +100,7 @@ class EventListFragment : Fragment(), EventListView {
 
     private lateinit var binding: FragmentEventListBinding
     private lateinit var eventListAdapter: EventListAdapter
+    private lateinit var contentDelegate: ContentDelegate
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,7 +118,7 @@ class EventListFragment : Fragment(), EventListView {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_event_list, container, false)
 
         return binding.run {
-            activity.cast<AppCompatActivity> {
+            (activity as? AppCompatActivity)?.apply {
                 setSupportActionBar(toolbar)
             }
             root
@@ -84,7 +126,13 @@ class EventListFragment : Fragment(), EventListView {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        contentDelegate = ContentDelegate(
+                contentView = binding.recycler,
+                progressView = binding.progress,
+                emptyView = binding.empty
+        )
         eventListAdapter = EventListAdapter()
+
         binding.recycler.apply {
             adapter = eventListAdapter
             layoutManager = LinearLayoutManager(context)
@@ -92,10 +140,6 @@ class EventListFragment : Fragment(), EventListView {
             setHasFixedSize(true)
         }
         interactor.init(this)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

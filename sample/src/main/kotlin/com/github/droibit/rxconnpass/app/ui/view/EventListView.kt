@@ -15,7 +15,7 @@ interface EventListView {
 
     val searchViewTextChanges: Observable<MaterialSearchViewQueryTextEvent>
 
-    val showProgress: Action0
+    val hideContent: Action0
     val showContent: Action1<List<Event>>
 
     val errorHandler: Action1<Throwable>

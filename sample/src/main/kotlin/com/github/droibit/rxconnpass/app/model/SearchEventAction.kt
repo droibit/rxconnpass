@@ -20,11 +20,14 @@ class SearchEventAction @Inject constructor(
         private val client: ConnpassClient,
         private val settings: Settings) : SearchAction {
 
+    // TODO: 回転した時にフィールドを復元しないと行けない
+
     private var searchMore: ConnpassClient.More? = null
 
     @CheckResult
     override fun search(param: String): Observable<List<Event>> {
         return client.getByKeyword(param, searchMore)
+                //.onBackpressureBuffer()
                 .subscribeOn(Schedulers.io())
                 .delay(3, TimeUnit.SECONDS)
                 .map { it.events }
