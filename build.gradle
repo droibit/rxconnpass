@@ -4,7 +4,7 @@ buildscript {
 
     ext {
         retrofit_version = '2.0.0-beta4'
-        okhttp_version = '3.0.1'
+        okhttp_version = '3.1.0'
         kotlin_version = '1.0.0-rc-1036'
         rxjava_version = '1.1.0'
         truth_version = '0.28'
