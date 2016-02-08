@@ -6,6 +6,7 @@ import com.github.droibit.rxconnpass.EventResponse
 import com.github.droibit.rxconnpass.ResponseAdapters
 import com.github.droibit.rxconnpass.app.model.data.api.ConnpassClient
 import com.github.droibit.rxconnpass.app.util.extension.readText
+import com.github.droibit.rxconnpass.emptyEventResponse
 import com.squareup.moshi.Moshi
 import rx.Observable
 import timber.log.Timber
@@ -20,6 +21,9 @@ class MockDataSource @Inject constructor(private val context: Context): DataSour
 
     override fun getByKeyword(keyword: String, searchMore: ConnpassClient.More?): Observable<EventResponse> {
         // TODO: searchMoreによって返すEvent数を変える
+        if (keyword == "empty") {
+            return Observable.just(emptyEventResponse)
+        }
         return Observable.just(mockResponse)
     }
 
