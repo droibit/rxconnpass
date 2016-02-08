@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="list_side_space">16dp</dimen>
-    <dimen name="list_side_half_space">8dp</dimen>
-    <dimen name="list_item_height">100dp</dimen>
+    <dimen name="list_side_medium_space">10dp</dimen>
+    <dimen name="list_item_height">72dp</dimen>
 </resources>
