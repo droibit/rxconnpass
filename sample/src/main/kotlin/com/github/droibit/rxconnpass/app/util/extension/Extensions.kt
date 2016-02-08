@@ -9,7 +9,7 @@ import java.io.InputStream
  * Created by kumagai on 2016/01/21.
  */
 
-inline fun InputStream.readText() = reader().use { it.readText() }
+fun InputStream.readText() = reader().use { it.readText() }
 
 inline fun View.startAnimation(@AnimRes resId: Int, after: View.()->Unit) {
     startAnimation(AnimationUtils.loadAnimation(context, resId))

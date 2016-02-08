@@ -1,11 +1,13 @@
 package com.github.droibit.rxconnpass.app.model.data.reachability.source
 
 import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
  * Created by kumagai on 2016/02/08.
  */
-class MockDataSource @Inject constructor(private val connected: Boolean) : DataSource {
+@Singleton
+class MockNetworkDataSource @Inject constructor() : DataSource {
 
-    override fun connectedAny() = connected
+    override fun connectedAny() = true
 }

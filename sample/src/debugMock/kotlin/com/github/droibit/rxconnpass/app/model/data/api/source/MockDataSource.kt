@@ -21,7 +21,7 @@ class MockDataSource @Inject constructor(private val context: Context): DataSour
 
     override fun getByKeyword(keyword: String, searchMore: ConnpassClient.More?): Observable<EventResponse> {
         // TODO: searchMoreによって返すEvent数を変える
-        if (keyword == "empty") {
+        if (keyword.equals("empty")) {
             return Observable.just(emptyEventResponse)
         }
         return Observable.just(mockResponse)
