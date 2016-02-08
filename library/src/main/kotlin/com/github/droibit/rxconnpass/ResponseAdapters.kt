@@ -19,6 +19,7 @@ object ResponseAdapters {
         }
     }
 
+    @JvmField
     internal val dateJsonAdapter = object : JsonAdapter<Date>() {
         override fun toJson(writer: JsonWriter, value: Date) {
         }
@@ -35,5 +36,6 @@ object ResponseAdapters {
         override fun toString() = "JsonAdapter(Date)"
     }
 
+    @JvmField
     internal val iso8601Format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
 }
