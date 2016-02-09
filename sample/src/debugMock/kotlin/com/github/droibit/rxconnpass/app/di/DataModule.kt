@@ -28,5 +28,5 @@ class DataModule {
 
     @Singleton
     @Provides
-    fun provideReachabilityDataSource(dataSource: MockNetworkDataSource): ReachabilityDataSource = dataSource
+    fun provideReachabilityDataSource(): ReachabilityDataSource = MockNetworkDataSource(connected = true)
 }

@@ -15,6 +15,6 @@ class NetworkDataSource @Inject constructor(context: Context) : DataSource {
 
     override fun connectedAny(): Boolean {
         var info = manager.activeNetworkInfo
-        return info != null && info.isConnected
+        return info != null && info.isConnectedOrConnecting
     }
 }

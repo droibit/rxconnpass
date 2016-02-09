@@ -7,7 +7,7 @@ import javax.inject.Singleton
  * Created by kumagai on 2016/02/08.
  */
 @Singleton
-class MockNetworkDataSource @Inject constructor() : DataSource {
+class MockNetworkDataSource(private val connected: Boolean) : DataSource {
 
-    override fun connectedAny() = true
+    override fun connectedAny() = connected
 }
