@@ -18,7 +18,11 @@ import com.github.droibit.rxconnpass.app.model.data.reachability.source.MockNetw
 import com.github.droibit.rxconnpass.app.model.data.settings.Settings
 import com.github.droibit.rxconnpass.app.model.data.settings.source.PreferenceDataSource
 import com.github.droibit.rxconnpass.app.ui.view.adapter.EventListAdapter
+import com.github.droibit.rxconnpass.app.ui.view.rx.queryTextChanges
 import com.github.droibit.rxconnpass.app.ui.view.widget.DividerItemDecoration
+import rx.android.schedulers.AndroidSchedulers
+import rx.functions.Action1
+import rx.lang.kotlin.plusAssign
 import rx.subscriptions.CompositeSubscription
 
 /**
@@ -31,6 +35,9 @@ class TestEventListFragment: Fragment() {
     private lateinit var eventListAdapter: EventListAdapter
     private lateinit var contentDelegate: EventListFragment.ContentDelegate
     private lateinit var compositeSubscription: CompositeSubscription
+
+    val errorHandler: Action1<Throwable>
+        get() = Action1 { }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,6 +94,13 @@ class TestEventListFragment: Fragment() {
         super.onResume()
 
         compositeSubscription = CompositeSubscription()
+
+        compositeSubscription += binding.searchView.queryTextChanges()
+                .filter { it.submitted && it.queryText.isNotEmpty() }
+                .doOnNext { contentDelegate.hide() }
+                .concatMap { searchAction.search("${it.queryText}") }
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(contentDelegate, errorHandler)
     }
 
     override fun onPause() {

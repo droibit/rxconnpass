@@ -26,7 +26,6 @@ class EventListInteractor @Inject constructor(
 
     private lateinit var view: EventListView
 
-
     fun init(view: EventListView) {
         this.view = view
     }
