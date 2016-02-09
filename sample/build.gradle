@@ -48,6 +48,7 @@ android {
     }
     dataBinding {
         enabled = true
+        version = '1.0-rc5'
     }
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
