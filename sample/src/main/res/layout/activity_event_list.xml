@@ -2,7 +2,7 @@
 <fragment xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools"
           android:id="@+id/event_list"
-          android:name="com.github.droibit.rxconnpass.app.ui.fragment.EventListFragment"
+          android:name="com.github.droibit.rxconnpass.app.ui.fragment.TestEventListFragment"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:tag="@string/tag_event_list_fragment"

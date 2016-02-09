@@ -37,7 +37,7 @@ import javax.inject.Inject
  */
 class EventListFragment : Fragment(), EventListView {
 
-    private class ContentDelegate(
+    internal class ContentDelegate(
             private val contentView: RecyclerView,
             private val progressView: ProgressBar,
             private val emptyView: TextView
@@ -118,9 +118,9 @@ class EventListFragment : Fragment(), EventListView {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_event_list, container, false)
 
         return binding.run {
-            (activity as? AppCompatActivity)?.apply {
-                setSupportActionBar(toolbar)
-            }
+            val activity = activity as? AppCompatActivity
+            activity?.setSupportActionBar(toolbar)
+
             root
         }
     }
