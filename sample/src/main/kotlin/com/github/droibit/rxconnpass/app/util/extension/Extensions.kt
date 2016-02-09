@@ -15,3 +15,6 @@ inline fun View.startAnimation(@AnimRes resId: Int, after: View.()->Unit) {
     startAnimation(AnimationUtils.loadAnimation(context, resId))
     after()
 }
+
+val View.isVisible: Boolean
+    get() = visibility == View.VISIBLE

@@ -23,6 +23,7 @@ import com.github.droibit.rxconnpass.app.ui.view.rx.MaterialSearchViewQueryTextE
 import com.github.droibit.rxconnpass.app.ui.view.rx.queryTextChanges
 import com.github.droibit.rxconnpass.app.ui.view.widget.DividerItemDecoration
 import com.github.droibit.rxconnpass.app.ui.view.widget.DividerItemDecoration.Companion.VERTICAL_LIST
+import com.github.droibit.rxconnpass.app.util.extension.isVisible
 import com.github.droibit.rxconnpass.app.util.extension.startAnimation
 import rx.Observable
 import rx.functions.Action0
@@ -45,9 +46,8 @@ class EventListFragment : Fragment(), EventListView {
 
         // show content
         override fun call(events: List<Event>) {
-            (contentView.adapter as? EventListAdapter)?.apply {
-                call(events)
-            }
+            (contentView.adapter as? EventListAdapter)?.call(events)
+
             val targetView = if (events.isNotEmpty()) contentView else  emptyView
             targetView.startAnimation(android.R.anim.fade_in) {
                 visibility = View.VISIBLE
@@ -71,7 +71,7 @@ class EventListFragment : Fragment(), EventListView {
 
         internal fun hide() = call()
 
-        private fun realContentView() = if (contentView.visibility == View.VISIBLE) contentView else emptyView
+        private fun realContentView() = if (contentView.isVisible) contentView else emptyView
     }
 
     companion object {
@@ -118,9 +118,7 @@ class EventListFragment : Fragment(), EventListView {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_event_list, container, false)
 
         return binding.run {
-            val activity = activity as? AppCompatActivity
-            activity?.setSupportActionBar(toolbar)
-
+            (activity as? AppCompatActivity)?.setSupportActionBar(toolbar)
             root
         }
     }
