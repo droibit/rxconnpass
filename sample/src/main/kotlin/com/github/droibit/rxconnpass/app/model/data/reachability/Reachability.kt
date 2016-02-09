@@ -8,4 +8,4 @@ import javax.inject.Singleton
  * Created by kumagai on 2016/02/08.
  */
 @Singleton
-class Reachability @Inject constructor(dataSource: DataSource) : DataSource by dataSource
+class Reachability @Inject constructor(source: DataSource) : DataSource by source
