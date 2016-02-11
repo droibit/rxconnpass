@@ -1,6 +1,5 @@
 package com.github.droibit.rxconnpass.app.model.data.reachability.source
 
-import javax.inject.Inject
 import javax.inject.Singleton
 
 /**

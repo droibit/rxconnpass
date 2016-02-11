@@ -1,11 +1,9 @@
 package com.github.droibit.rxconnpass.app.ui.interactor
 
 import android.content.Context
-import com.github.droibit.rxconnpass.Event
 import com.github.droibit.rxconnpass.app.di.scope.PerEvent
 import com.github.droibit.rxconnpass.app.model.SearchAction
 import com.github.droibit.rxconnpass.app.ui.view.EventListView
-import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
 import rx.lang.kotlin.plusAssign
 import rx.subscriptions.CompositeSubscription
