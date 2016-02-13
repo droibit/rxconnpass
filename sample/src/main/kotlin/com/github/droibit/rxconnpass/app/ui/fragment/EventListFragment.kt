@@ -42,7 +42,7 @@ class EventListFragment : Fragment(), EventListView {
             private val contentView: RecyclerView,
             private val progressView: ProgressBar,
             private val emptyView: TextView
-    ): Action1<List<Event>>, Action0 {
+    ): Action1<List<Event>> {
 
         // show content
         override fun call(events: List<Event>) {
@@ -59,7 +59,7 @@ class EventListFragment : Fragment(), EventListView {
         }
 
         // hide content
-        override fun call() {
+        fun hide() {
             realContentView().startAnimation(android.R.anim.fade_out) {
                 visibility = View.GONE
             }
@@ -69,8 +69,6 @@ class EventListFragment : Fragment(), EventListView {
             Timber.d("Hide content and show progress.")
         }
 
-        internal fun hide() = call()
-
         private fun realContentView() = if (contentView.isVisible) contentView else emptyView
     }
 
@@ -79,19 +77,6 @@ class EventListFragment : Fragment(), EventListView {
         @JvmStatic
         fun component() = RxConnpassApplication.component.plus(EventModule())
     }
-
-    override val errorHandler: Action1<Throwable>
-        get() = Action1 {  }
-
-    override val searchViewTextChanges: Observable<MaterialSearchViewQueryTextEvent>
-        get() = binding.searchView.queryTextChanges()
-
-    override val showContent: Action1<List<Event>>
-        get() = contentDelegate
-
-    override val hideContent: Action0
-        get() = contentDelegate
-
 
     @Inject
     internal lateinit var interactor: EventListInteractor
@@ -166,4 +151,27 @@ class EventListFragment : Fragment(), EventListView {
         super.onPause()
         interactor.onPause()
     }
+
+    private fun toolbarTitle(title: String) {
+        var actionbar = (activity as? AppCompatActivity)?.supportActionBar
+        if (actionbar != null) {
+            actionbar.title = title
+            Timber.d("Update toolbar title: $title")
+        }
+    }
+
+    override val errorHandler: Action1<Throwable>
+        get() = Action1 {  }
+
+    override val searchViewTextChanges: Observable<MaterialSearchViewQueryTextEvent>
+        get() = binding.searchView.queryTextChanges()
+
+    override val showContent: Action1<List<Event>>
+        get() = contentDelegate
+
+    override val prepareContent: Action1<String>
+        get() = Action1 {
+            toolbarTitle(it)
+            contentDelegate.hide()
+        }
 }

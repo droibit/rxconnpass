@@ -32,8 +32,9 @@ class EventListInteractor @Inject constructor(
         // TODO: プログレスの表示をどこに入れるか？
         compositeSubscription += view.searchViewTextChanges
                 .filter { it.submitted && it.queryText.isNotEmpty() }
-                .doOnNext { view.hideContent.call() }
-                .concatMap { action.search("${it.queryText}") }
+                .map { it.queryText.toString() }
+                .doOnNext(view.prepareContent)
+                .concatMap { action.search(it) }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(view.showContent, view.errorHandler)
     }
