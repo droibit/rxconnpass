@@ -2,6 +2,7 @@ package com.github.droibit.rxconnpass.app.util.binding;
 
 import com.github.droibit.rxconnpass.app.R;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.databinding.BindingAdapter;
 import android.support.annotation.ColorRes;
@@ -43,6 +44,7 @@ public class BindingAdapters {
     }
 
     @ColorRes
+    @SuppressLint("PrivateResource")
     private static int textColor(boolean useRedColor) {
         return (useRedColor) ? R.color.material_red_a100 : R.color.secondary_text_default_material_light;
     }
