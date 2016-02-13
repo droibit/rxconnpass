@@ -16,12 +16,22 @@
         android:paddingRight="@dimen/list_side_space"
         android:paddingTop="@dimen/list_side_medium_space">
 
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
+            android:src="@{event.isFinished() ? @drawable/ic_circle_event_finished : @drawable/ic_circle_event_available}"
+            tools:src="@drawable/ic_circle_event_available" />
+
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
+            android:layout_toRightOf="@id/icon"
             android:layout_alignParentTop="true"
+            android:gravity="center_vertical"
             android:ellipsize="end"
             android:lines="2"
             android:maxLines="2"
@@ -40,7 +50,6 @@
             android:fontFamily="sans-serif-light"
             android:singleLine="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-            android:drawableLeft="@drawable/ic_small_event_date"
             app:endedAt="@{event.endedAt}"
             app:startedAt="@{event.startedAt}"
             tools:text=" 2016/02/01" />
@@ -49,14 +58,13 @@
             android:id="@+id/address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
+            android:layout_toRightOf="@id/icon"
             android:layout_below="@id/title"
             android:layout_toLeftOf="@id/date"
             android:layout_alignBaseline="@id/date"
             android:ellipsize="end"
             android:singleLine="true"
             android:text="@{event.address ?? @string/empty}"
-            android:drawableLeft="@drawable/ic_small_event_address"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
             tools:text="東京都渋谷区千駄ヶ谷5-32-7" />
 
