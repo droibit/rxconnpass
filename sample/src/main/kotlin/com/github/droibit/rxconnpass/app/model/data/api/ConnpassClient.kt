@@ -13,9 +13,13 @@ import javax.inject.Singleton
 @Singleton
 class ConnpassClient @Inject constructor(source: DataSource): DataSource by source {
 
-    class More: Serializable {
+    class SearchMore : Serializable {
         var start = 0
         var available = 0
+        // リクエストごとのイベント取得数
         var count = 0
+
+        val canLoadMore: Boolean
+            get() = available < 0 && (start + count) < available
     }
 }

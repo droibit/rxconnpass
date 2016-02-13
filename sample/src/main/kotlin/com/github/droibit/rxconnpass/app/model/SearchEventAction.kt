@@ -25,14 +25,16 @@ class SearchEventAction @Inject constructor(
 
     // TODO: 回転した時にフィールドを復元しないと行けない
 
-    private var searchMore: ConnpassClient.More? = null
+    override val searchMore: ConnpassClient.SearchMore?
+        get() = _searchMore
+    private var _searchMore: ConnpassClient.SearchMore? = null
 
     @CheckResult
     override fun search(param: String): Observable<List<Event>> {
         if (!reachability.connectedAny()) {
             return Observable.error(NetworkDisconnectedException())
         }
-        return client.getByKeyword(param, searchMore)
+        return client.getByKeyword(param, _searchMore)
                 //.onBackpressureBuffer()
                 .subscribeOn(Schedulers.io())
                 .delay(3, TimeUnit.SECONDS)

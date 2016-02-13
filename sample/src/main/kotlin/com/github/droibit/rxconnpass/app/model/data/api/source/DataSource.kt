@@ -15,5 +15,5 @@ import javax.inject.Singleton
 interface DataSource {
 
     @CheckResult
-    fun getByKeyword(keyword: String, searchMore: ConnpassClient.More? = null): Observable<EventResponse>
+    fun getByKeyword(keyword: String, searchMore: ConnpassClient.SearchMore? = null): Observable<EventResponse>
 }
