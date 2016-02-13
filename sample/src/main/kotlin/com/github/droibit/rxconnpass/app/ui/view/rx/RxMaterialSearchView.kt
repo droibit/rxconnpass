@@ -53,6 +53,7 @@ class MaterialSearchViewQueryTextChangesOnSubscribe(private val view: MaterialSe
                 view.setOnQueryTextListener(null)
             }
         })
+        // TODO: クエリを取り出せないので復元用に何処かで保持しておかなければいけない
         subscriber.onNext(MaterialSearchViewQueryTextEvent(view, "", false))
     }
 }

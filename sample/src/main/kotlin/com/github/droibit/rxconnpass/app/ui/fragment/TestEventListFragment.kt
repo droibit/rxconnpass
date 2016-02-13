@@ -108,4 +108,8 @@ class TestEventListFragment: Fragment() {
 
         compositeSubscription.unsubscribe()
     }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+    }
 }

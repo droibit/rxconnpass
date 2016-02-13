@@ -46,7 +46,7 @@ class EventListFragment : Fragment(), EventListView {
 
         // show content
         override fun call(events: List<Event>) {
-            (contentView.adapter as? EventListAdapter)?.call(events)
+            (contentView.adapter as? EventListAdapter)?.call(events, false)
 
             val targetView = if (events.isNotEmpty()) contentView else  emptyView
             targetView.startAnimation(android.R.anim.fade_in) {
