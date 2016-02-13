@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.preference.PreferenceManager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.*
+import com.github.droibit.rxconnpass.Event
 import com.github.droibit.rxconnpass.app.R
 import com.github.droibit.rxconnpass.app.databinding.FragmentEventListBinding
 import com.github.droibit.rxconnpass.app.model.SearchEventAction
@@ -23,6 +24,7 @@ import com.github.droibit.rxconnpass.app.ui.view.widget.DividerItemDecoration
 import rx.android.schedulers.AndroidSchedulers
 import rx.functions.Action1
 import rx.lang.kotlin.plusAssign
+import rx.subjects.PublishSubject
 import rx.subscriptions.CompositeSubscription
 
 /**
@@ -35,6 +37,7 @@ class TestEventListFragment: Fragment() {
     private lateinit var eventListAdapter: EventListAdapter
     private lateinit var contentDelegate: EventListFragment.ContentDelegate
     private lateinit var compositeSubscription: CompositeSubscription
+    private lateinit var itemClickListener: PublishSubject<Event>
 
     val errorHandler: Action1<Throwable>
         get() = Action1 { }
@@ -73,7 +76,7 @@ class TestEventListFragment: Fragment() {
                 progressView = binding.progress,
                 emptyView = binding.empty
         )
-        eventListAdapter = EventListAdapter()
+        eventListAdapter = EventListAdapter(listener = itemClickListener)
 
         binding.recycler.apply {
             adapter = eventListAdapter

@@ -16,7 +16,7 @@ interface EventListView {
 
     val prepareContent: Action1<String>
     val showContent: Action1<List<Event>>
-
     val errorHandler: Action1<Throwable>
 
+    val itemClick: Observable<Event>
 }

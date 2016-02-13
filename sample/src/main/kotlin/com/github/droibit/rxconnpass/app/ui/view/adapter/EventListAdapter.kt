@@ -8,14 +8,15 @@ import android.view.ViewGroup
 import com.github.droibit.rxconnpass.Event
 import com.github.droibit.rxconnpass.app.R
 import com.github.droibit.rxconnpass.app.databinding.RecyclerItemEventBinding
-import rx.functions.Action1
 import rx.functions.Action2
+import rx.subjects.PublishSubject
 import java.util.*
 
 /**
  * Created by kumagai on 2016/02/03.
  */
-class EventListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), Action2<List<Event>, Boolean> {
+class EventListAdapter(private val listener: PublishSubject<Event>)
+        : RecyclerView.Adapter<RecyclerView.ViewHolder>(), Action2<List<Event>, Boolean> {
 
     companion object {
         val VIEW_ITEM = 0
@@ -41,7 +42,9 @@ class EventListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), Action
         return when (viewType) {
             VIEW_ITEM -> {
                 val view = inflater.inflate(R.layout.recycler_item_event, parent, false)
-                ItemViewHolder(view)
+                ItemViewHolder(view).apply {
+                    view.setOnClickListener { listener.onNext(events[adapterPosition]) }
+                }
             }
             VIEW_FOOTER -> {
                 val view = inflater.inflate(R.layout.recycler_item_event_footer, parent, false)

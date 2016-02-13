@@ -26,8 +26,8 @@ import com.github.droibit.rxconnpass.app.ui.view.widget.DividerItemDecoration.Co
 import com.github.droibit.rxconnpass.app.util.extension.isVisible
 import com.github.droibit.rxconnpass.app.util.extension.startAnimation
 import rx.Observable
-import rx.functions.Action0
 import rx.functions.Action1
+import rx.subjects.PublishSubject
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -86,6 +86,7 @@ class EventListFragment : Fragment(), EventListView {
     private lateinit var binding: FragmentEventListBinding
     private lateinit var eventListAdapter: EventListAdapter
     private lateinit var contentDelegate: ContentDelegate
+    private lateinit var itemClickListener: PublishSubject<Event>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -114,7 +115,8 @@ class EventListFragment : Fragment(), EventListView {
                 progressView = binding.progress,
                 emptyView = binding.empty
         )
-        eventListAdapter = EventListAdapter()
+        itemClickListener = PublishSubject.create()
+        eventListAdapter = EventListAdapter(itemClickListener)
 
         binding.recycler.apply {
             adapter = eventListAdapter
@@ -123,6 +125,12 @@ class EventListFragment : Fragment(), EventListView {
             setHasFixedSize(true)
         }
         interactor.init(this)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        itemClickListener.onCompleted()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -134,10 +142,7 @@ class EventListFragment : Fragment(), EventListView {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_settings -> {
-                Navigator.navigateToSettings(context)
-                true
-            }
+            R.id.action_settings -> Navigator.navigateToSettings(context)
             else -> super.onContextItemSelected(item)
         }
     }
@@ -152,12 +157,13 @@ class EventListFragment : Fragment(), EventListView {
         interactor.onPause()
     }
 
-    private fun toolbarTitle(title: String) {
+    private fun prepareContent(query: String) {
         var actionbar = (activity as? AppCompatActivity)?.supportActionBar
         if (actionbar != null) {
-            actionbar.title = title
-            Timber.d("Update toolbar title: $title")
+            actionbar.title = query
+            Timber.d("Update toolbar title: $query")
         }
+        contentDelegate.hide()
     }
 
     override val errorHandler: Action1<Throwable>
@@ -170,8 +176,8 @@ class EventListFragment : Fragment(), EventListView {
         get() = contentDelegate
 
     override val prepareContent: Action1<String>
-        get() = Action1 {
-            toolbarTitle(it)
-            contentDelegate.hide()
-        }
+        get() = Action1 { prepareContent(it) }
+
+    override val itemClick: Observable<Event>
+        get() = itemClickListener
 }
