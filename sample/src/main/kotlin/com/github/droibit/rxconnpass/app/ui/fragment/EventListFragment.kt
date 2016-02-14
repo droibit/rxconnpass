@@ -136,6 +136,8 @@ class EventListFragment : Fragment(), EventListView {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_main, menu)
 
+        // TODO: 設定画面の遷移にRxMenuItem#click()を使おうと思ったが、このメソッドが#onResumeより後に呼ばれるため、lateinitエラーがでる
+
         val item = menu.findItem(R.id.action_search)
         binding.searchView.setMenuItem(item)
     }
