@@ -76,7 +76,8 @@ data class Event(
     val overload: Boolean
         get() = limit != null && limit != 0 && accepted >= limit
 
-    fun isFinished(currentDate: Date) = endedAt < currentDate
+    @JvmOverloads
+    fun isFinished(currentDate: Date = Date()) = endedAt < currentDate
 }
 
 /**

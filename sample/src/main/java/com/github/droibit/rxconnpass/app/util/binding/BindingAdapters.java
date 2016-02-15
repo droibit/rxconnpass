@@ -2,6 +2,7 @@ package com.github.droibit.rxconnpass.app.util.binding;
 
 import com.github.droibit.rxconnpass.app.R;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.databinding.BindingAdapter;
 import android.support.annotation.ColorRes;
@@ -40,14 +41,11 @@ public class BindingAdapters {
     public static void bindDateText(TextView view, Date startedAt, Date endedAt) {
         final java.text.DateFormat dateFormat = DateFormat.getDateFormat(view.getContext());
         view.setText(dateFormat.format(startedAt));
-
-        final boolean finished = endedAt.compareTo(new Date()) < 0;
-        final int colorRes = textColor(finished);
-        view.setTextColor(ContextCompat.getColor(view.getContext(), colorRes));
     }
 
     @ColorRes
+    @SuppressLint("PrivateResource")
     private static int textColor(boolean useRedColor) {
-        return (useRedColor) ? R.color.material_red_a200 : R.color.secondary_text_default_material_light;
+        return (useRedColor) ? R.color.material_red_a100 : R.color.secondary_text_default_material_light;
     }
 }

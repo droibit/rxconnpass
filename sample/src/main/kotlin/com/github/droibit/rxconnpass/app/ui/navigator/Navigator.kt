@@ -11,9 +11,10 @@ import com.github.droibit.rxconnpass.app.ui.activity.SettingsActivity
 object Navigator {
 
     @JvmStatic
-    fun navigateToSettings(context: Context?) {
+    fun navigateToSettings(context: Context?): Boolean {
         context?.let {
             it.startActivity(SettingsActivity.launchIntent(it))
         }
+        return true
     }
 }

@@ -3,16 +3,16 @@ package com.github.droibit.rxconnpass
 import com.squareup.moshi.Moshi
 import okhttp3.Call
 import okhttp3.OkHttpClient
-import retrofit2.MoshiConverterFactory
 import retrofit2.Retrofit
-import retrofit2.RxJavaCallAdapterFactory
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 
 private val baseUrl = "http://connpass.com"
 
 /**
  * Created by kumagai on 2016/01/13.
  */
-class RxConnpass private constructor(public val service: ConnpassService) {
+class RxConnpass private constructor(val service: ConnpassService) {
 
     companion object {
 

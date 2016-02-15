@@ -51,7 +51,7 @@ class DividerItemDecoration : RecyclerView.ItemDecoration {
         mOrientation = orientation
     }
 
-    override fun onDraw(c: Canvas, parent: RecyclerView) {
+    override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
         if (mOrientation == VERTICAL_LIST) {
             drawVertical(c, parent)
         } else {

@@ -10,6 +10,7 @@ import java.util.*
 
 object ResponseAdapters {
 
+    @JvmField
     val factory: JsonAdapter.Factory = JsonAdapter.Factory { type, annotations, moshi ->
         if (type == Date::class.java) {
             dateJsonAdapter
@@ -18,14 +19,15 @@ object ResponseAdapters {
         }
     }
 
+    @JvmField
     internal val dateJsonAdapter = object : JsonAdapter<Date>() {
         override fun toJson(writer: JsonWriter, value: Date) {
         }
 
         override fun fromJson(reader: JsonReader): Date {
             val dateString = reader.nextString()
-            try {
-                return iso8601Format.parse(dateString)
+            return try {
+                iso8601Format.parse(dateString)
             } catch (e: ParseException) {
                 throw JsonDataException("Unsupported format date: $dateString")
             }
@@ -33,5 +35,7 @@ object ResponseAdapters {
 
         override fun toString() = "JsonAdapter(Date)"
     }
+
+    @JvmField
     internal val iso8601Format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
 }

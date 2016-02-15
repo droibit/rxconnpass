@@ -3,9 +3,9 @@
 buildscript {
 
     ext {
-        retrofit_version = '2.0.0-beta3'
-        okhttp_version = '3.0.1'
-        kotlin_version = '1.0.0-beta-4589'
+        retrofit_version = '2.0.0-beta4'
+        okhttp_version = '3.1.2'
+        kotlin_version = '1.0.0-rc-1036'
         rxjava_version = '1.1.0'
         truth_version = '0.28'
     }
@@ -16,7 +16,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.5.0'
+        classpath 'com.android.tools.build:gradle:2.0.0-beta4'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
