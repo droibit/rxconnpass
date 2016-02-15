@@ -6,10 +6,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.*
-import android.widget.ProgressBar
-import android.widget.TextView
 import com.github.droibit.rxconnpass.Event
 import com.github.droibit.rxconnpass.app.R
 import com.github.droibit.rxconnpass.app.RxConnpassApplication
@@ -19,13 +16,13 @@ import com.github.droibit.rxconnpass.app.ui.interactor.EventListInteractor
 import com.github.droibit.rxconnpass.app.ui.navigator.Navigator
 import com.github.droibit.rxconnpass.app.ui.view.EventListView
 import com.github.droibit.rxconnpass.app.ui.view.adapter.EventListAdapter
-import com.github.droibit.rxconnpass.app.ui.view.rx.MaterialSearchViewQueryTextEvent
-import com.github.droibit.rxconnpass.app.ui.view.rx.queryTextChanges
 import com.github.droibit.rxconnpass.app.ui.view.widget.DividerItemDecoration
 import com.github.droibit.rxconnpass.app.ui.view.widget.DividerItemDecoration.Companion.VERTICAL_LIST
+import com.github.droibit.rxconnpass.app.ui.view.widget.SimpleOnQueryTextListener
 import com.github.droibit.rxconnpass.app.util.extension.isVisible
 import com.github.droibit.rxconnpass.app.util.extension.startAnimation
 import rx.Observable
+import rx.functions.Action0
 import rx.functions.Action1
 import rx.subjects.PublishSubject
 import timber.log.Timber
@@ -36,41 +33,7 @@ import javax.inject.Inject
  *
  * @author kumagai
  */
-class EventListFragment : Fragment(), EventListView {
-
-    internal class ContentDelegate(
-            private val contentView: RecyclerView,
-            private val progressView: ProgressBar,
-            private val emptyView: TextView
-    ): Action1<List<Event>> {
-
-        // show content
-        override fun call(events: List<Event>) {
-            (contentView.adapter as? EventListAdapter)?.call(events, false)
-
-            val targetView = if (events.isNotEmpty()) contentView else  emptyView
-            targetView.startAnimation(android.R.anim.fade_in) {
-                visibility = View.VISIBLE
-            }
-            progressView.startAnimation(android.R.anim.fade_out) {
-                visibility = View.GONE
-            }
-            Timber.d("Show content (${events.size} events).")
-        }
-
-        // hide content
-        fun hide() {
-            realContentView().startAnimation(android.R.anim.fade_out) {
-                visibility = View.GONE
-            }
-            progressView.startAnimation(android.R.anim.fade_in) {
-                visibility = View.VISIBLE
-            }
-            Timber.d("Hide content and show progress.")
-        }
-
-        private fun realContentView() = if (contentView.isVisible) contentView else emptyView
-    }
+class EventListFragment : Fragment(), EventListView, SimpleOnQueryTextListener {
 
     companion object {
 
@@ -85,7 +48,6 @@ class EventListFragment : Fragment(), EventListView {
 
     private lateinit var binding: FragmentEventListBinding
     private lateinit var eventListAdapter: EventListAdapter
-    private lateinit var contentDelegate: ContentDelegate
     private lateinit var itemClickListener: PublishSubject<Event>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -110,11 +72,6 @@ class EventListFragment : Fragment(), EventListView {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        contentDelegate = ContentDelegate(
-                contentView = binding.recycler,
-                progressView = binding.progress,
-                emptyView = binding.empty
-        )
         itemClickListener = PublishSubject.create()
         eventListAdapter = EventListAdapter(itemClickListener)
 
@@ -127,28 +84,6 @@ class EventListFragment : Fragment(), EventListView {
         interactor.init(this)
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-
-        itemClickListener.onCompleted()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_main, menu)
-
-        // TODO: 設定画面の遷移にRxMenuItem#click()を使おうと思ったが、このメソッドが#onResumeより後に呼ばれるため、lateinitエラーがでる
-
-        val item = menu.findItem(R.id.action_search)
-        binding.searchView.setMenuItem(item)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_settings -> Navigator.navigateToSettings(context)
-            else -> super.onContextItemSelected(item)
-        }
-    }
-
     override fun onResume() {
         super.onResume()
         interactor.onResume()
@@ -159,27 +94,98 @@ class EventListFragment : Fragment(), EventListView {
         interactor.onPause()
     }
 
-    private fun prepareContent(query: String) {
-        var actionbar = (activity as? AppCompatActivity)?.supportActionBar
-        if (actionbar != null) {
-            actionbar.title = query
-            Timber.d("Update toolbar title: $query")
-        }
-        contentDelegate.hide()
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        itemClickListener.onCompleted()
+        binding.searchView.setOnQueryTextListener(null)
     }
 
-    override val errorHandler: Action1<Throwable>
-        get() = Action1 {  }
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_main, menu)
 
-    override val searchViewTextChanges: Observable<MaterialSearchViewQueryTextEvent>
-        get() = binding.searchView.queryTextChanges()
+        binding.searchView.apply {
+            val item = menu.findItem(R.id.action_search)
+            setMenuItem(item)
+            setOnQueryTextListener(this@EventListFragment)
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_settings -> Navigator.navigateToSettings(context)
+            else -> super.onContextItemSelected(item)
+        }
+    }
+
+    override fun onQueryTextSubmit(query: String): Boolean {
+        if (query.isEmpty()) {
+            return true
+        }
+        updateToolbarTitle(title = query)
+        interactor.searchByKeyword(keyword = query)
+
+        // falseを返すとSearchViewが閉じる
+        return false
+    }
+
+    private fun updateToolbarTitle(title: String) {
+        var actionbar = (activity as? AppCompatActivity)?.supportActionBar
+        if (actionbar != null) {
+            actionbar.title = title
+            Timber.d("Update toolbar title: $title")
+        }
+    }
+
+    private fun updateEventList(events: List<Event>) {
+        eventListAdapter.call(events, false)
+
+        // TODO: 位置を先頭に戻す
+
+        val targetView = binding.run { if (events.isNotEmpty()) recycler else empty }
+        targetView.startAnimation(android.R.anim.fade_in) {
+            visibility = View.VISIBLE
+        }
+        setProgressShown(shown = false)
+
+        Timber.d("Fetched ${events.size} events.")
+    }
+
+    private fun setContentShown(shown: Boolean) {
+        val (animRes, animAfterVisibility) = animationFor(shown)
+        val contentView =  binding.run { if (recycler.isVisible) recycler else empty }
+
+        contentView.startAnimation(animRes) {
+            visibility = animAfterVisibility
+        }
+        setProgressShown(!shown)
+    }
+
+    private fun setProgressShown(shown: Boolean) {
+        val (animRes, animAfterVisibility) = animationFor(shown)
+        binding.progress.startAnimation(animRes) {
+            visibility = animAfterVisibility
+        }
+        Timber.d("Hide content and show progress.")
+    }
+
+    private fun animationFor(shown: Boolean) = if (shown) {
+        Pair(android.R.anim.fade_in, View.VISIBLE)
+    } else {
+        Pair(android.R.anim.fade_out, View.GONE)
+    }
+
+    override val showError: Action1<Throwable>
+        get() = Action1 { Timber.e(it, "Event Fetched Error: ") }
 
     override val showContent: Action1<List<Event>>
-        get() = contentDelegate
-
-    override val prepareContent: Action1<String>
-        get() = Action1 { prepareContent(it) }
+        get() = Action1 { updateEventList(it) }
 
     override val itemClick: Observable<Event>
         get() = itemClickListener
+
+    override val showProgress: Action0
+        get() = Action0 { setContentShown(shown = false) }
+    override val hideProgress: Action0
+        get() = Action0 { setProgressShown(shown = false) }
 }

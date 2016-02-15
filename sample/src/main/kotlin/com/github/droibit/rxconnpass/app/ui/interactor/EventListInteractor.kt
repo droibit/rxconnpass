@@ -30,15 +30,6 @@ class EventListInteractor @Inject constructor(
     }
 
     override fun onResume() {
-        // イベントの検索
-        compositeSubscription += view.searchViewTextChanges
-                .filter { it.submitted && it.queryText.isNotEmpty() }
-                .map { it.queryText.toString() }
-                .doOnNext(view.prepareContent)
-                .concatMap { action.search(it) }
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(view.showContent, view.errorHandler)
-
         // イベントのクリック
         compositeSubscription += view.itemClick
                 .subscribe {
@@ -48,5 +39,14 @@ class EventListInteractor @Inject constructor(
 
     override fun onPause() {
         compositeSubscription.unsubscribe()
+    }
+
+    fun searchByKeyword(keyword: String) {
+        // イベントの検索
+        compositeSubscription += action.search(keyword)
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(view.showProgress)
+                .doOnCompleted(view.hideProgress)
+                .subscribe(view.showContent, view.showError)
     }
 }

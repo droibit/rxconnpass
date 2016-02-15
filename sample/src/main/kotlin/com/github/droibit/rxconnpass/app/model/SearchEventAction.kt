@@ -35,7 +35,6 @@ class SearchEventAction @Inject constructor(
             return Observable.error(NetworkDisconnectedException())
         }
         return client.getByKeyword(param, _searchMore)
-                //.onBackpressureBuffer()
                 .subscribeOn(Schedulers.io())
                 .delay(3, TimeUnit.SECONDS)
                 .map { it.events }
