@@ -26,8 +26,8 @@ object ResponseAdapters {
 
         override fun fromJson(reader: JsonReader): Date {
             val dateString = reader.nextString()
-            try {
-                return iso8601Format.parse(dateString)
+            return try {
+                iso8601Format.parse(dateString)
             } catch (e: ParseException) {
                 throw JsonDataException("Unsupported format date: $dateString")
             }
