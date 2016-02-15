@@ -26,6 +26,4 @@ interface EventListView {
 
     val showProgress: Action0
     val hideProgress: Action0
-
-    val itemClick: Observable<Event>
 }

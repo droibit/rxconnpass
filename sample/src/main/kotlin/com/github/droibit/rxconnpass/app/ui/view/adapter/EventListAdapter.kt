@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.github.droibit.rxconnpass.Event
 import com.github.droibit.rxconnpass.app.R
 import com.github.droibit.rxconnpass.app.databinding.RecyclerItemEventBinding
+import com.github.droibit.rxconnpass.app.ui.view.transition.TransitionDetailEvent
 import rx.functions.Action2
 import rx.subjects.PublishSubject
 import java.util.*
@@ -15,7 +16,7 @@ import java.util.*
 /**
  * Created by kumagai on 2016/02/03.
  */
-class EventListAdapter(private val listener: PublishSubject<Event>)
+class EventListAdapter(private val listener: PublishSubject<TransitionDetailEvent>)
         : RecyclerView.Adapter<RecyclerView.ViewHolder>(), Action2<List<Event>, Boolean> {
 
     companion object {
@@ -43,7 +44,10 @@ class EventListAdapter(private val listener: PublishSubject<Event>)
             VIEW_ITEM -> {
                 val view = inflater.inflate(R.layout.recycler_item_event, parent, false)
                 ItemViewHolder(view).apply {
-                    view.setOnClickListener { listener.onNext(events[adapterPosition]) }
+                    view.setOnClickListener {
+                        listener.onNext(TransitionDetailEvent(event = events[adapterPosition],
+                                                              titleView = binding.title))
+                    }
                 }
             }
             VIEW_FOOTER -> {

@@ -18,6 +18,7 @@ import com.github.droibit.rxconnpass.app.ui.interactor.EventListInteractor
 import com.github.droibit.rxconnpass.app.ui.navigator.Navigator
 import com.github.droibit.rxconnpass.app.ui.view.EventListView
 import com.github.droibit.rxconnpass.app.ui.view.adapter.EventListAdapter
+import com.github.droibit.rxconnpass.app.ui.view.transition.TransitionDetailEvent
 import com.github.droibit.rxconnpass.app.ui.view.widget.DividerItemDecoration
 import com.github.droibit.rxconnpass.app.ui.view.widget.DividerItemDecoration.Companion.VERTICAL_LIST
 import com.github.droibit.rxconnpass.app.ui.view.widget.simpleOnQueryTextListener
@@ -57,9 +58,6 @@ class EventListFragment : Fragment(), EventListView, EventListView.Listener {
     // エラーを表示する
     override val showError: Action1<Throwable>
         get() = Action1 { Timber.e(it, "Event Fetched Error: ") }
-    // イベントクリック
-    override val itemClick: Observable<Event>
-        get() = eventItemClick
 
     override val queryText: MaterialSearchView.OnQueryTextListener by lazy {
         simpleOnQueryTextListener { query -> onQueryTextSubmit(query) }
@@ -78,18 +76,24 @@ class EventListFragment : Fragment(), EventListView, EventListView.Listener {
 
     private lateinit var binding: FragmentEventListBinding
     private lateinit var eventListAdapter: EventListAdapter
-    private lateinit var eventItemClick: PublishSubject<Event>
+    private lateinit var itemClick: PublishSubject<TransitionDetailEvent>
+
+    private var itemClickCallback: Action1<TransitionDetailEvent>? = null
+
+    @Suppress("UNCHECKED_CAST")
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+
+        itemClickCallback = context as? Action1<TransitionDetailEvent>
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setHasOptionsMenu(true)
-    }
-
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-
         component().inject(this)
+
+        retainInstance = true
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -103,8 +107,8 @@ class EventListFragment : Fragment(), EventListView, EventListView.Listener {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        eventItemClick = PublishSubject.create()
-        eventListAdapter = EventListAdapter(eventItemClick)
+        itemClick = PublishSubject.create()
+        eventListAdapter = EventListAdapter(itemClick)
 
         binding.recycler.apply {
             adapter = eventListAdapter
@@ -113,6 +117,15 @@ class EventListFragment : Fragment(), EventListView, EventListView.Listener {
             setHasFixedSize(true)
         }
         interactor.init(this)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        // タブレットが絡むと詳細画面への遷移はActivity側に任せるしか無い
+        if (itemClickCallback != null) {
+            itemClick.subscribe(itemClickCallback)
+        }
     }
 
     override fun onResume() {
@@ -128,7 +141,8 @@ class EventListFragment : Fragment(), EventListView, EventListView.Listener {
     override fun onDestroyView() {
         super.onDestroyView()
 
-        eventItemClick.onCompleted()
+        // TODO: subscription#unsubscribe呼ばなくても大丈夫？
+        itemClick.onCompleted()
         binding.searchView.setOnQueryTextListener(null)
     }
 
