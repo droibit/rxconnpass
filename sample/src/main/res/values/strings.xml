@@ -12,5 +12,7 @@
     <string name="empty" translatable="false">---</string>
     <string name="participant_format" translatable="false">%1$s / %2$s</string>
     <string name="empty_event_list">Please search for the event from menu.</string>
+    <string name="dialog_title_event_sort_order">Sort Order of Event</string>
+    <string name="dialog_key_event_sort_order">event_sort_order</string>
 
 </resources>

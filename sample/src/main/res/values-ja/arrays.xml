@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="dialog_entries_event_sort_order">
+        <item>最終更新日順</item>
+        <item>開催日順</item>
+        <item>新着順</item>
+    </string-array>
+</resources>

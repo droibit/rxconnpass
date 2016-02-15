@@ -6,4 +6,5 @@ package com.github.droibit.rxconnpass.app.model.data.settings.source
 interface DataSource {
 
     var countPerRequest: Int
+    var eventSortOrder: Int
 }

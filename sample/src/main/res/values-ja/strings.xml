@@ -6,4 +6,5 @@
     <string name="pref_general_request_per_count_title">リクエストあたりのイベント取得数</string>
     <string name="pref_general_request_per_count_summary">%1$s イベント</string>
     <string name="empty_event_list">メニューからイベントを検索して下さい</string>
+    <string name="dialog_title_event_sort_order">イベントのソート順</string>
 </resources>

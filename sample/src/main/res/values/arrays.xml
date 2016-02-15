@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="pref_general_request_per_count_values">
+    <string-array name="pref_general_request_per_count_values" translatable="false">
         <item>10</item>
         <item>15</item>
         <item>20</item>
         <item>25</item>
         <item>30</item>
+    </string-array>
+
+    <string-array name="dialog_entries_event_sort_order">
+        <item>Last Modified</item>
+        <item>Event Date</item>
+        <item>New Event</item>
     </string-array>
 </resources>
