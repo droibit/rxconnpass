@@ -13,7 +13,6 @@ apply plugin: 'kotlin-android'
 repositories {
     maven { url "https://jitpack.io" }
     maven { url "https://clojars.org/repo/" }
-    maven { url 'http://oss.sonatype.org/content/repositories/snapshots' }
 }
 
 android {
