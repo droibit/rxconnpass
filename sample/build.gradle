@@ -81,7 +81,7 @@ dependencies {
     compile 'io.reactivex:rxandroid:1.1.0'
 
     compile 'com.jakewharton.timber:timber:4.1.0'
-    compile 'com.github.droibit.prefbindings:prefbinding-support:1.0.3'
+    compile 'com.github.droibit.prefbindings:prefbinding-support:1.0.4'
     compile 'com.miguelcatalan:materialsearchview:1.4.0'
     compile "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
 
