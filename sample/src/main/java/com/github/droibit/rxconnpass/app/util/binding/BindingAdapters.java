@@ -1,12 +1,13 @@
 package com.github.droibit.rxconnpass.app.util.binding;
 
 import com.github.droibit.rxconnpass.app.R;
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.databinding.BindingAdapter;
 import android.support.annotation.ColorRes;
-import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
 import android.widget.TextView;
 
@@ -17,35 +18,24 @@ import java.util.Date;
  */
 public class BindingAdapters {
 
-    @BindingAdapter({"bind:accepted", "bind:limit"})
-    public static void bindParticipantText(TextView view, int accepted, Integer limit) {
-        final Context context = view.getContext();
+    @BindingAdapter({"bind:OnQueryText"})
+    public static void bindQueryChangeListener(MaterialSearchView view, MaterialSearchView.OnQueryTextListener listener) {
+        view.setOnQueryTextListener(listener);
+    }
 
-        String acceptedText, limitText;
-        boolean overload = false;
-        if (limit != null) {
-            acceptedText = String.valueOf(accepted);
-            limitText = String.valueOf(limit);
-            overload = limit != 0 && accepted >= limit;
-        } else {
-            acceptedText = limitText = context.getString(R.string.empty);
-        }
-        final String text = context.getString(R.string.participant_format, acceptedText, limitText);
-        view.setText(text);
+    @BindingAdapter({"bind:onScroll"})
+    public static void bindScrollListener(RecyclerView view, RecyclerView.OnScrollListener listener) {
+        view.addOnScrollListener(listener);
+    }
 
-        final int colorRes = textColor(overload);
-        view.setTextColor(ContextCompat.getColor(context, colorRes));
+    @BindingAdapter({"bind:onRefresh"})
+    public static void bindRefreshListener(SwipeRefreshLayout layout, SwipeRefreshLayout.OnRefreshListener listener) {
+        layout.setOnRefreshListener(listener);
     }
 
     @BindingAdapter({"bind:startedAt", "bind:endedAt"})
     public static void bindDateText(TextView view, Date startedAt, Date endedAt) {
         final java.text.DateFormat dateFormat = DateFormat.getDateFormat(view.getContext());
         view.setText(dateFormat.format(startedAt));
-    }
-
-    @ColorRes
-    @SuppressLint("PrivateResource")
-    private static int textColor(boolean useRedColor) {
-        return (useRedColor) ? R.color.material_red_a100 : R.color.secondary_text_default_material_light;
     }
 }
