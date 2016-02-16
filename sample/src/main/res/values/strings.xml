@@ -6,6 +6,7 @@
 
     <string name="tag_event_list_fragment" translatable="false">event_list</string>
     <string name="tag_event_detail_fragment" translatable="false">event_detail</string>
+    <string name="tag_event_title">event_title</string>
     <string name="pref_general_category_title">General</string>
     <string name="pref_general_request_per_count_key" translatable="false">request_per_count</string>
     <string name="pref_general_request_per_count_title">Number of events fetch per request.</string>

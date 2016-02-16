@@ -87,6 +87,7 @@ class EventListFragment : Fragment(), EventListView, EventListView.Listener {
 
         component().inject(this)
 
+        eventListAdapter = EventListAdapter(eventBus)
         retainInstance = true
         setHasOptionsMenu(true)
     }
@@ -102,8 +103,6 @@ class EventListFragment : Fragment(), EventListView, EventListView.Listener {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        eventListAdapter = EventListAdapter(eventBus)
-
         binding.recycler.apply {
             adapter = eventListAdapter
             layoutManager = LinearLayoutManager(context)
@@ -156,7 +155,6 @@ class EventListFragment : Fragment(), EventListView, EventListView.Listener {
     }
 
     private fun onRecyclerViewScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-
     }
 
     private fun onRefresh() {
