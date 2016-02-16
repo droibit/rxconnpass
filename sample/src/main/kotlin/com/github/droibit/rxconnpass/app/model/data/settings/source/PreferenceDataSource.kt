@@ -35,6 +35,6 @@ class PreferenceDataSource @Inject constructor(
             = sharedPrefs.getInt(context.getString(key), defaultValue)
 
     private fun setInt(@StringRes key: Int, value: Int) {
-        sharedPrefs.edit().putInt(context.getString(key), value)
+        sharedPrefs.edit().putInt(context.getString(key), value).apply()
     }
 }

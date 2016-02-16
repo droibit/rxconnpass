@@ -13,9 +13,7 @@ inline fun simpleOnQueryTextListener(crossinline textSubmit: (query: String) -> 
 
 inline fun simpleOnScrollListener(crossinline scrolled: (recyclerView: RecyclerView, dx: Int, dy: Int) -> Unit): RecyclerView.OnScrollListener {
     return object : RecyclerView.OnScrollListener() {
-        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-            scrolled(recyclerView, dx, dy)
-        }
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) = scrolled(recyclerView, dx, dy)
 
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
         }

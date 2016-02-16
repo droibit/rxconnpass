@@ -33,11 +33,7 @@ class EventListActivity : AppCompatActivity(), Action1<TransitionDetailEvent> {
         super.onStart()
 
         compositeSubscription = CompositeSubscription()
-        compositeSubscription += eventBus.toObserverable()
-                .filter { it is TransitionDetailEvent }
-                .cast(TransitionDetailEvent::class.java)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this)
+        subscribeTransitionDetailEvent()
     }
 
     override fun onStop() {
@@ -49,6 +45,14 @@ class EventListActivity : AppCompatActivity(), Action1<TransitionDetailEvent> {
     override fun onBackPressed() {
         super.onBackPressed()
         // TODO: フラグメントへ通知
+    }
+
+    private fun subscribeTransitionDetailEvent() {
+        compositeSubscription += eventBus.toObserverable()
+                .filter { it is TransitionDetailEvent }
+                .cast(TransitionDetailEvent::class.java)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this)
     }
 
     override fun call(event: TransitionDetailEvent) {

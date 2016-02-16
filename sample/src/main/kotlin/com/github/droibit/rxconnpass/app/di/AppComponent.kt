@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import com.github.droibit.rxconnpass.RxConnpass
 import com.github.droibit.rxconnpass.app.RxConnpassApplication
 import com.github.droibit.rxconnpass.app.ui.activity.EventListActivity
+import com.github.droibit.rxconnpass.app.ui.fragment.dialog.EventSortOrderDialogFragment
 import dagger.Component
 import javax.inject.Singleton
 
@@ -18,6 +19,7 @@ interface AppComponent {
     fun inject(application: RxConnpassApplication)
 
     fun inject(activity: EventListActivity)
+    fun inject(fragment: EventSortOrderDialogFragment)
 
     fun plus(module: EventModule): EventComponent
 

@@ -11,6 +11,14 @@
         tools:ignore="AlwaysShowAction"/>
 
     <item
+            android:id="@+id/action_change_sort_order"
+            android:icon="@drawable/ic_action_change_sort_order"
+            android:orderInCategory="200"
+            android:title="@string/action_change_sort_order"
+            app:showAsAction="always"
+            tools:ignore="AlwaysShowAction"/>
+
+    <item
         android:id="@+id/action_settings"
         android:title="@string/action_settings"
         app:showAsAction="never"/>

@@ -14,6 +14,7 @@ import com.github.droibit.rxconnpass.app.R
 import com.github.droibit.rxconnpass.app.RxConnpassApplication
 import com.github.droibit.rxconnpass.app.databinding.FragmentEventListBinding
 import com.github.droibit.rxconnpass.app.di.EventModule
+import com.github.droibit.rxconnpass.app.ui.fragment.dialog.EventSortOrderDialogFragment
 import com.github.droibit.rxconnpass.app.ui.interactor.EventListInteractor
 import com.github.droibit.rxconnpass.app.ui.navigator.Navigator
 import com.github.droibit.rxconnpass.app.ui.view.EventListView
@@ -24,6 +25,7 @@ import com.github.droibit.rxconnpass.app.ui.view.widget.DividerItemDecoration.Co
 import com.github.droibit.rxconnpass.app.ui.view.widget.simpleOnQueryTextListener
 import com.github.droibit.rxconnpass.app.ui.view.widget.simpleOnScrollListener
 import com.github.droibit.rxconnpass.app.util.extension.isVisible
+import com.github.droibit.rxconnpass.app.util.extension.show
 import com.github.droibit.rxconnpass.app.util.extension.startAnimation
 import com.github.droibit.rxconnpass.app.util.rx.RxBus
 import com.miguelcatalan.materialsearchview.MaterialSearchView
@@ -80,15 +82,6 @@ class EventListFragment : Fragment(), EventListView, EventListView.Listener {
     private lateinit var binding: FragmentEventListBinding
     private lateinit var eventListAdapter: EventListAdapter
 
-    private var itemClickCallback: Action1<TransitionDetailEvent>? = null
-
-    @Suppress("UNCHECKED_CAST")
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-
-        itemClickCallback = context as? Action1<TransitionDetailEvent>
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -135,7 +128,7 @@ class EventListFragment : Fragment(), EventListView, EventListView.Listener {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_main, menu)
+        inflater.inflate(R.menu.menu_event_list, menu)
 
         binding.searchView.apply {
             val item = menu.findItem(R.id.action_search)
@@ -146,6 +139,7 @@ class EventListFragment : Fragment(), EventListView, EventListView.Listener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_settings -> Navigator.navigateToSettings(context)
+            R.id.action_change_sort_order -> showSortOrderDialog()
             else -> super.onContextItemSelected(item)
         }
     }
@@ -166,6 +160,11 @@ class EventListFragment : Fragment(), EventListView, EventListView.Listener {
     }
 
     private fun onRefresh() {
+    }
+
+    private fun showSortOrderDialog(): Boolean {
+        EventSortOrderDialogFragment().show(childFragmentManager)
+        return true
     }
 
     private fun updateToolbarTitle(title: String) {
