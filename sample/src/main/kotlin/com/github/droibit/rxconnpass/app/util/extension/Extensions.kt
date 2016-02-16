@@ -11,7 +11,7 @@ import java.io.InputStream
 
 fun InputStream.readText() = reader().use { it.readText() }
 
-inline fun View.startAnimation(@AnimRes resId: Int, after: View.()->Unit) {
+inline fun View.startAnimation(@AnimRes resId: Int, after: View.() -> Unit) {
     startAnimation(AnimationUtils.loadAnimation(context, resId))
     after()
 }

@@ -204,7 +204,7 @@ class EventListFragment : Fragment(), EventListView, EventListView.Listener {
 
     private fun setContentShown(shown: Boolean) {
         val (animRes, animAfterVisibility) = animationFor(shown)
-        val contentView =  binding.run { if (recycler.isVisible) recycler else empty }
+        val contentView = binding.run { if (recycler.isVisible) recycler else empty }
 
         contentView.startAnimation(animRes) {
             visibility = animAfterVisibility

@@ -26,9 +26,9 @@ class EventSortDialogFragment : DialogFragment(), DialogInterface.OnClickListene
 
         // TODO: デフォルトチェックはSettingsより
         return AlertDialog.Builder(context)
-            .setTitle(R.string.dialog_title_event_sort_order)
-            .setSingleChoiceItems(items, 1, this)
-            .create()
+                .setTitle(R.string.dialog_title_event_sort_order)
+                .setSingleChoiceItems(items, 1, this)
+                .create()
     }
 
     override fun onDestroyView() {

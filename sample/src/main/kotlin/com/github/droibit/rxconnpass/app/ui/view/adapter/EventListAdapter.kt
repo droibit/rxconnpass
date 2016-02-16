@@ -71,8 +71,8 @@ class EventListAdapter(private val listener: PublishSubject<TransitionDetailEven
             return
         }
 
-        val lastInex = this.events.size
+        val lastIndex = this.events.size
         this.events.addAll(events)
-        notifyItemRangeInserted(lastInex, events.size)
+        notifyItemRangeInserted(lastIndex, events.size)
     }
 }

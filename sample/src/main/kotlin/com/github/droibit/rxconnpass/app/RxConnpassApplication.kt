@@ -12,7 +12,7 @@ import timber.log.Timber
  *
  * @author kumagai
  */
-class RxConnpassApplication: Application() {
+class RxConnpassApplication : Application() {
 
     companion object {
         @JvmStatic
@@ -28,7 +28,7 @@ class RxConnpassApplication: Application() {
         LeakCanary.install(this)
 
         component = DaggerAppComponent.builder()
-            .appModule(AppModule(this))
-            .build()
+                .appModule(AppModule(this))
+                .build()
     }
 }
