@@ -20,7 +20,7 @@ class PreferenceDataSource @Inject constructor(
         get() = getString(R.string.pref_general_request_per_count_key, "10").toInt()
         set(value) = setString(R.string.pref_general_request_per_count_key, "$value")
 
-    override var eventSortOrder: Int
+    override var eventOrder: Int
         get() = getInt(R.string.dialog_key_event_sort_order, Order.EVENT.index)
         set(value) = setInt(R.string.dialog_key_event_sort_order, value)
 

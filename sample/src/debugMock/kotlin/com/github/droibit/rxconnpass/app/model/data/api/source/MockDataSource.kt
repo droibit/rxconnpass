@@ -3,6 +3,7 @@ package com.github.droibit.rxconnpass.app.model.data.api.source
 import android.content.Context
 import android.content.res.AssetManager
 import com.github.droibit.rxconnpass.EventResponse
+import com.github.droibit.rxconnpass.Order
 import com.github.droibit.rxconnpass.ResponseAdapters
 import com.github.droibit.rxconnpass.app.model.data.api.ConnpassClient
 import com.github.droibit.rxconnpass.app.util.extension.readText
@@ -19,7 +20,7 @@ class MockDataSource @Inject constructor(private val context: Context): DataSour
 
     private val mockResponse: EventResponse by lazy { readMockResponse(context.assets) }
 
-    override fun getByKeyword(keyword: String, searchMore: ConnpassClient.SearchMore?): Observable<EventResponse> {
+    override fun getByKeyword(keyword: String, order: Order,searchMore: ConnpassClient.SearchMore?): Observable<EventResponse> {
         // TODO: searchMoreによって返すEvent数を変える
         if (keyword.equals("empty")) {
             return Observable.just(emptyEventResponse)

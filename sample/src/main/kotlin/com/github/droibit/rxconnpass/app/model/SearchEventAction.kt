@@ -2,10 +2,12 @@ package com.github.droibit.rxconnpass.app.model
 
 import android.support.annotation.CheckResult
 import com.github.droibit.rxconnpass.Event
+import com.github.droibit.rxconnpass.Order
 import com.github.droibit.rxconnpass.app.di.scope.PerEvent
 import com.github.droibit.rxconnpass.app.model.data.api.ConnpassClient
 import com.github.droibit.rxconnpass.app.model.data.reachability.Reachability
 import com.github.droibit.rxconnpass.app.model.data.settings.Settings
+import com.github.droibit.rxconnpass.app.model.data.settings.source.toOrder
 import com.github.droibit.rxconnpass.app.model.exception.NetworkDisconnectedException
 import rx.Observable
 import rx.schedulers.Schedulers
@@ -34,7 +36,9 @@ class SearchEventAction @Inject constructor(
         if (!reachability.connectedAny()) {
             return Observable.error(NetworkDisconnectedException())
         }
-        return client.getByKeyword(param, _searchMore)
+        return client.getByKeyword(keyword = param,
+                                   order = settings.eventOrder.toOrder(),
+                                   searchMore = _searchMore)
                 .subscribeOn(Schedulers.io())
                 .delay(3, TimeUnit.SECONDS)
                 .map { it.events }

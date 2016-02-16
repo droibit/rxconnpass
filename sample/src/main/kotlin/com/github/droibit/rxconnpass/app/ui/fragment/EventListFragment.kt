@@ -171,7 +171,6 @@ class EventListFragment : Fragment(), EventListView, EventListView.Listener {
         var actionbar = (activity as? AppCompatActivity)?.supportActionBar
         if (actionbar != null) {
             actionbar.title = title
-            Timber.d("Update toolbar title: $title")
         }
     }
 

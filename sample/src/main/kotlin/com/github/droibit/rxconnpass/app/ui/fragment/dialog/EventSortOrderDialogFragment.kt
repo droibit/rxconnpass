@@ -31,13 +31,13 @@ class EventSortOrderDialogFragment : AppCompatDialogFragment(), DialogInterface.
         val items = resources.getStringArray(R.array.dialog_entries_event_sort_order)
         return AlertDialog.Builder(context)
                 .setTitle(R.string.dialog_title_event_sort_order)
-                .setSingleChoiceItems(items, settings.eventSortOrder, this)
+                .setSingleChoiceItems(items, settings.eventOrder, this)
                 .create()
     }
 
     override fun onClick(dialog: DialogInterface, which: Int) {
         Timber.d("Event sort order changed: $which")
-        settings.eventSortOrder = which
+        settings.eventOrder = which
         dismiss()
     }
 }
