@@ -75,7 +75,7 @@ class EventListFragment : Fragment(), EventListView, EventListView.Listener {
     @Inject
     internal lateinit var appContext: Context
     @Inject
-    internal lateinit var rxBus: RxBus
+    internal lateinit var eventBus: RxBus
 
     private lateinit var binding: FragmentEventListBinding
     private lateinit var eventListAdapter: EventListAdapter
@@ -109,7 +109,7 @@ class EventListFragment : Fragment(), EventListView, EventListView.Listener {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        eventListAdapter = EventListAdapter(eventBus = rxBus)
+        eventListAdapter = EventListAdapter(eventBus)
 
         binding.recycler.apply {
             adapter = eventListAdapter

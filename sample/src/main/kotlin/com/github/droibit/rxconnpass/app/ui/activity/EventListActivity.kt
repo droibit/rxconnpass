@@ -16,7 +16,7 @@ import javax.inject.Inject
 class EventListActivity : AppCompatActivity(), Action1<TransitionDetailEvent> {
 
     @Inject
-    internal lateinit var rxBus: RxBus
+    internal lateinit var eventBus: RxBus
 
     private lateinit var compositeSubscription: CompositeSubscription
 
@@ -33,7 +33,7 @@ class EventListActivity : AppCompatActivity(), Action1<TransitionDetailEvent> {
         super.onStart()
 
         compositeSubscription = CompositeSubscription()
-        compositeSubscription += rxBus.toObserverable()
+        compositeSubscription += eventBus.toObserverable()
                 .filter { it is TransitionDetailEvent }
                 .cast(TransitionDetailEvent::class.java)
                 .observeOn(AndroidSchedulers.mainThread())
