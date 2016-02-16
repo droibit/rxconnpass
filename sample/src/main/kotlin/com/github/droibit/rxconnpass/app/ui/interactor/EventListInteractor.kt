@@ -30,11 +30,6 @@ class EventListInteractor @Inject constructor(
     }
 
     override fun onResume() {
-        // イベントのクリック
-        compositeSubscription += view.itemClick
-                .subscribe {
-                    Toast.makeText(context, "Clicked: ${it.title}", Toast.LENGTH_SHORT).show()
-                }
     }
 
     override fun onPause() {
