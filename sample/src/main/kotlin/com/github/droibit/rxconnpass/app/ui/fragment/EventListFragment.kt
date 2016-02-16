@@ -25,6 +25,7 @@ import com.github.droibit.rxconnpass.app.ui.view.widget.simpleOnQueryTextListene
 import com.github.droibit.rxconnpass.app.ui.view.widget.simpleOnScrollListener
 import com.github.droibit.rxconnpass.app.util.extension.isVisible
 import com.github.droibit.rxconnpass.app.util.extension.startAnimation
+import com.github.droibit.rxconnpass.app.util.rx.RxBus
 import com.miguelcatalan.materialsearchview.MaterialSearchView
 import rx.Observable
 import rx.functions.Action0
@@ -73,10 +74,11 @@ class EventListFragment : Fragment(), EventListView, EventListView.Listener {
     internal lateinit var interactor: EventListInteractor
     @Inject
     internal lateinit var appContext: Context
+    @Inject
+    internal lateinit var rxBus: RxBus
 
     private lateinit var binding: FragmentEventListBinding
     private lateinit var eventListAdapter: EventListAdapter
-    private lateinit var itemClick: PublishSubject<TransitionDetailEvent>
 
     private var itemClickCallback: Action1<TransitionDetailEvent>? = null
 
@@ -107,8 +109,7 @@ class EventListFragment : Fragment(), EventListView, EventListView.Listener {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        itemClick = PublishSubject.create()
-        eventListAdapter = EventListAdapter(itemClick)
+        eventListAdapter = EventListAdapter(eventBus = rxBus)
 
         binding.recycler.apply {
             adapter = eventListAdapter
@@ -117,15 +118,6 @@ class EventListFragment : Fragment(), EventListView, EventListView.Listener {
             setHasFixedSize(true)
         }
         interactor.init(this)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        // タブレットが絡むと詳細画面への遷移はActivity側に任せるしか無い
-        if (itemClickCallback != null) {
-            itemClick.subscribe(itemClickCallback)
-        }
     }
 
     override fun onResume() {
@@ -140,10 +132,6 @@ class EventListFragment : Fragment(), EventListView, EventListView.Listener {
 
     override fun onDestroyView() {
         super.onDestroyView()
-
-        // TODO: subscription#unsubscribe呼ばなくても大丈夫？
-        itemClick.onCompleted()
-        binding.searchView.setOnQueryTextListener(null)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -197,8 +185,6 @@ class EventListFragment : Fragment(), EventListView, EventListView.Listener {
         targetView.startAnimation(android.R.anim.fade_in) {
             visibility = View.VISIBLE
         }
-        setProgressShown(shown = false)
-
         Timber.d("Fetched ${events.size} events.")
     }
 
@@ -209,6 +195,8 @@ class EventListFragment : Fragment(), EventListView, EventListView.Listener {
         contentView.startAnimation(animRes) {
             visibility = animAfterVisibility
         }
+        Timber.d("Shown($shown) Content.")
+
         setProgressShown(!shown)
     }
 
@@ -217,7 +205,7 @@ class EventListFragment : Fragment(), EventListView, EventListView.Listener {
         binding.progress.startAnimation(animRes) {
             visibility = animAfterVisibility
         }
-        Timber.d("Hide content and show progress.")
+        Timber.d("Shown($shown) progress.")
     }
 
     private fun animationFor(shown: Boolean) = if (shown) {

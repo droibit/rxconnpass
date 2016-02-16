@@ -9,6 +9,7 @@ import com.github.droibit.rxconnpass.Event
 import com.github.droibit.rxconnpass.app.R
 import com.github.droibit.rxconnpass.app.databinding.RecyclerItemEventBinding
 import com.github.droibit.rxconnpass.app.ui.view.transition.TransitionDetailEvent
+import com.github.droibit.rxconnpass.app.util.rx.RxBus
 import rx.functions.Action2
 import rx.subjects.PublishSubject
 import java.util.*
@@ -16,7 +17,7 @@ import java.util.*
 /**
  * Created by kumagai on 2016/02/03.
  */
-class EventListAdapter(private val listener: PublishSubject<TransitionDetailEvent>)
+class EventListAdapter(private val eventBus: RxBus)
         : RecyclerView.Adapter<RecyclerView.ViewHolder>(), Action2<List<Event>, Boolean> {
 
     companion object {
@@ -45,8 +46,7 @@ class EventListAdapter(private val listener: PublishSubject<TransitionDetailEven
                 val view = inflater.inflate(R.layout.recycler_item_event, parent, false)
                 ItemViewHolder(view).apply {
                     view.setOnClickListener {
-                        listener.onNext(TransitionDetailEvent(event = events[adapterPosition],
-                                                              titleView = binding.title))
+                        eventBus.send(TransitionDetailEvent(events[adapterPosition], titleView = binding.title))
                     }
                 }
             }
@@ -54,7 +54,7 @@ class EventListAdapter(private val listener: PublishSubject<TransitionDetailEven
                 val view = inflater.inflate(R.layout.recycler_item_event_footer, parent, false)
                 FooterViewHolder(view)
             }
-            else -> error("Unkown view type: $viewType")
+            else -> error("Unknown view type: $viewType")
         }
     }
 

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.github.droibit.rxconnpass.RxConnpass
 import com.github.droibit.rxconnpass.app.RxConnpassApplication
+import com.github.droibit.rxconnpass.app.ui.activity.EventListActivity
 import dagger.Component
 import javax.inject.Singleton
 
@@ -15,6 +16,8 @@ import javax.inject.Singleton
 interface AppComponent {
 
     fun inject(application: RxConnpassApplication)
+
+    fun inject(activity: EventListActivity)
 
     fun plus(module: EventModule): EventComponent
 
