@@ -9,6 +9,6 @@ import com.github.droibit.rxconnpass.Event
  * @author kumagai
  */
 data class TransitionDetailEvent(
-        val event: Event,
+        val srcEvent: Event,
         val titleView: View
 )
