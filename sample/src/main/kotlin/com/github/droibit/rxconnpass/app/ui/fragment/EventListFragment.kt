@@ -70,7 +70,6 @@ class EventListFragment : Fragment(), EventListView, EventListView.Listener {
     override val refresh: SwipeRefreshLayout.OnRefreshListener
         = SwipeRefreshLayout.OnRefreshListener { onRefresh() }
 
-
     @Inject
     internal lateinit var interactor: EventListInteractor
     @Inject
@@ -95,7 +94,6 @@ class EventListFragment : Fragment(), EventListView, EventListView.Listener {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_event_list, container, false)
-
         binding.apply {
             listener = this@EventListFragment
             (activity as? AppCompatActivity)?.setSupportActionBar(toolbar)
