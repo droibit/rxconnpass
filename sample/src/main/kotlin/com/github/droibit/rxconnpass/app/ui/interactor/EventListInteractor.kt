@@ -20,12 +20,11 @@ import javax.inject.Named
 class EventListInteractor @Inject constructor(
         private val context: Context,
         @Named("searchEvent") private val action: SearchAction,
-        // FIXME: 回転した時に再生成しないとダメ
-        private val compositeSubscription: CompositeSubscription) : ViewInteractor {
+        private val compositeSubscription: CompositeSubscription) : ViewInteractor<EventListView> {
 
     private lateinit var view: EventListView
 
-    fun init(view: EventListView) {
+    override fun attachView(view: EventListView) {
         this.view = view
     }
 
@@ -33,6 +32,9 @@ class EventListInteractor @Inject constructor(
     }
 
     override fun onPause() {
+    }
+
+    override fun onDetach() {
         compositeSubscription.unsubscribe()
     }
 

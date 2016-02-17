@@ -112,7 +112,7 @@ class EventListFragment : Fragment(), EventListView, EventListView.Listener {
             addItemDecoration(DividerItemDecoration(context, VERTICAL_LIST))
             setHasFixedSize(true)
         }
-        interactor.init(this)
+        interactor.attachView(this)
     }
 
     override fun onResume() {
@@ -134,12 +134,16 @@ class EventListFragment : Fragment(), EventListView, EventListView.Listener {
         refWatcher.watch(this)
     }
 
+    override fun onDetach() {
+        super.onDetach()
+        interactor.onDetach()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_event_list, menu)
 
-        binding.searchView.apply {
-            val item = menu.findItem(R.id.action_search)
-            setMenuItem(item)
+        menu.findItem(R.id.action_search).apply {
+            binding.searchView.setMenuItem(this)
         }
     }
 
