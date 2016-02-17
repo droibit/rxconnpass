@@ -1,11 +1,8 @@
 package com.github.droibit.rxconnpass.app.util.binding;
 
-import com.github.droibit.rxconnpass.app.R;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
-import android.annotation.SuppressLint;
 import android.databinding.BindingAdapter;
-import android.support.annotation.ColorRes;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
@@ -18,7 +15,7 @@ import java.util.Date;
  */
 public class BindingAdapters {
 
-    @BindingAdapter({"bind:OnQueryText"})
+    @BindingAdapter({"bind:onQueryText"})
     public static void bindQueryChangeListener(MaterialSearchView view, MaterialSearchView.OnQueryTextListener listener) {
         view.setOnQueryTextListener(listener);
     }
