@@ -61,17 +61,15 @@ class EventListFragment : Fragment(), EventListView, EventListView.Listener {
         get() = Action1 { showError(throwable = it) }
 
     // SearchViewから検索ボタンが押された時に呼ばれる
-    override val queryText: MaterialSearchView.OnQueryTextListener by lazy {
-        simpleOnQueryTextListener { query -> onQueryTextSubmit(query) }
-    }
+    override val queryText: MaterialSearchView.OnQueryTextListener
+        = simpleOnQueryTextListener { query -> onQueryTextSubmit(query) }
     // RecyclerViewがスクロールした時に呼ばれる
-    override val scroll: RecyclerView.OnScrollListener by lazy {
-        simpleOnScrollListener { view, x, y -> onRecyclerViewScrolled(view, x, y) }
-    }
+    override val scroll: RecyclerView.OnScrollListener
+        = simpleOnScrollListener { view, x, y -> onRecyclerViewScrolled(view, x, y) }
     // PullToRefreshする時に呼ばれる
-    override val refresh: SwipeRefreshLayout.OnRefreshListener by lazy {
-        SwipeRefreshLayout.OnRefreshListener { onRefresh() }
-    }
+    override val refresh: SwipeRefreshLayout.OnRefreshListener
+        = SwipeRefreshLayout.OnRefreshListener { onRefresh() }
+
 
     @Inject
     internal lateinit var interactor: EventListInteractor

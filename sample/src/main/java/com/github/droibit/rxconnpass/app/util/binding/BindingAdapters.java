@@ -3,6 +3,8 @@ package com.github.droibit.rxconnpass.app.util.binding;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import android.databinding.BindingAdapter;
+import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
@@ -28,6 +30,11 @@ public class BindingAdapters {
     @BindingAdapter({"bind:onRefresh"})
     public static void bindRefreshListener(SwipeRefreshLayout layout, SwipeRefreshLayout.OnRefreshListener listener) {
         layout.setOnRefreshListener(listener);
+    }
+
+    @BindingAdapter({"bind:colorSchemeColor"})
+    public static void bindColorSchemeColor(SwipeRefreshLayout layout, @ColorInt int color) {
+        layout.setColorSchemeColors(color);
     }
 
     @BindingAdapter({"bind:startedAt", "bind:endedAt"})
