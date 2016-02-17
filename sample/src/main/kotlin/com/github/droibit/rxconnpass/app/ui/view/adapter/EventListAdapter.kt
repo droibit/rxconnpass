@@ -11,7 +11,6 @@ import com.github.droibit.rxconnpass.app.databinding.RecyclerItemEventBinding
 import com.github.droibit.rxconnpass.app.ui.view.transition.TransitionDetailEvent
 import com.github.droibit.rxconnpass.app.util.rx.RxBus
 import rx.functions.Action2
-import rx.subjects.PublishSubject
 import java.util.*
 
 /**

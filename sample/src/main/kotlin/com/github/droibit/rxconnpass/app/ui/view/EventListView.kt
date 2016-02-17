@@ -4,7 +4,6 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.RecyclerView
 import com.github.droibit.rxconnpass.Event
 import com.miguelcatalan.materialsearchview.MaterialSearchView
-import rx.Observable
 import rx.functions.Action0
 import rx.functions.Action1
 

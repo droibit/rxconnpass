@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import com.github.droibit.rxconnpass.app.R
 import com.github.droibit.rxconnpass.app.RxConnpassApplication.Companion.component
-import com.github.droibit.rxconnpass.app.ui.navigator.Navigator
 import com.github.droibit.rxconnpass.app.ui.view.transition.TransitionDetailEvent
 import com.github.droibit.rxconnpass.app.util.rx.RxBus
 import rx.android.schedulers.AndroidSchedulers

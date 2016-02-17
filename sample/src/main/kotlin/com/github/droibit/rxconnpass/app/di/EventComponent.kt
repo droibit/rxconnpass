@@ -2,7 +2,6 @@ package com.github.droibit.rxconnpass.app.di
 
 import com.github.droibit.rxconnpass.app.di.scope.PerEvent
 import com.github.droibit.rxconnpass.app.ui.fragment.EventListFragment
-import com.github.droibit.rxconnpass.app.ui.fragment.SettingsFragment
 import dagger.Subcomponent
 
 /**
