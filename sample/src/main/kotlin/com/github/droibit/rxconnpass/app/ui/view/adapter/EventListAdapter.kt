@@ -45,7 +45,8 @@ class EventListAdapter(private val eventBus: RxBus)
                 val view = inflater.inflate(R.layout.recycler_item_event, parent, false)
                 ItemViewHolder(view).apply {
                     view.setOnClickListener {
-                        eventBus.send(TransitionDetailEvent(events[adapterPosition], titleView = binding.title))
+                        val event = events[adapterPosition]
+                        eventBus.send(TransitionDetailEvent(event, titleView = binding.title))
                     }
                 }
             }

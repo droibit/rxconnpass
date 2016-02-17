@@ -40,8 +40,8 @@ class EventListInteractor @Inject constructor(
         // イベントの検索
         compositeSubscription += action.search(keyword)
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe(view.showProgress)
-                .doOnCompleted(view.hideProgress)
-                .subscribe(view.showContent, view.showError)
+                .doOnSubscribe(view.showProgress())
+                .doOnCompleted(view.hideProgress())
+                .subscribe(view.showContent(), view.showError())
     }
 }
