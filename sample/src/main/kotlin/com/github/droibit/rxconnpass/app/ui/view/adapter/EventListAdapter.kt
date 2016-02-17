@@ -10,13 +10,14 @@ import com.github.droibit.rxconnpass.app.R
 import com.github.droibit.rxconnpass.app.databinding.RecyclerItemEventBinding
 import com.github.droibit.rxconnpass.app.ui.view.transition.TransitionDetailEvent
 import com.github.droibit.rxconnpass.app.util.rx.RxBus
+import rx.functions.Action1
 import rx.functions.Action2
 import java.util.*
 
 /**
  * Created by kumagai on 2016/02/03.
  */
-class EventListAdapter(private val eventBus: RxBus)
+class EventListAdapter(private val callback: Action1<TransitionDetailEvent>)
         : RecyclerView.Adapter<RecyclerView.ViewHolder>(), Action2<List<Event>, Boolean> {
 
     companion object {
@@ -46,7 +47,7 @@ class EventListAdapter(private val eventBus: RxBus)
                 ItemViewHolder(view).apply {
                     view.setOnClickListener {
                         val event = events[adapterPosition]
-                        eventBus.send(TransitionDetailEvent(event, titleView = binding.title))
+                        callback.call(TransitionDetailEvent(event, titleView = binding.title))
                     }
                 }
             }

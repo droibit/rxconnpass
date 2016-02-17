@@ -75,7 +75,7 @@ class EventListFragment : Fragment(), EventListView, EventListView.Binding {
 
         component().inject(this)
 
-        eventListAdapter = EventListAdapter(eventBus)
+        eventListAdapter = EventListAdapter(callback = interactor.eventClick())
         retainInstance = true
         setHasOptionsMenu(true)
     }
@@ -90,13 +90,12 @@ class EventListFragment : Fragment(), EventListView, EventListView.Binding {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.recycler?.apply {
+        binding.recycler.apply {
             adapter = eventListAdapter
             layoutManager = LinearLayoutManager(context)
             addItemDecoration(DividerItemDecoration(context, VERTICAL_LIST))
             setHasFixedSize(true)
         }
-
         interactor.init(this)
     }
 
@@ -108,10 +107,6 @@ class EventListFragment : Fragment(), EventListView, EventListView.Binding {
     override fun onPause() {
         super.onPause()
         interactor.onPause()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
     }
 
     override fun onDestroy() {
@@ -133,9 +128,21 @@ class EventListFragment : Fragment(), EventListView, EventListView.Binding {
     }
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-        R.id.action_settings -> Navigator.navigateToSettings(context)
-        R.id.action_change_sort_order -> showSortOrderDialog()
+        R.id.action_settings          -> interactor.settingsMenuClick()
+        R.id.action_change_sort_order -> interactor.eventOrderMenuClick()
         else -> super.onContextItemSelected(item)
+    }
+
+    override fun eventOrderMenuClick() {
+        EventSortOrderDialogFragment().show(childFragmentManager)
+    }
+
+    override fun settingMenuClick() {
+        Navigator.navigateToSettings(context)
+    }
+
+    override fun eventClick(event: TransitionDetailEvent) {
+        eventBus.send(event)
     }
 
     private fun onQueryTextSubmit(query: String): Boolean {
@@ -177,14 +184,6 @@ class EventListFragment : Fragment(), EventListView, EventListView.Binding {
 
     override fun showError(): Action1<Throwable> = Action1 { t ->
         Timber.e(t, "Event Fetched Error: ")
-    }
-
-    override fun itemClick(): Action1<TransitionDetailEvent> = Action1 { e ->
-    }
-
-    private fun showSortOrderDialog(): Boolean {
-        EventSortOrderDialogFragment().show(childFragmentManager)
-        return true
     }
 
     private fun updateToolbarTitle(title: String) {

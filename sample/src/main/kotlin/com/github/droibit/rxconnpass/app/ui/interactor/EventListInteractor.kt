@@ -4,7 +4,9 @@ import android.content.Context
 import com.github.droibit.rxconnpass.app.di.scope.PerEvent
 import com.github.droibit.rxconnpass.app.model.SearchAction
 import com.github.droibit.rxconnpass.app.ui.view.EventListView
+import com.github.droibit.rxconnpass.app.ui.view.transition.TransitionDetailEvent
 import rx.android.schedulers.AndroidSchedulers
+import rx.functions.Action1
 import rx.lang.kotlin.plusAssign
 import rx.subscriptions.CompositeSubscription
 import javax.inject.Inject
@@ -43,5 +45,19 @@ class EventListInteractor @Inject constructor(
                 .doOnSubscribe(view.showProgress())
                 .doOnCompleted(view.hideProgress())
                 .subscribe(view.showContent(), view.showError())
+    }
+
+    fun eventClick(): Action1<TransitionDetailEvent> = Action1 {
+        view.eventClick(it)
+    }
+
+    fun eventOrderMenuClick(): Boolean {
+        view.eventOrderMenuClick()
+        return true
+    }
+
+    fun settingsMenuClick(): Boolean {
+        view.settingMenuClick()
+        return true
     }
 }
