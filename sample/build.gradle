@@ -4,6 +4,8 @@ buildscript {
         leakcanary_version = '1.3.1'
         dagger2_version = '2.0.2'
         icepick_version = '3.1.0'
+        rxkotlin_version = '0.40.1'
+        rxandroid_version = '1.1.0'
     }
 }
 
@@ -76,8 +78,8 @@ dependencies {
     compile "frankiesardo:icepick:$icepick_version"
     provided "frankiesardo:icepick-processor:$icepick_version"
 
-    compile 'io.reactivex:rxkotlin:0.40.1'
-    compile 'io.reactivex:rxandroid:1.1.0'
+    compile "io.reactivex:rxkotlin:$rxkotlin_version"
+    compile "io.reactivex:rxandroid:$rxandroid_version"
 
     compile 'com.jakewharton.timber:timber:4.1.0'
     compile 'com.github.droibit.prefbindings:prefbinding-support:1.0.4'
