@@ -5,7 +5,9 @@ import android.content.SharedPreferences
 import com.github.droibit.rxconnpass.RxConnpass
 import com.github.droibit.rxconnpass.app.RxConnpassApplication
 import com.github.droibit.rxconnpass.app.ui.activity.EventListActivity
+import com.github.droibit.rxconnpass.app.ui.fragment.SettingsFragment
 import com.github.droibit.rxconnpass.app.ui.fragment.dialog.EventSortOrderDialogFragment
+import com.squareup.leakcanary.RefWatcher
 import dagger.Component
 import javax.inject.Singleton
 
@@ -19,6 +21,7 @@ interface AppComponent {
     fun inject(application: RxConnpassApplication)
 
     fun inject(activity: EventListActivity)
+    fun inject(fragment: SettingsFragment)
     fun inject(fragment: EventSortOrderDialogFragment)
 
     fun plus(module: EventModule): EventComponent
@@ -26,4 +29,5 @@ interface AppComponent {
     fun context(): Context
     fun sharedPreference(): SharedPreferences
     fun rxConnpass(): RxConnpass
+    fun refWatcher(): RefWatcher
 }

@@ -13,5 +13,4 @@ import dagger.Subcomponent
 interface EventComponent {
 
     fun inject(fragment: EventListFragment)
-    fun inject(fragment: SettingsFragment)
 }

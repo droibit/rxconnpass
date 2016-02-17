@@ -25,10 +25,10 @@ class RxConnpassApplication : Application() {
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
-        LeakCanary.install(this)
+        val refWatcher = LeakCanary.install(this)
 
         component = DaggerAppComponent.builder()
-                .appModule(AppModule(this))
+                .appModule(AppModule(this, refWatcher))
                 .build()
     }
 }

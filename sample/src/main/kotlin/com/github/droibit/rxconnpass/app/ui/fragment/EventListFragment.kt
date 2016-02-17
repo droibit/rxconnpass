@@ -29,6 +29,7 @@ import com.github.droibit.rxconnpass.app.util.extension.show
 import com.github.droibit.rxconnpass.app.util.extension.startAnimation
 import com.github.droibit.rxconnpass.app.util.rx.RxBus
 import com.miguelcatalan.materialsearchview.MaterialSearchView
+import com.squareup.leakcanary.RefWatcher
 import rx.Observable
 import rx.functions.Action0
 import rx.functions.Action1
@@ -78,6 +79,8 @@ class EventListFragment : Fragment(), EventListView, EventListView.Listener {
     internal lateinit var appContext: Context
     @Inject
     internal lateinit var eventBus: RxBus
+    @Inject
+    internal lateinit var refWatcher: RefWatcher
 
     private lateinit var binding: FragmentEventListBinding
     private lateinit var eventListAdapter: EventListAdapter
@@ -124,6 +127,11 @@ class EventListFragment : Fragment(), EventListView, EventListView.Listener {
 
     override fun onDestroyView() {
         super.onDestroyView()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        refWatcher.watch(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
