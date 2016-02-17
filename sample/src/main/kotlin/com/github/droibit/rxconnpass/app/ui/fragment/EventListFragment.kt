@@ -19,7 +19,6 @@ import com.github.droibit.rxconnpass.app.ui.interactor.EventListInteractor
 import com.github.droibit.rxconnpass.app.ui.navigator.Navigator
 import com.github.droibit.rxconnpass.app.ui.view.EventListView
 import com.github.droibit.rxconnpass.app.ui.view.adapter.EventListAdapter
-import com.github.droibit.rxconnpass.app.ui.view.transition.TransitionDetailEvent
 import com.github.droibit.rxconnpass.app.ui.view.widget.DividerItemDecoration
 import com.github.droibit.rxconnpass.app.ui.view.widget.DividerItemDecoration.Companion.VERTICAL_LIST
 import com.github.droibit.rxconnpass.app.ui.view.widget.simpleOnQueryTextListener
@@ -30,10 +29,8 @@ import com.github.droibit.rxconnpass.app.util.extension.startAnimation
 import com.github.droibit.rxconnpass.app.util.rx.RxBus
 import com.miguelcatalan.materialsearchview.MaterialSearchView
 import com.squareup.leakcanary.RefWatcher
-import rx.Observable
 import rx.functions.Action0
 import rx.functions.Action1
-import rx.subjects.PublishSubject
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -61,14 +58,17 @@ class EventListFragment : Fragment(), EventListView, EventListView.Listener {
         get() = Action0 { setProgressShown(shown = false) }
     // エラーを表示する
     override val showError: Action1<Throwable>
-        get() = Action1 { Timber.e(it, "Event Fetched Error: ") }
+        get() = Action1 { showError(throwable = it) }
 
+    // SearchViewから検索ボタンが押された時に呼ばれる
     override val queryText: MaterialSearchView.OnQueryTextListener by lazy {
         simpleOnQueryTextListener { query -> onQueryTextSubmit(query) }
     }
+    // RecyclerViewがスクロールした時に呼ばれる
     override val scroll: RecyclerView.OnScrollListener by lazy {
         simpleOnScrollListener { view, x, y -> onRecyclerViewScrolled(view, x, y) }
     }
+    // PullToRefreshする時に呼ばれる
     override val refresh: SwipeRefreshLayout.OnRefreshListener by lazy {
         SwipeRefreshLayout.OnRefreshListener { onRefresh() }
     }
@@ -214,6 +214,10 @@ class EventListFragment : Fragment(), EventListView, EventListView.Listener {
             visibility = animAfterVisibility
         }
         Timber.d("Shown($shown) progress.")
+    }
+
+    private fun showError(throwable: Throwable) {
+        Timber.e(throwable, "Event Fetched Error: ")
     }
 
     private fun animationFor(shown: Boolean) = if (shown) {
