@@ -39,7 +39,7 @@ import javax.inject.Inject
  *
  * @author kumagai
  */
-class EventListFragment : Fragment(), EventListView, EventListView.Listener {
+class EventListFragment : Fragment(), EventListView, EventListView.Binding {
 
     companion object {
 

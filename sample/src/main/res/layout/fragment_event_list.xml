@@ -5,7 +5,7 @@
         tools:ignore="PrivateResource">
 
     <data>
-        <variable name="listener" type="com.github.droibit.rxconnpass.app.ui.view.EventListView.Listener" />
+        <variable name="listener" type="com.github.droibit.rxconnpass.app.ui.view.EventListView.Binding" />
     </data>
 
     <android.support.design.widget.CoordinatorLayout

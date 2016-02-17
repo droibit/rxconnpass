@@ -14,7 +14,7 @@ import rx.functions.Action1
  */
 interface EventListView {
 
-    interface Listener {
+    interface Binding {
         val queryText: MaterialSearchView.OnQueryTextListener
         val scroll: RecyclerView.OnScrollListener
         val refresh: SwipeRefreshLayout.OnRefreshListener
