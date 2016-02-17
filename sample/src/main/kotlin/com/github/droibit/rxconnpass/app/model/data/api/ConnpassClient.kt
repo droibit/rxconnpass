@@ -21,5 +21,16 @@ class ConnpassClient @Inject constructor(source: DataSource): DataSource by sour
 
         val canLoadMore: Boolean
             get() = available < 0 && (start + count) < available
+
+        fun update(available: Int) {
+            this.available = available
+            this.start += count
+        }
+
+        fun reset() {
+            start = 0
+            available = 0
+            count = 0
+        }
     }
 }

@@ -26,20 +26,39 @@ class SearchEventAction @Inject constructor(
 
     // TODO: 回転した時にフィールドを復元しないと行けない
 
-    override val searchMore: ConnpassClient.SearchMore?
-        get() = _searchMore
-    private var _searchMore: ConnpassClient.SearchMore? = null
+    override val canLoadMore: Boolean
+        get() = searchMore.canLoadMore
+
+    private val searchMore = ConnpassClient.SearchMore()
+    private var keyword: String = ""
 
     @CheckResult
     override fun search(param: String): Observable<List<Event>> {
+        if (!keyword.equals(param)) {
+            keyword = param
+        }
+        return searchByKeyword(newKeyword = true)
+    }
+
+    @CheckResult
+    override fun research(): Observable<List<Event>> = searchByKeyword(newKeyword = true)
+
+    @CheckResult
+    override fun searchMore(): Observable<List<Event>> = searchByKeyword(newKeyword = false)
+
+    private fun searchByKeyword(newKeyword: Boolean): Observable<List<Event>> {
+        if (newKeyword) {
+            searchMore.reset()
+        }
+        searchMore.count = settings.countPerRequest
+
         if (!reachability.connectedAny()) {
             return Observable.error(NetworkDisconnectedException())
         }
-        return client.getByKeyword(keyword = param,
-                                   order = settings.eventOrder.toOrder(),
-                                   searchMore = _searchMore)
+        return client.getByKeyword(keyword, settings.eventOrder.toOrder(), searchMore)
                 .subscribeOn(Schedulers.io())
                 .delay(3, TimeUnit.SECONDS)
+                .doOnNext { searchMore.update(it.resultsAvailable) }
                 .map { it.events }
     }
 }

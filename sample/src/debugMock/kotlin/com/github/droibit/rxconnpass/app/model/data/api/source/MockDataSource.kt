@@ -20,7 +20,7 @@ class MockDataSource @Inject constructor(private val context: Context): DataSour
 
     private val mockResponse: EventResponse by lazy { readMockResponse(context.assets) }
 
-    override fun getByKeyword(keyword: String, order: Order,searchMore: ConnpassClient.SearchMore?): Observable<EventResponse> {
+    override fun getByKeyword(keyword: String, order: Order,searchMore: ConnpassClient.SearchMore): Observable<EventResponse> {
         // TODO: searchMoreによって返すEvent数を変える
         if (keyword.equals("empty")) {
             return Observable.just(emptyEventResponse)

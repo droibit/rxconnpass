@@ -13,8 +13,14 @@ import rx.Observable
 @PerEvent
 interface SearchAction {
 
-    val searchMore: ConnpassClient.SearchMore?
+    val canLoadMore: Boolean
 
     @CheckResult
     fun search(param: String): Observable<List<Event>>
+
+    @CheckResult
+    fun research(): Observable<List<Event>>
+
+    @CheckResult
+    fun searchMore(): Observable<List<Event>>
 }
