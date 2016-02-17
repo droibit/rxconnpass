@@ -17,13 +17,12 @@ import javax.inject.Named
  */
 @PerEvent
 class EventListInteractor @Inject constructor(
-        private val context: Context,
         @Named("searchEvent") private val action: SearchAction,
         private val compositeSubscription: CompositeSubscription) : ViewInteractor<EventListView> {
 
     private lateinit var view: EventListView
 
-    override fun attachView(view: EventListView) {
+    override fun init(view: EventListView) {
         this.view = view
     }
 

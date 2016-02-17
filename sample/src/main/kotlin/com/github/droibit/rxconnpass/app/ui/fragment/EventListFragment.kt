@@ -109,7 +109,7 @@ class EventListFragment : Fragment(), EventListView, EventListView.Listener {
             setHasFixedSize(true)
         }
 
-        interactor.attachView(this)
+        interactor.init(this)
     }
 
     override fun onResume() {
