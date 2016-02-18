@@ -133,15 +133,15 @@ class EventListFragment : Fragment(), EventListView, EventListView.Binding {
         else -> super.onContextItemSelected(item)
     }
 
-    override fun eventOrderMenuClick() {
+    override fun showEventOrderDialog() {
         EventSortOrderDialogFragment().show(childFragmentManager)
     }
 
-    override fun settingMenuClick() {
+    override fun navigateToSetting() {
         Navigator.navigateToSettings(context)
     }
 
-    override fun eventClick(event: TransitionDetailEvent) {
+    override fun navigateToEventDetail(event: TransitionDetailEvent) {
         eventBus.send(event)
     }
 

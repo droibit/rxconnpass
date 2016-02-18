@@ -48,16 +48,16 @@ class EventListInteractor @Inject constructor(
     }
 
     fun eventClick(): Action1<TransitionDetailEvent> = Action1 {
-        view.eventClick(it)
+        view.navigateToEventDetail(it)
     }
 
     fun eventOrderMenuClick(): Boolean {
-        view.eventOrderMenuClick()
+        view.showEventOrderDialog()
         return true
     }
 
     fun settingsMenuClick(): Boolean {
-        view.settingMenuClick()
+        view.navigateToSetting()
         return true
     }
 }

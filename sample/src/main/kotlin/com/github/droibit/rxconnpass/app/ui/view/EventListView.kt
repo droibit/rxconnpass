@@ -27,7 +27,7 @@ interface EventListView {
     fun showProgress(): Action0
     fun hideProgress(): Action0
 
-    fun eventClick(event: TransitionDetailEvent)
-    fun eventOrderMenuClick()
-    fun settingMenuClick()
+    fun navigateToEventDetail(event: TransitionDetailEvent)
+    fun showEventOrderDialog()
+    fun navigateToSetting()
 }
