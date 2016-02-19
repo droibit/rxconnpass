@@ -20,7 +20,7 @@ import javax.inject.Inject
  */
 // TODO: EventSearchActionに名前変更
 @PerEvent
-class SearchEventAction @Inject constructor(
+class EventSearchAction @Inject constructor(
         private val client: ConnpassClient,
         private val reachability: Reachability,
         private val settings: Settings) : SearchAction {

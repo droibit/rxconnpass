@@ -2,7 +2,7 @@ package com.github.droibit.rxconnpass.app.di
 
 import com.github.droibit.rxconnpass.app.di.scope.PerEvent
 import com.github.droibit.rxconnpass.app.model.SearchAction
-import com.github.droibit.rxconnpass.app.model.SearchEventAction
+import com.github.droibit.rxconnpass.app.model.EventSearchAction
 import dagger.Module
 import dagger.Provides
 import rx.subscriptions.CompositeSubscription
@@ -20,5 +20,5 @@ class EventModule {
     @PerEvent
     @Provides
     @Named("searchEvent")
-    fun provideEventSearchAction(action: SearchEventAction): SearchAction = action
+    fun provideEventSearchAction(action: EventSearchAction): SearchAction = action
 }
