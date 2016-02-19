@@ -18,6 +18,7 @@ import javax.inject.Inject
  *
  * @author kumagai
  */
+// TODO: EventSearchActionに名前変更
 @PerEvent
 class SearchEventAction @Inject constructor(
         private val client: ConnpassClient,
@@ -56,9 +57,8 @@ class SearchEventAction @Inject constructor(
             return Observable.error(NetworkDisconnectedException())
         }
         return client.getByKeyword(keyword, settings.eventOrder.toOrder(), searchMore)
-                .subscribeOn(Schedulers.io())
-                .delay(3, TimeUnit.SECONDS)
                 .doOnNext { searchMore.update(it.resultsAvailable) }
                 .map { it.events }
+                .subscribeOn(Schedulers.io())
     }
 }

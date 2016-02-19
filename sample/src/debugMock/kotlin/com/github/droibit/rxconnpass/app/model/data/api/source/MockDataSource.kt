@@ -13,10 +13,13 @@ import rx.Observable
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Singleton
-class MockDataSource @Inject constructor(private val context: Context): DataSource {
+class MockDataSource @Inject constructor(
+        private val context: Context,
+        @Named("delayMillis") private val delayMillis: Long) : DataSource {
 
     private val mockResponse: EventResponse by lazy { readMockResponse(context.assets) }
 
@@ -26,6 +29,7 @@ class MockDataSource @Inject constructor(private val context: Context): DataSour
             return Observable.just(emptyEventResponse)
         }
         return Observable.just(mockResponse)
+                .delay(delayMillis, TimeUnit.MILLISECONDS)
     }
 
     private fun readMockResponse(assets: AssetManager): EventResponse {

@@ -8,6 +8,7 @@ import com.github.droibit.rxconnpass.app.model.data.reachability.source.MockNetw
 import com.github.droibit.rxconnpass.app.model.data.settings.source.PreferenceDataSource
 import dagger.Module
 import dagger.Provides
+import javax.inject.Named
 import javax.inject.Singleton
 
 /**
@@ -17,6 +18,11 @@ import javax.inject.Singleton
  */
 @Module
 class DataModule {
+
+    @Singleton
+    @Provides
+    @Named("delayMillis")
+    fun provideResponseDelayMillis() = 3000L
 
     @Singleton
     @Provides
