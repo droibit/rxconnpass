@@ -41,6 +41,7 @@ class EventSearchAction @Inject constructor(
         return searchByKeyword(newKeyword = true)
     }
 
+    // TODO: RecyclerViewのスクロール制御しないとリストがからの時にリサーチできてしまう。
     @CheckResult
     override fun research(): Observable<List<Event>> = searchByKeyword(newKeyword = true)
 

@@ -160,6 +160,7 @@ class EventListFragment : Fragment(), EventListView, EventListView.Binding {
     }
 
     private fun onRefresh() {
+        interactor.researchByKeyword()
     }
 
     override fun showContent(): Action1<List<Event>> = Action1 { events ->
@@ -180,6 +181,14 @@ class EventListFragment : Fragment(), EventListView, EventListView.Binding {
 
     override fun hideProgress() = Action0 {
         setProgressShown(shown = false)
+    }
+
+    override fun hideRefreshProgress() = Action0 {
+        binding.swipeRefresh.apply {
+            if (isRefreshing) {
+                isRefreshing = false
+            }
+        }
     }
 
     override fun showError(): Action1<Throwable> = Action1 { t ->

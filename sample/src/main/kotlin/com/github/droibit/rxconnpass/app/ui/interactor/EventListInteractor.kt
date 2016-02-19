@@ -8,6 +8,7 @@ import rx.android.schedulers.AndroidSchedulers
 import rx.functions.Action1
 import rx.lang.kotlin.plusAssign
 import rx.subscriptions.CompositeSubscription
+import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -38,11 +39,23 @@ class EventListInteractor @Inject constructor(
     }
 
     fun searchByKeyword(keyword: String) {
+        Timber.d("Search keyword by $keyword.")
+
         // イベントの検索
         compositeSubscription += action.search(keyword)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(view.showProgress())
                 .doOnCompleted(view.hideProgress())
+                .subscribe(view.showContent(), view.showError())
+    }
+
+    fun researchByKeyword() {
+        Timber.d("Research keyword.")
+
+        // TODO: 詳細へ遷移した場合はキャンセルしないといけない
+        compositeSubscription += action.research()
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnCompleted(view.hideRefreshProgress())
                 .subscribe(view.showContent(), view.showError())
     }
 

@@ -17,8 +17,8 @@ interface EventListView {
 
     interface Binding {
         val queryText: MaterialSearchView.OnQueryTextListener
-        val scroll: RecyclerView.OnScrollListener
         val refresh: SwipeRefreshLayout.OnRefreshListener
+        val scroll: RecyclerView.OnScrollListener
     }
 
     fun showContent(): Action1<List<Event>>
@@ -26,6 +26,7 @@ interface EventListView {
 
     fun showProgress(): Action0
     fun hideProgress(): Action0
+    fun hideRefreshProgress(): Action0
 
     fun navigateToEventDetail(event: TransitionDetailEvent)
     fun showEventOrderDialog()
