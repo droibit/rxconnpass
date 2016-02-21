@@ -2,6 +2,7 @@ package com.github.droibit.rxconnpass
 
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
+import org.junit.After
 import org.junit.Rule
 import org.junit.Test
 import retrofit2.adapter.rxjava.HttpException
@@ -12,6 +13,11 @@ class RxConnpassTest {
     @Rule
     @JvmField
     val server = MockWebServer()
+
+    @After
+    fun tearDown() {
+        server.shutdown()
+    }
 
     @Test
     fun requestThenSuccess() {
@@ -25,6 +31,7 @@ class RxConnpassTest {
         val subscriber = TestSubscriber<EventResponse>()
         service.searchByKeyword("python").subscribe(subscriber)
 
+        subscriber.assertCompleted()
         subscriber.assertNoErrors()
     }
 

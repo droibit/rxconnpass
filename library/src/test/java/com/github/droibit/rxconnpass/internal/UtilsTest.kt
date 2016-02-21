@@ -12,7 +12,7 @@ class UtilsTest {
         val dates = singletonList(
                 Date(1453042800000) // 2016/1/18 0:0:00
         )
-        val formattedDates = dates.toYmdDateString()
+        val formattedDates = dates.toYmdDateStrings()
 
         assertThat(formattedDates).apply {
             isNotEmpty()
@@ -28,7 +28,7 @@ class UtilsTest {
                 Date(1453042800000), // 2016/1/18 00:00:00
                 Date(1454252399000)  // 2016/1/31 23:59:59
         )
-        val formattedDates = dates.toYmdDateString()
+        val formattedDates = dates.toYmdDateStrings()
 
         assertThat(formattedDates).apply {
             isNotEmpty()
@@ -40,7 +40,7 @@ class UtilsTest {
     @Test
     fun convertEmptyDateToYmdFormat() {
         val dates = emptyList<Date>()
-        val formattedDates = dates.toYmdDateString()
+        val formattedDates = dates.toYmdDateStrings()
 
         assertThat(formattedDates).isNull()
     }
@@ -50,7 +50,7 @@ class UtilsTest {
         val dates = singletonList(
                 Date(1453042800000) // 2016/1/18 00:00:00
         )
-        val formattedDates = dates.toYmDateString()
+        val formattedDates = dates.toYmDateStrings()
 
         assertThat(formattedDates).apply {
             isNotEmpty()
@@ -66,7 +66,7 @@ class UtilsTest {
                 Date(1453042800000), // 2016/01/18 00:00:00
                 Date(1454252400000)  // 2016/02/01 00:00:00
         )
-        val formattedDates = dates.toYmDateString()
+        val formattedDates = dates.toYmDateStrings()
 
         assertThat(formattedDates).apply {
             isNotEmpty()
@@ -78,7 +78,7 @@ class UtilsTest {
     @Test
     fun convertEmptyDateToYmFormat() {
         val dates = emptyList<Date>()
-        val formattedDates = dates.toYmDateString()
+        val formattedDates = dates.toYmDateStrings()
 
         assertThat(formattedDates).isNull()
     }

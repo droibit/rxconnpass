@@ -5,7 +5,7 @@ import java.util.*
 
 internal const val DEFAULT_RETURN_COUNT = 10
 
-internal object QueryNames {
+internal object QueryName {
     internal const val eventId = "event_id"
     internal const val keyword = "keyword"
     internal const val keywordOr = "keyword_or"
@@ -22,18 +22,5 @@ internal object QueryNames {
 private val ymFormat by lazy { SimpleDateFormat("yyyyMM") }
 private val ymdFormat by lazy { SimpleDateFormat("yyyyMMdd") }
 
-internal fun List<Date>.toYmdDateString(): List<String>? {
-    return if (isNotEmpty()) {
-        map { ymdFormat.format(it) }
-    } else {
-        null
-    }
-}
-
-internal fun List<Date>.toYmDateString(): List<String>? {
-    return if (isNotEmpty()) {
-        map { ymFormat.format(it) }
-    } else {
-        null
-    }
-}
+internal fun List<Date>.toYmdDateStrings() = if (isNotEmpty()) map { ymdFormat.format(it) } else null
+internal fun List<Date>.toYmDateStrings() = if (isNotEmpty()) map { ymFormat.format(it) } else null

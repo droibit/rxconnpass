@@ -12,10 +12,9 @@ object ResponseAdapters {
 
     @JvmField
     val factory: JsonAdapter.Factory = JsonAdapter.Factory { type, annotations, moshi ->
-        if (type == Date::class.java) {
-            dateJsonAdapter
-        } else {
-            null
+        when (type) {
+            Date::class.java -> dateJsonAdapter
+            else -> null
         }
     }
 
