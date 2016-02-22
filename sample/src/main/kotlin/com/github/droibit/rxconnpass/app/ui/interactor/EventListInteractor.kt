@@ -34,7 +34,7 @@ class EventListInteractor @Inject constructor(
     override fun onPause() {
     }
 
-    override fun onDetach() {
+    override fun destroy() {
         compositeSubscription.unsubscribe()
     }
 

@@ -9,5 +9,5 @@ interface ViewInteractor<T> {
     fun init(view: T)
     fun onResume()
     fun onPause()
-    fun onDetach()
+    fun destroy()
 }

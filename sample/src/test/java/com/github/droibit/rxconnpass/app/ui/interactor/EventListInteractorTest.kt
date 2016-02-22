@@ -60,7 +60,7 @@ class EventListInteractorTest {
 
     @After
     fun tearDown() {
-        interactor.onDetach()
+        interactor.destroy()
     }
 
     @Test

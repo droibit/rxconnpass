@@ -116,7 +116,7 @@ class EventListFragment : Fragment(), EventListView, EventListView.Binding {
 
     override fun onDetach() {
         super.onDetach()
-        interactor.onDetach()
+        interactor.destroy()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
