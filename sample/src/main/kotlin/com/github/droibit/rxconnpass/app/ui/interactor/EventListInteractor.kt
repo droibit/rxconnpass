@@ -44,9 +44,9 @@ class EventListInteractor @Inject constructor(
         // イベントの検索
         compositeSubscription += action.search(keyword)
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe(view.showProgress())
-                .doOnCompleted(view.hideProgress())
-                .subscribe(view.showContent(), view.showError())
+                .doOnSubscribe({ view.showProgress() })
+                .doOnCompleted({ view.hideProgress() })
+                .subscribe({ view.showContent(it) }, { view.showError(it) })
     }
 
     fun researchByKeyword() {
@@ -55,8 +55,8 @@ class EventListInteractor @Inject constructor(
         // TODO: 詳細へ遷移した場合はキャンセルしないといけない
         compositeSubscription += action.research()
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnCompleted(view.hideRefreshProgress())
-                .subscribe(view.showContent(), view.showError())
+                .doOnCompleted({ view.hideRefreshProgress() })
+                .subscribe({ view.showContent(it) }, { view.showError(it) })
     }
 
     fun eventClick(): Action1<TransitionDetailEvent> = Action1 {

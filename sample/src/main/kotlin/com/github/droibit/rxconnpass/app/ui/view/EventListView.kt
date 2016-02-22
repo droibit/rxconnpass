@@ -21,12 +21,12 @@ interface EventListView {
         val scroll: RecyclerView.OnScrollListener
     }
 
-    fun showContent(): Action1<List<Event>>
-    fun showError(): Action1<Throwable>
+    fun showContent(events: List<Event>)
+    fun showError(t: Throwable)
 
-    fun showProgress(): Action0
-    fun hideProgress(): Action0
-    fun hideRefreshProgress(): Action0
+    fun showProgress()
+    fun hideProgress()
+    fun hideRefreshProgress()
 
     fun navigateToEventDetail(event: TransitionDetailEvent)
     fun showEventOrderDialog()

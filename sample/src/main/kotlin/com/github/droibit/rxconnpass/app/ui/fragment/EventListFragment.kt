@@ -163,7 +163,7 @@ class EventListFragment : Fragment(), EventListView, EventListView.Binding {
         interactor.researchByKeyword()
     }
 
-    override fun showContent(): Action1<List<Event>> = Action1 { events ->
+    override fun showContent(events: List<Event>) {
         eventListAdapter.call(events, false)
 
         // TODO: 位置を先頭に戻す
@@ -175,15 +175,15 @@ class EventListFragment : Fragment(), EventListView, EventListView.Binding {
         Timber.d("Fetched ${events.size} events.")
     }
 
-    override fun showProgress() = Action0 {
+    override fun showProgress() {
         setContentShown(shown = false)
     }
 
-    override fun hideProgress() = Action0 {
+    override fun hideProgress() {
         setProgressShown(shown = false)
     }
 
-    override fun hideRefreshProgress() = Action0 {
+    override fun hideRefreshProgress() {
         binding.swipeRefresh.apply {
             if (isRefreshing) {
                 isRefreshing = false
@@ -191,7 +191,7 @@ class EventListFragment : Fragment(), EventListView, EventListView.Binding {
         }
     }
 
-    override fun showError(): Action1<Throwable> = Action1 { t ->
+    override fun showError(t: Throwable) {
         Timber.e(t, "Event Fetched Error: ")
     }
 
