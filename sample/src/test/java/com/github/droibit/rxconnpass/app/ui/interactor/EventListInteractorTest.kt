@@ -4,6 +4,7 @@ import com.github.droibit.rxconnpass.Event
 import com.github.droibit.rxconnpass.app.model.SearchAction
 import com.github.droibit.rxconnpass.app.model.exception.NetworkDisconnectedException
 import com.github.droibit.rxconnpass.app.ui.view.EventListView
+import com.github.droibit.rxconnpass.app.ui.view.transition.TransitionDetailEvent
 import com.github.droibit.rxconnpass.app.util.RxSchedulersOverrideRule
 import org.junit.After
 import org.junit.Before
@@ -117,5 +118,27 @@ class EventListInteractorTest {
         verify(showContent, times(1)).call(any())
         verify(hideRefreshProgress, never()).call()
         verify(showError, times(1)).call(isA(NetworkDisconnectedException::class.java))
+    }
+
+    @Test
+    fun eventClick() {
+        val event = mock(TransitionDetailEvent::class.java)
+        interactor.eventClick().call(event)
+
+        verify(view, times(1)).navigateToEventDetail(event)
+    }
+
+    @Test
+    fun eventOrderMenuClick() {
+        interactor.eventOrderMenuClick()
+
+        verify(view, times(1)).showEventOrderDialog()
+    }
+
+    @Test
+    fun settingsMenuClick() {
+        interactor.settingsMenuClick()
+
+        verify(view, times(1)).navigateToSetting()
     }
 }
