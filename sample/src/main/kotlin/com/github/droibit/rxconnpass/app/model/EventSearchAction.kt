@@ -1,6 +1,7 @@
 package com.github.droibit.rxconnpass.app.model
 
 import android.support.annotation.CheckResult
+import android.support.annotation.VisibleForTesting
 import com.github.droibit.rxconnpass.Event
 import com.github.droibit.rxconnpass.app.di.scope.PerEvent
 import com.github.droibit.rxconnpass.app.model.data.api.ConnpassClient
@@ -9,8 +10,9 @@ import com.github.droibit.rxconnpass.app.model.data.settings.Settings
 import com.github.droibit.rxconnpass.app.model.data.settings.source.toOrder
 import com.github.droibit.rxconnpass.app.model.exception.NetworkDisconnectedException
 import rx.Observable
+import rx.lang.kotlin.toObservable
+import rx.lang.kotlin.toSingletonObservable
 import rx.schedulers.Schedulers
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 /**
@@ -30,8 +32,10 @@ class EventSearchAction @Inject constructor(
     override val canLoadMore: Boolean
         get() = searchMore.canLoadMore
 
-    private val searchMore = ConnpassClient.SearchMore()
-    private var keyword: String = ""
+    @VisibleForTesting
+    internal val searchMore = ConnpassClient.SearchMore()
+    @VisibleForTesting
+    internal var keyword: String = ""
 
     @CheckResult
     override fun search(param: String): Observable<List<Event>> {
@@ -54,12 +58,15 @@ class EventSearchAction @Inject constructor(
         }
         searchMore.count = settings.countPerRequest
 
-        if (!reachability.connectedAny()) {
-            return Observable.error(NetworkDisconnectedException())
+        return when {
+            !reachability.connectedAny() -> NetworkDisconnectedException().toObservable()
+            !newKeyword and !canLoadMore -> emptyList<Event>().toSingletonObservable()
+            else -> {
+                client.getByKeyword(keyword, settings.eventOrder.toOrder(), searchMore)
+                        .doOnNext { searchMore.update(it.resultsAvailable) }
+                        .map { it.events }
+                        .subscribeOn(Schedulers.io())
+            }
         }
-        return client.getByKeyword(keyword, settings.eventOrder.toOrder(), searchMore)
-                .doOnNext { searchMore.update(it.resultsAvailable) }
-                .map { it.events }
-                .subscribeOn(Schedulers.io())
     }
 }

@@ -6,7 +6,10 @@ import org.mockito.Mockito
  * Created by kumagai on 2016/02/22.
  */
 
-inline fun <reified T : Any> _mock(): T = Mockito.mock(T::class.java)
+fun <T> _anyObject(): T {
+    Mockito.anyObject<T>()
+    return uninitialized()
+}
 
 /**
  * https://discuss.kotlinlang.org/t/how-to-use-mockito-with-kotlin/324/15
