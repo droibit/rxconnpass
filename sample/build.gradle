@@ -6,6 +6,7 @@ buildscript {
         rxkotlin_version = '0.40.1'
         rxandroid_version = '1.1.0'
         databinding_version = '1.0-rc5'
+        play_services_version = '8.4.0'
     }
 }
 
@@ -68,6 +69,8 @@ dependencies {
     compile "com.android.support:design:$support_lib_version"
     compile "com.android.support:preference-v14:$support_lib_version"
     compile "com.android.support:customtabs:$support_lib_version"
+
+    compile "com.google.android.gms:play-services-maps:$play_services_version"
 
     kapt "com.android.databinding:compiler:$databinding_version"
 

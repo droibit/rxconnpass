@@ -14,3 +14,7 @@ local.properties
 build/
 
 .DS_Store
+
+# Google Maps API Key
+sample/src/debugMock/res/values/google_maps_api.xml
+sample/src/debug/res/values/google_maps_api.xml
