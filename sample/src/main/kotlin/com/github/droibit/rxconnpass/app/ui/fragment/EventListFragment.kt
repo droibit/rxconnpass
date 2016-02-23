@@ -30,8 +30,6 @@ import com.github.droibit.rxconnpass.app.util.extension.startAnimation
 import com.github.droibit.rxconnpass.app.util.rx.RxBus
 import com.miguelcatalan.materialsearchview.MaterialSearchView
 import com.squareup.leakcanary.RefWatcher
-import rx.functions.Action0
-import rx.functions.Action1
 import timber.log.Timber
 import javax.inject.Inject
 

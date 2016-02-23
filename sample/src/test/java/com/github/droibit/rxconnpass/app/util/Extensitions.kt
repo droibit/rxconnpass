@@ -6,7 +6,7 @@ import org.mockito.Mockito
  * Created by kumagai on 2016/02/22.
  */
 
-fun <T> _anyObject(): T {
+fun <T> anyObject(): T {
     Mockito.anyObject<T>()
     return uninitialized()
 }

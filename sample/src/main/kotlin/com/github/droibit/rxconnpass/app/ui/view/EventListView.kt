@@ -5,8 +5,6 @@ import android.support.v7.widget.RecyclerView
 import com.github.droibit.rxconnpass.Event
 import com.github.droibit.rxconnpass.app.ui.view.transition.TransitionDetailEvent
 import com.miguelcatalan.materialsearchview.MaterialSearchView
-import rx.functions.Action0
-import rx.functions.Action1
 
 /**
  *

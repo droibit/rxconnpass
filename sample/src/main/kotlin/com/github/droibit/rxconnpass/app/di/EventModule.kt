@@ -1,8 +1,8 @@
 package com.github.droibit.rxconnpass.app.di
 
 import com.github.droibit.rxconnpass.app.di.scope.PerEvent
-import com.github.droibit.rxconnpass.app.model.SearchAction
 import com.github.droibit.rxconnpass.app.model.EventSearchAction
+import com.github.droibit.rxconnpass.app.model.SearchAction
 import dagger.Module
 import dagger.Provides
 import rx.subscriptions.CompositeSubscription

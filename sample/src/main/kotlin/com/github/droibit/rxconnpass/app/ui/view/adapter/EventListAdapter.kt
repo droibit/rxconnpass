@@ -9,7 +9,6 @@ import com.github.droibit.rxconnpass.Event
 import com.github.droibit.rxconnpass.app.R
 import com.github.droibit.rxconnpass.app.databinding.RecyclerItemEventBinding
 import com.github.droibit.rxconnpass.app.ui.view.transition.TransitionDetailEvent
-import com.github.droibit.rxconnpass.app.util.rx.RxBus
 import rx.functions.Action1
 import rx.functions.Action2
 import java.util.*

@@ -1,7 +1,7 @@
 package com.github.droibit.rxconnpass.app.model.data.api
 
-import com.github.droibit.rxconnpass.app.util.annotation.OpenForTesting
 import com.github.droibit.rxconnpass.app.model.data.api.source.DataSource
+import com.github.droibit.rxconnpass.app.util.annotation.OpenForTesting
 import java.io.Serializable
 import javax.inject.Inject
 import javax.inject.Singleton

@@ -2,26 +2,25 @@ package com.github.droibit.rxconnpass.app.model
 
 import com.github.droibit.rxconnpass.Event
 import com.github.droibit.rxconnpass.EventResponse
-import com.github.droibit.rxconnpass.Order
 import com.github.droibit.rxconnpass.app.model.data.api.ConnpassClient
-import org.junit.Rule
-import org.mockito.junit.MockitoJUnit
-
 import com.github.droibit.rxconnpass.app.model.data.api.source.DataSource
 import com.github.droibit.rxconnpass.app.model.data.reachability.Reachability
 import com.github.droibit.rxconnpass.app.model.data.settings.Settings
 import com.github.droibit.rxconnpass.app.model.exception.NetworkDisconnectedException
 import com.github.droibit.rxconnpass.app.util.RxSchedulersOverrideRule
-import com.github.droibit.rxconnpass.app.util._anyObject
+import com.github.droibit.rxconnpass.app.util.anyObject
 import com.google.common.truth.Truth.assertThat
-import com.github.droibit.rxconnpass.app.model.data.reachability.source.DataSource as ReachabilityDataSource
-import com.github.droibit.rxconnpass.app.model.data.settings.source.DataSource as SettingsDataSource
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mock
-import org.mockito.Mockito.*
+import org.mockito.Mockito.`when`
+import org.mockito.Mockito.anyString
+import org.mockito.junit.MockitoJUnit
 import rx.lang.kotlin.toSingletonObservable
 import rx.observers.TestSubscriber
+import com.github.droibit.rxconnpass.app.model.data.reachability.source.DataSource as ReachabilityDataSource
+import com.github.droibit.rxconnpass.app.model.data.settings.source.DataSource as SettingsDataSource
 
 /**
  * Created by kumagai on 2016/02/22.
@@ -63,7 +62,7 @@ class EventSearchActionTest {
 
     @Test
     fun holdKeyword() {
-        `when`(dataSource.getByKeyword(anyString(), _anyObject(), _anyObject()))
+        `when`(dataSource.getByKeyword(anyString(), anyObject(), anyObject()))
                 .thenReturn(mockResponse.toSingletonObservable())
         `when`(reachabilityDataSource.connectedAny()).thenReturn(true)
 
@@ -82,7 +81,7 @@ class EventSearchActionTest {
 
     @Test
     fun correctCanLoadMore() {
-        `when`(dataSource.getByKeyword(anyString(), _anyObject(), _anyObject()))
+        `when`(dataSource.getByKeyword(anyString(), anyObject(), anyObject()))
                 .thenReturn(mockResponse.toSingletonObservable())
         `when`(reachabilityDataSource.connectedAny()).thenReturn(true)
 
@@ -101,7 +100,7 @@ class EventSearchActionTest {
 
     @Test
     fun subscribeEvents() {
-        `when`(dataSource.getByKeyword(anyString(), _anyObject(), _anyObject()))
+        `when`(dataSource.getByKeyword(anyString(), anyObject(), anyObject()))
                 .thenReturn(mockResponse.toSingletonObservable())
         `when`(reachabilityDataSource.connectedAny()).thenReturn(true)
 
