@@ -1,9 +1,12 @@
 package com.github.droibit.rxconnpass.app.di
 
-import com.github.droibit.rxconnpass.app.model.api.datasource.ConnpassDataSource
-import com.github.droibit.rxconnpass.app.model.settings.datasource.PreferenceDataSource
-import com.github.droibit.rxconnpass.app.model.api.datasource.DataSource as ApiDataSource
-import com.github.droibit.rxconnpass.app.model.settings.datasource.DataSource as SettingsDataSource
+import android.content.Context
+import com.github.droibit.rxconnpass.app.model.data.api.source.CloudDataSource
+import com.github.droibit.rxconnpass.app.model.data.reachability.source.NetworkDataSource
+import com.github.droibit.rxconnpass.app.model.data.api.source.DataSource as ApiDataSource
+import com.github.droibit.rxconnpass.app.model.data.settings.source.PreferenceDataSource
+import com.github.droibit.rxconnpass.app.model.data.settings.source.DataSource as SettingsDataSource
+import com.github.droibit.rxconnpass.app.model.data.reachability.source.DataSource as ReachabilityDataSource
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -18,9 +21,13 @@ class DataModule {
 
     @Singleton
     @Provides
-    fun provideApiDataSource(dataSource: ConnpassDataSource): ApiDataSource = dataSource
+    fun provideApiDataSource(dataSource: CloudDataSource): ApiDataSource = dataSource
 
     @Singleton
     @Provides
     fun provideSettingsDataSource(dataSource: PreferenceDataSource): SettingsDataSource = dataSource
+
+    @Singleton
+    @Provides
+    fun provideReachabilityDataSource(context: Context): ReachabilityDataSource = NetworkDataSource(context)
 }
