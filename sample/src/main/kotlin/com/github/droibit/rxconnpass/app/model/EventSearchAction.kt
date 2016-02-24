@@ -33,9 +33,9 @@ class EventSearchAction @Inject constructor(
         get() = searchMore.canLoadMore
 
     @VisibleForTesting
-    internal val searchMore = ConnpassClient.SearchMore()
+    val searchMore = ConnpassClient.SearchMore()
     @VisibleForTesting
-    internal var keyword: String = ""
+    var keyword: String = ""
 
     @CheckResult
     override fun search(param: String): Observable<List<Event>> {

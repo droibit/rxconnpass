@@ -16,10 +16,10 @@ class ConnpassClient @Inject constructor(source: DataSource): DataSource by sour
 
     @OpenForTesting
     open class SearchMore : Serializable {
-        internal var start = 0
-        internal var available = 0
+        var start = 0
+        var available = 0
         // リクエストごとのイベント取得数
-        internal var count = 0
+        var count = 0
 
         val canLoadMore: Boolean
             get() = available > 0 && (start + count) <= available
