@@ -78,9 +78,11 @@ dependencies {
     compile "io.reactivex:rxkotlin:$rxkotlin_version"
     compile "io.reactivex:rxandroid:$rxandroid_version"
 
+    compile 'com.miguelcatalan:materialsearchview:1.4.0'
+    compile 'net.opacapp:multiline-collapsingtoolbar:1.0.0'
+
     compile 'com.jakewharton.timber:timber:4.1.0'
     compile 'com.github.droibit.prefbindings:prefbinding-support:1.0.4'
-    compile 'com.miguelcatalan:materialsearchview:1.4.0'
     compile "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
 
     debugCompile "com.squareup.leakcanary:leakcanary-android:$leakcanary_version"
