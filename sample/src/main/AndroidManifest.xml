@@ -38,7 +38,7 @@
         <activity
                 android:name=".ui.activity.EventDetailActivity"
                 android:parentActivityName=".ui.activity.EventListActivity"
-                android:exported="false"イベント>
+                android:exported="false">
 
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"

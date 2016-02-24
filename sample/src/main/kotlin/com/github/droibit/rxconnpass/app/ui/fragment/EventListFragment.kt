@@ -82,7 +82,7 @@ class EventListFragment : Fragment(), EventListView, EventListView.Binding {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_event_list, container, false)
         binding.apply {
             listener = this@EventListFragment
-            (activity as? AppCompatActivity)?.setSupportActionBar(toolbar)
+            (activity as AppCompatActivity).setSupportActionBar(toolbar)
         }
         return binding.root
     }
