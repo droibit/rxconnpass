@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import com.github.droibit.rxconnpass.app.R
 import com.github.droibit.rxconnpass.app.RxConnpassApplication.Companion.component
+import com.github.droibit.rxconnpass.app.ui.navigator.Navigator
 import com.github.droibit.rxconnpass.app.ui.view.transition.TransitionDetailEvent
 import com.github.droibit.rxconnpass.app.util.rx.RxBus
 import rx.android.schedulers.AndroidSchedulers
@@ -13,7 +14,7 @@ import rx.lang.kotlin.plusAssign
 import rx.subscriptions.CompositeSubscription
 import javax.inject.Inject
 
-class EventListActivity : AppCompatActivity(), Action1<TransitionDetailEvent> {
+class EventListActivity : AppCompatActivity() {
 
     @Inject
     internal lateinit var eventBus: RxBus
@@ -52,12 +53,8 @@ class EventListActivity : AppCompatActivity(), Action1<TransitionDetailEvent> {
                 .filter { it is TransitionDetailEvent }
                 .cast(TransitionDetailEvent::class.java)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this)
-    }
-
-    override fun call(event: TransitionDetailEvent) {
-        Toast.makeText(this, "Click Event: ${event.srcEvent.title}", Toast.LENGTH_SHORT).show()
-
-        //Navigator.navigateToEventDetail(this, event)
+                .subscribe {
+                    Navigator.navigateToEventDetail(this, transitionEvent = it)
+                }
     }
 }

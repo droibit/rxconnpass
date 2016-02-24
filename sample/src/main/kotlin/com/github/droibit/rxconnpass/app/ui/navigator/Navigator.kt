@@ -24,11 +24,11 @@ object Navigator {
     }
 
     @JvmStatic
-    fun navigateToEventDetail(activity: Activity?, event: TransitionDetailEvent): Boolean {
+    fun navigateToEventDetail(activity: Activity?, transitionEvent: TransitionDetailEvent): Boolean {
         if (activity != null) {
-            val sharedElement = Pair(event.titleView, activity.getString(R.string.tag_event_title))
+            val sharedElement = Pair(transitionEvent.titleView, activity.getString(R.string.tag_event_title))
             val options = makeSceneTransitionAnimation(activity, sharedElement).toBundle()
-            val intent = EventDetailActivity.launchIntent(activity, event.srcEvent)
+            val intent = EventDetailActivity.launchIntent(activity, transitionEvent.srcEvent)
             ActivityCompat.startActivity(activity, intent, options)
         }
         return true
