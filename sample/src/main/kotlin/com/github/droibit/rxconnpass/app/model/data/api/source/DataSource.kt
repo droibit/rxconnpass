@@ -18,5 +18,5 @@ interface DataSource {
     @CheckResult
     fun getByKeyword(keyword: String,
                      order: Order = Order.EVENT,
-                     searchMore: ConnpassClient.SearchMore): Observable<EventResponse>
+                     moreSearch: ConnpassClient.MoreSearch): Observable<EventResponse>
 }

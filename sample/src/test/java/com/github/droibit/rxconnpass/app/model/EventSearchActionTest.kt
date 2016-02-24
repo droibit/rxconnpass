@@ -94,6 +94,10 @@ class EventSearchActionTest {
         searchAction.searchMore().subscribe()
         assertThat(searchAction.canLoadMore).isTrue()
 
+        // start = 20, count = 10,a available = 30
+        searchAction.searchMore().subscribe()
+        assertThat(searchAction.canLoadMore).isTrue()
+
         searchAction.searchMore().subscribe()
         assertThat(searchAction.canLoadMore).isFalse()
     }
@@ -132,7 +136,7 @@ class EventSearchActionTest {
         `when`(reachabilityDataSource.connectedAny()).thenReturn(true)
 
         searchAction.keyword = "kotlin"
-        searchAction.searchMore.apply {
+        searchAction.moreSearch.apply {
             start = 10
             count = 10
             available = 10

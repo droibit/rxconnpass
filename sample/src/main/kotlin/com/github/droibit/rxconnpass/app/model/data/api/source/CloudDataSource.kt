@@ -12,10 +12,10 @@ import javax.inject.Singleton
 @Singleton
 class CloudDataSource @Inject constructor(private val rxConnpass: RxConnpass): DataSource {
 
-    override fun getByKeyword(keyword: String, order: Order, searchMore: ConnpassClient.SearchMore): Observable<EventResponse> {
+    override fun getByKeyword(keyword: String, order: Order, moreSearch: ConnpassClient.MoreSearch): Observable<EventResponse> {
         return rxConnpass.service.searchByKeyword(keyword,
                                                   order = order,
-                                                  start = searchMore.start,
-                                                  count = searchMore.count)
+                                                  start = moreSearch.start,
+                                                  count = moreSearch.count)
     }
 }

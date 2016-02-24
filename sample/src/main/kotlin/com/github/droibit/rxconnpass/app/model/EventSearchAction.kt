@@ -30,10 +30,10 @@ class EventSearchAction @Inject constructor(
     // TODO: 回転した時にフィールドを復元しないと行けない
 
     override val canLoadMore: Boolean
-        get() = searchMore.canLoadMore
+        get() = moreSearch.canLoadMore
 
     @VisibleForTesting
-    val searchMore = ConnpassClient.SearchMore()
+    val moreSearch = ConnpassClient.MoreSearch()
     @VisibleForTesting
     var keyword: String = ""
 
@@ -54,16 +54,17 @@ class EventSearchAction @Inject constructor(
 
     private fun searchByKeyword(newKeyword: Boolean): Observable<List<Event>> {
         if (newKeyword) {
-            searchMore.reset()
+            moreSearch.reset()
+        } else {
+            moreSearch.update(settings.countPerRequest)
         }
-        searchMore.count = settings.countPerRequest
 
         return when {
             !reachability.connectedAny() -> NetworkDisconnectedException().toObservable()
             !newKeyword and !canLoadMore -> emptyList<Event>().toSingletonObservable()
             else -> {
-                client.getByKeyword(keyword, settings.eventOrder.toOrder(), searchMore)
-                        .doOnNext { searchMore.update(it.resultsAvailable) }
+                client.getByKeyword(keyword, settings.eventOrder.toOrder(), moreSearch)
+                        .doOnNext { moreSearch.available = it.resultsAvailable }
                         .map { it.events }
                         .subscribeOn(Schedulers.io())
             }

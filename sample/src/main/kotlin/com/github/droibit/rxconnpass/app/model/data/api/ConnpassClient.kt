@@ -15,7 +15,7 @@ import javax.inject.Singleton
 class ConnpassClient @Inject constructor(source: DataSource): DataSource by source {
 
     @OpenForTesting
-    open class SearchMore : Serializable {
+    open class MoreSearch : Serializable {
         var start = 0
         var available = 0
         // リクエストごとのイベント取得数
@@ -24,9 +24,12 @@ class ConnpassClient @Inject constructor(source: DataSource): DataSource by sour
         val canLoadMore: Boolean
             get() = available > 0 && (start + count) <= available
 
-        fun update(available: Int) {
-            this.available = available
+        fun update(count: Int) {
+            check(count > 0)
+
+            this.count = count
             this.start += count
+
         }
 
         fun reset() {
