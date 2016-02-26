@@ -33,8 +33,9 @@ class EventListActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
-        compositeSubscription = CompositeSubscription()
-        subscribeTransitionDetailEvent()
+        compositeSubscription = CompositeSubscription().apply {
+            subscribeTransitionDetailEvent(subscription = this)
+        }
     }
 
     override fun onStop() {
@@ -48,11 +49,9 @@ class EventListActivity : AppCompatActivity() {
         // TODO: フラグメントへ通知
     }
 
-    private fun subscribeTransitionDetailEvent() {
-        compositeSubscription += eventBus.toObserverable()
-                .filter { it is TransitionDetailEvent }
-                .cast(TransitionDetailEvent::class.java)
-                .observeOn(AndroidSchedulers.mainThread())
+    private fun subscribeTransitionDetailEvent(subscription: CompositeSubscription) {
+        subscription += eventBus.toObserverable()
+                .ofType(TransitionDetailEvent::class.java)
                 .subscribe {
                     Navigator.navigateToEventDetail(this, transitionEvent = it)
                 }
