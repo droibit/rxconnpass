@@ -55,9 +55,9 @@ class EventListInteractorTest {
 
         interactor.searchByKeyword("kotlin")
 
-        verify(view, times(1)).showProgress()
-        verify(view, times(1)).hideProgress()
-        verify(view, times(1)).showContent("kotlin", mockEvents)
+        verify(view).showProgress()
+        verify(view).hideProgress()
+        verify(view).showContent("kotlin", mockEvents)
         verify(view, never()).hideRefreshProgress()
         verify(view, never()).showError(uninitialized())
     }
@@ -70,10 +70,11 @@ class EventListInteractorTest {
         interactor.searchByKeyword("kotlin")
         interactor.researchByKeyword()
 
-        verify(view, times(1)).showProgress()
-        verify(view, times(1)).hideProgress()
-        verify(view, times(2)).showContent(anyString(), events = mockEvents)
-        verify(view, times(1)).hideRefreshProgress()
+        verify(view).showProgress()
+        verify(view).hideProgress()
+        verify(view).showContent("kotlin", events = mockEvents)
+        verify(view).showContent(null, events = mockEvents)
+        verify(view).hideRefreshProgress()
         verify(view, never()).showError(uninitialized())
     }
 
@@ -84,11 +85,11 @@ class EventListInteractorTest {
 
         interactor.searchByKeyword("kotlin")
 
-        verify(view, times(1)).showProgress()
+        verify(view).showProgress()
         verify(view, never()).hideProgress()
         verify(view, never()).showContent("kotlin", uninitialized())
         verify(view, never()).hideRefreshProgress()
-        verify(view, times(1)).showError(t)
+        verify(view).showError(t)
     }
 
     @Test
@@ -101,11 +102,11 @@ class EventListInteractorTest {
         interactor.searchByKeyword("kotlin")
         interactor.researchByKeyword()
 
-        verify(view, times(1)).showProgress()
-        verify(view, times(1)).hideProgress()
-        verify(view, times(1)).showContent("kotlin", mockEvents)
+        verify(view).showProgress()
+        verify(view).hideProgress()
+        verify(view).showContent("kotlin", mockEvents)
         verify(view, never()).hideRefreshProgress()
-        verify(view, times(1)).showError(t)
+        verify(view).showError(t)
     }
 
     @Test
@@ -113,20 +114,20 @@ class EventListInteractorTest {
         val event = mock(TransitionDetailEvent::class.java)
         interactor.eventClick().call(event)
 
-        verify(view, times(1)).navigateToEventDetail(event)
+        verify(view).navigateToEventDetail(event)
     }
 
     @Test
     fun eventOrderMenuClick() {
         interactor.eventOrderMenuClick()
 
-        verify(view, times(1)).showEventOrderDialog()
+        verify(view).showEventOrderDialog()
     }
 
     @Test
     fun settingsMenuClick() {
         interactor.settingsMenuClick()
 
-        verify(view, times(1)).navigateToSetting()
+        verify(view).navigateToSetting()
     }
 }
