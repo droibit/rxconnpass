@@ -14,6 +14,7 @@
             android:fitsSystemWindows="true">
 
         <android.support.design.widget.AppBarLayout
+                android:id="@+id/app_bar"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/detail_header_height"
                 android:theme="@style/AppTheme.AppBarOverlay"
@@ -39,6 +40,17 @@
             </net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout>
 
         </android.support.design.widget.AppBarLayout>
+
+        <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:layout_marginRight="16dp"
+                app:srcCompat="@drawable/vector_participate_event"
+                app:layout_anchor="@id/app_bar"
+                app:fabSize="normal"
+                app:layout_anchorGravity="bottom|right"/>
 
         <android.support.v4.widget.NestedScrollView
                 android:id="@+id/nested_scroll"
