@@ -15,13 +15,14 @@
 
         <android.support.design.widget.AppBarLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:offsetChanged="@{listener.getAppBarOffsetChanged()}">
 
             <FrameLayout
                     android:id="@+id/toolbar_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_scrollFlags="scroll|enterAlways">
+                    app:layout_scrollFlags="scroll|enterAlwaysCollapsed">
 
                 <android.support.v7.widget.Toolbar
                         android:id="@+id/toolbar"
@@ -30,7 +31,7 @@
                         android:background="@color/colorPrimary"
                         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                         app:theme="@style/AppTheme.Toolbar"
-                        app:title="@string/app_name"
+                        app:title="@string/toolbar_title_search"
                         app:titleTextAppearance="@style/AppTheme.Toolbar.Title" />
 
                 <com.miguelcatalan.materialsearchview.MaterialSearchView
@@ -60,6 +61,28 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         app:onScroll="@{listener.getScroll()}" />
+
+                <com.bartoszlipinski.recyclerviewheader.RecyclerViewHeader
+                        android:id="@+id/header"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/subtitle_header_height">
+
+                    <TextView
+                            android:id="@+id/headerText"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="#ececec"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="16dp"
+                            android:singleLine="true"
+                            android:ellipsize="end"
+                            android:text="@string/empty"
+                            android:textColor="#757575"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                            tools:text="Kotlin" />
+
+                </com.bartoszlipinski.recyclerviewheader.RecyclerViewHeader>
 
                 <ProgressBar
                         android:id="@+id/progress"

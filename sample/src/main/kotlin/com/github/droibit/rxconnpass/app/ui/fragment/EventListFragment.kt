@@ -3,6 +3,7 @@ package com.github.droibit.rxconnpass.app.ui.fragment
 import android.content.Context
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.design.widget.AppBarLayout
 import android.support.v4.app.Fragment
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
@@ -55,6 +56,10 @@ class EventListFragment : Fragment(), EventListView, EventListView.Binding {
     // PullToRefreshする時に呼ばれる
     override val refresh: SwipeRefreshLayout.OnRefreshListener
         = SwipeRefreshLayout.OnRefreshListener { onRefresh() }
+    // SwipeRefresが誤爆するための対策
+    // http://stackoverflow.com/questions/30779667/android-collapsingtoolbarlayout-and-swiperefreshlayout-get-stuck
+    override val appBarOffsetChanged: AppBarLayout.OnOffsetChangedListener
+        = AppBarLayout.OnOffsetChangedListener { layout, offset -> onAppBarVerticalOffsetChanged(offset) }
 
     @Inject
     internal lateinit var interactor: EventListInteractor
@@ -93,6 +98,8 @@ class EventListFragment : Fragment(), EventListView, EventListView.Binding {
             layoutManager = LinearLayoutManager(context)
             addItemDecoration(DividerItemDecoration(context, VERTICAL_LIST))
             setHasFixedSize(true)
+
+            binding.header.attachTo(this, true)
         }
         interactor.init(this)
     }
@@ -160,14 +167,26 @@ class EventListFragment : Fragment(), EventListView, EventListView.Binding {
         interactor.researchByKeyword()
     }
 
-    override fun showContent(keyword: String?, events: List<Event>) {
-        eventListAdapter.call(events, false)
+    private fun onAppBarVerticalOffsetChanged(offset: Int) {
+        binding.swipeRefresh.isEnabled = offset == 0
+    }
 
-        // TODO: 位置を先頭に戻す
+    override fun showContent(keyword: String?, events: List<Event>) {
+        binding.apply {
+            header.visibility = View.VISIBLE
+            if (keyword != null) {
+                headerText.text = keyword
+            }
+        }
+        eventListAdapter.call(events, false)
 
         val targetView = binding.run { if (events.isNotEmpty()) recycler else empty }
         targetView.startAnimation(android.R.anim.fade_in) {
             visibility = View.VISIBLE
+        }
+
+        if (targetView is RecyclerView) {
+            //targetView.pos
         }
         Timber.d("Fetched ${events.size} events, keyword is $keyword.")
     }
@@ -191,6 +210,10 @@ class EventListFragment : Fragment(), EventListView, EventListView.Binding {
     override fun showError(t: Throwable) {
         Timber.e(t, "Event Fetched Error: ")
 
+        binding.apply {
+            header.visibility = View.VISIBLE
+            headerText.text = ""
+        }
         // TODO: イベントのクリア
         //eventListAdapter.
     }

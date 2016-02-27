@@ -17,5 +17,6 @@
     <string name="dialog_title_event_sort_order">Sort Order of Event</string>
     <string name="dialog_key_event_sort_order" translatable="false">event_sort_order</string>
     <string name="action_share">Share</string>
+    <string name="toolbar_title_search" translatable="false">Search</string>
 
 </resources>

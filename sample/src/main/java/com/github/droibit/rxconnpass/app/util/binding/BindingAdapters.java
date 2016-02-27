@@ -5,6 +5,7 @@ import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import android.databinding.BindingAdapter;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
@@ -35,6 +36,11 @@ public class BindingAdapters {
     @BindingAdapter({"bind:colorSchemeColor"})
     public static void bindColorSchemeColor(SwipeRefreshLayout layout, @ColorInt int color) {
         layout.setColorSchemeColors(color);
+    }
+
+    @BindingAdapter({"bind:offsetChanged"})
+    public static void bindAppBarOffsetChanged(AppBarLayout layout, AppBarLayout.OnOffsetChangedListener listener) {
+        layout.addOnOffsetChangedListener(listener);
     }
 
     @BindingAdapter({"bind:startedAt", "bind:endedAt"})
