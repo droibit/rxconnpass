@@ -143,10 +143,12 @@ class EventListFragment : Fragment(), EventListView, EventListView.Binding {
     }
 
     override fun navigateToSetting() {
+        // TODO: 更新中の場合の対策がいる
         Navigator.navigateToSettings(context)
     }
 
     override fun navigateToEventDetail(event: TransitionDetailEvent) {
+        // TODO: 更新中の場合の対策がいる
         eventBus.send(event)
     }
 
@@ -177,16 +179,12 @@ class EventListFragment : Fragment(), EventListView, EventListView.Binding {
             if (keyword != null) {
                 headerText.text = keyword
             }
-        }
-        eventListAdapter.call(events, false)
+            eventListAdapter.call(events, false)
 
-        val targetView = binding.run { if (events.isNotEmpty()) recycler else empty }
-        targetView.startAnimation(android.R.anim.fade_in) {
-            visibility = View.VISIBLE
-        }
-
-        if (targetView is RecyclerView) {
-            //targetView.pos
+            val targetView = if (events.isNotEmpty()) recycler.apply { scrollToPosition(0) } else empty
+            targetView.startAnimation(android.R.anim.fade_in) {
+                visibility = View.VISIBLE
+            }
         }
         Timber.d("Fetched ${events.size} events, keyword is $keyword.")
     }
