@@ -57,7 +57,7 @@ class EventListInteractorTest {
 
         verify(view, times(1)).showProgress()
         verify(view, times(1)).hideProgress()
-        verify(view, times(1)).showContent(mockEvents)
+        verify(view, times(1)).showContent("kotlin", mockEvents)
         verify(view, never()).hideRefreshProgress()
         verify(view, never()).showError(uninitialized())
     }
@@ -72,7 +72,7 @@ class EventListInteractorTest {
 
         verify(view, times(1)).showProgress()
         verify(view, times(1)).hideProgress()
-        verify(view, times(2)).showContent(mockEvents)
+        verify(view, times(2)).showContent(anyString(), events = mockEvents)
         verify(view, times(1)).hideRefreshProgress()
         verify(view, never()).showError(uninitialized())
     }
@@ -86,7 +86,7 @@ class EventListInteractorTest {
 
         verify(view, times(1)).showProgress()
         verify(view, never()).hideProgress()
-        verify(view, never()).showContent(uninitialized())
+        verify(view, never()).showContent("kotlin", uninitialized())
         verify(view, never()).hideRefreshProgress()
         verify(view, times(1)).showError(t)
     }
@@ -103,7 +103,7 @@ class EventListInteractorTest {
 
         verify(view, times(1)).showProgress()
         verify(view, times(1)).hideProgress()
-        verify(view, times(1)).showContent(mockEvents)
+        verify(view, times(1)).showContent("kotlin", mockEvents)
         verify(view, never()).hideRefreshProgress()
         verify(view, times(1)).showError(t)
     }

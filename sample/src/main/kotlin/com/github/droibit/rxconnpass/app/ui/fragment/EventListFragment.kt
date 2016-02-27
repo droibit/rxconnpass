@@ -147,7 +147,6 @@ class EventListFragment : Fragment(), EventListView, EventListView.Binding {
         if (query.isEmpty()) {
             return true
         }
-        updateToolbarTitle(title = query)
         interactor.searchByKeyword(keyword = query)
 
         // falseを返すとSearchViewが閉じる
@@ -161,7 +160,7 @@ class EventListFragment : Fragment(), EventListView, EventListView.Binding {
         interactor.researchByKeyword()
     }
 
-    override fun showContent(events: List<Event>) {
+    override fun showContent(keyword: String?, events: List<Event>) {
         eventListAdapter.call(events, false)
 
         // TODO: 位置を先頭に戻す
@@ -170,7 +169,7 @@ class EventListFragment : Fragment(), EventListView, EventListView.Binding {
         targetView.startAnimation(android.R.anim.fade_in) {
             visibility = View.VISIBLE
         }
-        Timber.d("Fetched ${events.size} events.")
+        Timber.d("Fetched ${events.size} events, keyword is $keyword.")
     }
 
     override fun showProgress() {
@@ -191,13 +190,9 @@ class EventListFragment : Fragment(), EventListView, EventListView.Binding {
 
     override fun showError(t: Throwable) {
         Timber.e(t, "Event Fetched Error: ")
-    }
 
-    private fun updateToolbarTitle(title: String) {
-        var actionbar = (activity as? AppCompatActivity)?.supportActionBar
-        if (actionbar != null) {
-            actionbar.title = title
-        }
+        // TODO: イベントのクリア
+        //eventListAdapter.
     }
 
     private fun setContentShown(shown: Boolean) {

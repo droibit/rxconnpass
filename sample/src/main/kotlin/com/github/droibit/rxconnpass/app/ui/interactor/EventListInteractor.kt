@@ -46,7 +46,8 @@ class EventListInteractor @Inject constructor(
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe({ view.showProgress() })
                 .doOnCompleted({ view.hideProgress() })
-                .subscribe({ view.showContent(it) }, { view.showError(it) })
+                .subscribe({ view.showContent(keyword, events = it) },
+                           { view.showError(it) })
     }
 
     fun researchByKeyword() {
@@ -56,7 +57,8 @@ class EventListInteractor @Inject constructor(
         compositeSubscription += action.research()
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnCompleted({ view.hideRefreshProgress() })
-                .subscribe({ view.showContent(it) }, { view.showError(it) })
+                .subscribe({ view.showContent(events = it) },
+                           { view.showError(it) })
     }
 
     fun eventClick(): Action1<TransitionDetailEvent> = Action1 {

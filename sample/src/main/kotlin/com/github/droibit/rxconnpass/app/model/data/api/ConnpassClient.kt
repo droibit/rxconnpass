@@ -29,7 +29,6 @@ class ConnpassClient @Inject constructor(source: DataSource): DataSource by sour
 
             this.count = count
             this.start += count
-
         }
 
         fun reset() {

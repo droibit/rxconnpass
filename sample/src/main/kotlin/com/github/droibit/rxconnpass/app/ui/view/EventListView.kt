@@ -19,7 +19,7 @@ interface EventListView {
         val scroll: RecyclerView.OnScrollListener
     }
 
-    fun showContent(events: List<Event>)
+    fun showContent(keyword: String? = null, events: List<Event>)
     fun showError(t: Throwable)
 
     fun showProgress()
