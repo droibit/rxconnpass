@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools">
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable name="event" type="com.github.droibit.rxconnpass.Event" />
     </data>
 
-    <!--android:fitsSystemWindows="true"-->
     <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -28,7 +26,6 @@
                     app:layout_scrollFlags="scroll|exitUntilCollapsed"
                     app:title="@{event.title}"
                     app:expandedTitleTextAppearance="@style/AppTheme.Toolbar.Title.Expanded">
-
 
                 <android.support.v7.widget.Toolbar
                         android:id="@+id/toolbar"
@@ -58,7 +55,9 @@
                 android:layout_height="match_parent"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <include layout="@layout/content_event_detail" />
+            <include layout="@layout/content_event_detail"
+                     android:id="@+id/content"
+                     app:event="@{event}" />
 
         </android.support.v4.widget.NestedScrollView>
 

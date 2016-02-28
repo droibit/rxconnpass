@@ -1,5 +1,6 @@
 package com.github.droibit.rxconnpass.app.util.binding;
 
+import com.github.droibit.rxconnpass.app.R;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import android.databinding.BindingAdapter;
@@ -12,6 +13,7 @@ import android.text.format.DateFormat;
 import android.widget.TextView;
 
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by kumagai on 2016/02/03.
@@ -45,7 +47,29 @@ public class BindingAdapters {
 
     @BindingAdapter({"bind:startedAt", "bind:endedAt"})
     public static void bindDateText(TextView view, Date startedAt, Date endedAt) {
-        final java.text.DateFormat dateFormat = DateFormat.getDateFormat(view.getContext());
-        view.setText(dateFormat.format(startedAt));
+        final java.text.DateFormat dateFormat = DateFormat.getLongDateFormat(view.getContext());
+        final java.text.DateFormat timeFormat = DateFormat.getTimeFormat(view.getContext());
+
+        final String endedAtText;
+        final int formatRes;
+        if (((endedAt.getTime() - startedAt.getTime()) / TimeUnit.DAYS.toMillis(1)) >= 1) {
+            // 開始と終了日が異なる場合
+            endedAtText = String.format("%s %s", dateFormat.format(startedAt), timeFormat.format(startedAt));
+            formatRes = R.string.event_date_format_long;
+        } else {
+            endedAtText = timeFormat.format(endedAt);
+            formatRes = R.string.event_date_format_short;
+        }
+        final String startedAtText = String.format("%s %s", dateFormat.format(startedAt), timeFormat.format(startedAt));
+        view.setText(view.getContext().getString(formatRes, startedAtText, endedAtText));
+    }
+
+    @BindingAdapter({"bind:accepted", "bind:limit"})
+    public static void bindParticipants(TextView view, int accepted, Integer limit) {
+        if (limit == null) {
+            view.setText(R.string.empty);
+            return;
+        }
+        view.setText(view.getContext().getString(R.string.participant_format, accepted, limit));
     }
 }

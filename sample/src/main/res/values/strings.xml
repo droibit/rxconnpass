@@ -18,5 +18,7 @@
     <string name="dialog_key_event_sort_order" translatable="false">event_sort_order</string>
     <string name="action_share">Share</string>
     <string name="toolbar_title_search" translatable="false">Search</string>
+    <string name="event_date_format_short">%1$s - %2$s</string>
+    <string name="event_date_format_long">%1$s -\n%2$s</string>
 
 </resources>

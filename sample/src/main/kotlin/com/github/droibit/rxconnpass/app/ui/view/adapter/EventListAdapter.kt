@@ -45,8 +45,8 @@ class EventListAdapter(private val callback: Action1<TransitionDetailEvent>)
                 val view = inflater.inflate(R.layout.recycler_item_event, parent, false)
                 ItemViewHolder(view).apply {
                     view.setOnClickListener {
-                        val event = events[adapterPosition]
-                        callback.call(TransitionDetailEvent(event, titleView = binding.title))
+                        callback.call(TransitionDetailEvent(srcEvent = events[adapterPosition],
+                                                            titleView = binding.title))
                     }
                 }
             }

@@ -1,9 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto" >
 
+    <!-- http://stackoverflow.com/questions/32947440/android-data-binding-using-include-tag -->
+    <data>
+        <variable name="event" type="com.github.droibit.rxconnpass.Event" />
+    </data>
 
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="@dimen/fab_under_space" >
 
-</LinearLayout>
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp">
+
+            <ImageView
+                    android:id="@+id/event_date_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/list_side_space"
+                    android:layout_marginRight="@dimen/list_side_medium_space"
+                    android:layout_centerVertical="true"
+                    app:srcCompat="@drawable/vector_event_date"
+                    tools:src="@drawable/vector_event_date" />
+
+            <TextView
+                    android:id="@+id/event_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_toRightOf="@+id/event_date_icon"
+                    android:layout_toLeftOf="@+id/event_participants_icon"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:text="@string/empty"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                    app:startedAt="@{event.startedAt}"
+                    app:endedAt="@{event.endedAt}"
+                    tools:text="2016/01/01(月) 10:00 -\n2016/01/02(火) 10:00" />
+
+            <ImageView
+                    android:id="@+id/event_participants_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/list_side_space"
+                    android:layout_marginRight="@dimen/list_side_medium_space"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/event_participants"
+                    app:srcCompat="@drawable/vector_event_participants"
+                    tools:src="@drawable/vector_event_participants" />
+
+            <TextView
+                    android:id="@+id/event_participants"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/list_side_space"
+                    android:singleLine="true"
+                    android:text="@string/empty"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                    app:accepted="@{event.accepted}"
+                    app:limit="@{event.limit}"
+                    tools:text="10 / 20" />
+
+        </RelativeLayout>
+
+        <View style="@style/Border" />
+
+    </LinearLayout>
+</layout>
