@@ -11,8 +11,28 @@
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingTop="@dimen/fab_under_space" >
+            android:layout_height="match_parent">
+        
+        <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="108dp"
+                android:background="@color/colorPrimaryDark" >
+
+            <TextView
+                    android:id="@+id/catch_copy"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/list_side_space"
+                    android:layout_marginRight="@dimen/list_side_space"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:text="@{event.getHasCatchcopy() ? event.catchcopy : @string/empty_catchcopy}"
+                    android:textColor="@android:color/white"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                    tools:text="KotlinかわいいよKotlin" />
+
+        </FrameLayout>
 
         <RelativeLayout
                 android:layout_width="match_parent"
@@ -73,6 +93,8 @@
         </RelativeLayout>
 
         <View style="@style/Border" />
+
+
 
     </LinearLayout>
 </layout>

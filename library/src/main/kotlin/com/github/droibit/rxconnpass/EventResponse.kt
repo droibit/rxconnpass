@@ -73,16 +73,20 @@ data class Event(
         @JvmField @Json(name="updated_at")         val updatedAt: Date
 ): Serializable {
 
-    val isOverload = limit != null && limit != 0 && accepted >= limit
+    val isOverload: Boolean
+            get() = limit != null && limit != 0 && accepted >= limit
 
     @JvmOverloads
     fun isFinished(currentDate: Date = Date()) = endedAt < currentDate
 
     // Javaから呼び出す時のためのユーティリティプロパティ
 
-    val hasCatchcopy = catchcopy.isNotEmpty()
-    val hasHashTag = hashTag.isNotEmpty()
-    val hasLatLon = lat != null && lon != null
+    val hasCatchcopy: Boolean
+        get() = catchcopy.isNotEmpty()
+    val hasHashTag: Boolean
+        get() = hashTag.isNotEmpty()
+    val hasLatLon: Boolean
+        get() = lat != null && lon != null
 }
 
 /**
