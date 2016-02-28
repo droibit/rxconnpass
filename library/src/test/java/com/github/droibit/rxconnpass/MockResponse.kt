@@ -1,3 +1,4 @@
+@file:JvmName("MockResponse")
 package com.github.droibit.rxconnpass
 
 import com.github.droibit.rxconnpass.ResponseAdapters.iso8601Format
@@ -46,7 +47,7 @@ internal val mockSingleEvent = EventResponse(
                 Event(
                         id = 24503,
                         title = "でじぽろ #3",
-                        catchCopy = "webっぽいことやるっぽい",
+                        catchcopy = "webっぽいことやるっぽい",
                         url = "http://digiporo.connpass.com/event/24503/",
                         hashTag = "digiporo",
                         startedAt = iso8601Format.parse("2016-01-15T18:00:00+09:00"),

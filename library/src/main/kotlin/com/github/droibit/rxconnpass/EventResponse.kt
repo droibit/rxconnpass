@@ -29,7 +29,7 @@ data class EventResponse(
 /**
  * @param id イベントID
  * @param title タイトル
- * @param catchCopy キャッチ
+ * @param catchcopy キャッチ
  * @param description 概要(HTML形式)
  * @param url connpass.com 上のURL
  * @param hashTag Twitterのハッシュタグ
@@ -52,7 +52,7 @@ data class EventResponse(
 data class Event(
         @JvmField @Json(name="event_id")           val id: Int,
         @JvmField @Json(name="title")              val title: String,
-        @JvmField @Json(name="catch")              val catchCopy: String = "",
+        @JvmField @Json(name="catch")              val catchcopy: String = "",
         @JvmField @Transient                       val description: String? = null,
         @JvmField @Json(name="event_url")          val url: String,
         @JvmField @Json(name="hash_tag")           val hashTag: String = "",
@@ -73,11 +73,16 @@ data class Event(
         @JvmField @Json(name="updated_at")         val updatedAt: Date
 ): Serializable {
 
-    val overload: Boolean
-        get() = limit != null && limit != 0 && accepted >= limit
+    val isOverload = limit != null && limit != 0 && accepted >= limit
 
     @JvmOverloads
     fun isFinished(currentDate: Date = Date()) = endedAt < currentDate
+
+    // Javaから呼び出す時のためのユーティリティプロパティ
+
+    val hasCatchcopy = catchcopy.isNotEmpty()
+    val hasHashTag = hashTag.isNotEmpty()
+    val hasLatLon = lat != null && lon != null
 }
 
 /**
