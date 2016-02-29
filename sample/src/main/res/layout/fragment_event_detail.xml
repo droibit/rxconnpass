@@ -4,6 +4,7 @@
 
     <data>
         <variable name="event" type="com.github.droibit.rxconnpass.Event" />
+        <variable name="listener" type="com.github.droibit.rxconnpass.app.ui.view.EventDetailView.Binding" />
     </data>
 
     <android.support.design.widget.CoordinatorLayout
@@ -46,7 +47,8 @@
 
             <include layout="@layout/content_event_detail"
                      android:id="@+id/content"
-                     app:event="@{event}" />
+                     app:event="@{event}"
+                     app:listener="@{listener}" />
 
         </android.support.v4.widget.NestedScrollView>
 

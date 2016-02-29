@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer name="default_count_per_request">10</integer>
+    <integer name="default_map_camera_zoom">17</integer>
 </resources>

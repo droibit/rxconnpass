@@ -5,7 +5,9 @@
 
     <!-- http://stackoverflow.com/questions/32947440/android-data-binding-using-include-tag -->
     <data>
+        <import type="android.view.View" />
         <variable name="event" type="com.github.droibit.rxconnpass.Event" />
+        <variable name="listener" type="com.github.droibit.rxconnpass.app.ui.view.EventDetailView.Binding" />
     </data>
 
     <LinearLayout
@@ -94,11 +96,50 @@
 
         <View style="@style/Border" />
 
-        <LinearLayout
+        <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-        </LinearLayout>
+            <ImageView
+                    android:id="@+id/event_place_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/detail_item_size"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="@dimen/list_side_space"
+                    android:layout_marginRight="@dimen/list_side_medium_space"
+                    android:scaleType="center"
+                    app:srcCompat="@drawable/vector_event_place"
+                    tools:src="@drawable/vector_event_place" />
+
+            <TextView
+                    android:id="@+id/event_place"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/detail_item_size"
+                    android:layout_toRightOf="@+id/event_place_icon"
+                    android:layout_marginRight="@dimen/list_side_space"
+                    android:gravity="center_vertical"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:text="@{event.ownerDisplayName}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                    android:textColor="?android:textColorSecondary"
+                    app:address="@{event.address}"
+                    app:place="@{event.place}"
+                    tools:text="東京都台東区上野七丁目 上野駅" />
+
+            <com.google.android.gms.maps.MapView
+                    android:id="@+id/map"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/detail_map_height"
+                    android:layout_below="@id/event_place_icon"
+                    android:visibility="@{event.getHasLatLon() ? View.VISIBLE : View.GONE}"
+                    app:cameraZoom="@integer/default_map_camera_zoom"
+                    app:liteMode="true"
+                    app:mapType="normal"
+                    app:onMapReady="@{listener}" />
+
+        </RelativeLayout>
 
         <View style="@style/Border" />
 

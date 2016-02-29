@@ -1,5 +1,8 @@
 package com.github.droibit.rxconnpass.app.util.binding;
 
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+
 import com.github.droibit.rxconnpass.app.R;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
@@ -7,8 +10,10 @@ import android.databinding.BindingAdapter;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.design.widget.AppBarLayout;
+import android.support.v4.text.TextUtilsCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.widget.TextView;
 
@@ -71,5 +76,19 @@ public class BindingAdapters {
             return;
         }
         view.setText(view.getContext().getString(R.string.participant_format, accepted, limit));
+    }
+
+    @BindingAdapter({"bind:address", "bind:place"})
+    public static void bindPlace(TextView view, String address, String place) {
+        if (TextUtils.isEmpty(address) && TextUtils.isEmpty(place)) {
+            view.setText(R.string.text_place_tbd); // To Be Determined（現在未決定だが、将来決定する）
+            return;
+        }
+        view.setText(view.getContext().getString(R.string.event_place_format, address, place));
+    }
+
+    @BindingAdapter({"bind:onMapReady"})
+    public static void bindMapReadyCallback(MapView view, OnMapReadyCallback callback) {
+        view.getMapAsync(callback);
     }
 }

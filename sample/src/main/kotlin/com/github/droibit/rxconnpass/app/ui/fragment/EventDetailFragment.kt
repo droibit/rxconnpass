@@ -10,21 +10,29 @@ import android.view.*
 import com.github.droibit.rxconnpass.Event
 import com.github.droibit.rxconnpass.app.R
 import com.github.droibit.rxconnpass.app.databinding.FragmentEventDetailBinding
+import com.github.droibit.rxconnpass.app.ui.view.EventDetailView
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
+import timber.log.Timber
 
 /**
  *
  *
  * @author kumagai
  */
-class EventDetailFragment : Fragment() {
+class EventDetailFragment : Fragment(), EventDetailView, EventDetailView.Binding {
 
     companion object {
 
         private val ARG_EVENT = "event"
 
         @JvmStatic
-        fun newInstance(event: Event) = EventDetailFragment().apply {
-            arguments = Bundle().apply { putSerializable(ARG_EVENT, event) }
+        fun newInstance(event: Event): EventDetailFragment {
+            val fragment = EventDetailFragment()
+            fragment.arguments = Bundle().apply { putSerializable(ARG_EVENT, event) }
+            return fragment
         }
     }
 
@@ -55,15 +63,37 @@ class EventDetailFragment : Fragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.event = event
+        binding.apply {
+            event = this@EventDetailFragment.event
+            listener = this@EventDetailFragment
+        }
+        binding.content.map.onCreate(savedInstanceState)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_event_detail, menu)
+    }
+
+    override fun onMapReady(googleMap: GoogleMap) {
+        Timber.d("Called #onMapReady()")
+
+        val lat = event.lat
+        val lon = event.lon
+        if (lat != null && lon != null) {
+            googleMap.moveCamera(lat, lon)
+            googleMap.addMarker(lat, lon)
+
+            Timber.d("Event Place: $lat, $lon")
+        }
     }
 }
 
 private inline fun AppCompatActivity.setSupportActionBar(toolbar: Toolbar, init: ActionBar.()->Unit) {
     setSupportActionBar(toolbar)
     supportActionBar?.init()
+}
+
+private fun GoogleMap.moveCamera(lat: Double, lon: Double) = moveCamera(CameraUpdateFactory.newLatLng(LatLng(lat, lon)))
+private fun GoogleMap.addMarker(lat: Double, lon: Double) {
+    addMarker(MarkerOptions().position(LatLng(lat, lon)))
 }
