@@ -51,9 +51,12 @@ android {
         version = databinding_version
     }
     sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
-        debug.java.srcDirs += 'src/debug/kotlin'
-        debugMock.java.srcDirs += 'src/debugMock/kotlin'
+        def sources = ['main', 'debug', 'debugMock']
+        sources.each { name ->
+            "$name" {
+                java.srcDirs += "src/$name/kotlin"
+            }
+        }
     }
 }
 
