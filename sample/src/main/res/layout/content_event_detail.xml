@@ -15,7 +15,7 @@
         
         <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="108dp"
+                android:layout_height="@dimen/detail_sub_header_height"
                 android:background="@color/colorPrimaryDark" >
 
             <TextView
@@ -36,7 +36,7 @@
 
         <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="48dp">
+                android:layout_height="@dimen/detail_item_height">
 
             <ImageView
                     android:id="@+id/event_date_icon"
