@@ -9,4 +9,6 @@
     <string name="empty_event_list">メニューからイベントを検索して下さい</string>
     <string name="dialog_title_event_sort_order">イベントのソート順</string>
     <string name="action_share">共有</string>
+    <string name="text_owner_events">主催者のイベント</string>
+    <string name="text_place_tbd">場所未定</string>
 </resources>

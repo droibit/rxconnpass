@@ -36,7 +36,7 @@
 
         <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/detail_item_height">
+                android:layout_height="@dimen/detail_item_size">
 
             <ImageView
                     android:id="@+id/event_date_icon"
@@ -94,9 +94,58 @@
 
         <View style="@style/Border" />
 
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+        </LinearLayout>
+
+        <View style="@style/Border" />
+
         <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
+            <ImageView
+                    android:id="@+id/event_owner_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/detail_item_size"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="@dimen/list_side_space"
+                    android:layout_marginRight="@dimen/list_side_medium_space"
+                    android:scaleType="center"
+                    app:srcCompat="@drawable/vector_event_owner"
+                    tools:src="@drawable/vector_event_owner" />
+
+            <TextView
+                    android:id="@+id/event_owner"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/detail_item_size"
+                    android:gravity="center_vertical"
+                    android:layout_toRightOf="@+id/event_owner_icon"
+                    android:layout_toLeftOf="@+id/event_owner_web_icon"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:text="@{event.ownerDisplayName}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:textColor="?android:textColorSecondary"
+                    tools:text="droibit" />
+
+            <ImageView
+                    android:id="@+id/event_owner_web_icon"
+                    android:layout_width="@dimen/detail_item_size"
+                    android:layout_height="@dimen/detail_item_size"
+                    android:layout_gravity="center_vertical"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="@dimen/list_side_space"
+                    android:layout_marginRight="@dimen/list_side_space"
+                    android:scaleType="center"
+                    android:clickable="true"
+                    app:srcCompat="@drawable/vector_event_web"
+                    tools:src="@drawable/vector_event_web" />
+
+            <!-- TODO: 主催者のイベントリストを表示 -->
 
         </RelativeLayout>
 
