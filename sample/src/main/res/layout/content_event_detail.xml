@@ -44,8 +44,8 @@
                     android:id="@+id/event_date_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/list_side_space"
-                    android:layout_marginRight="@dimen/list_side_medium_space"
+                    android:paddingLeft="@dimen/list_side_space"
+                    android:paddingRight="@dimen/list_side_medium_space"
                     android:layout_centerVertical="true"
                     app:srcCompat="@drawable/vector_event_date"
                     tools:src="@drawable/vector_event_date" />
@@ -71,8 +71,8 @@
                     android:id="@+id/event_participants_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/list_side_space"
-                    android:layout_marginRight="@dimen/list_side_medium_space"
+                    android:paddingLeft="@dimen/list_side_space"
+                    android:paddingRight="@dimen/list_side_medium_space"
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@+id/event_participants"
                     app:srcCompat="@drawable/vector_event_participants"
@@ -106,8 +106,8 @@
                     android:layout_height="@dimen/detail_item_size"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
-                    android:layout_marginLeft="@dimen/list_side_space"
-                    android:layout_marginRight="@dimen/list_side_medium_space"
+                    android:paddingLeft="@dimen/list_side_space"
+                    android:paddingRight="@dimen/list_side_medium_space"
                     android:scaleType="center"
                     app:srcCompat="@drawable/vector_event_place"
                     tools:src="@drawable/vector_event_place" />
@@ -145,7 +145,7 @@
 
         <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
             <ImageView
                     android:id="@+id/event_owner_icon"
@@ -153,8 +153,8 @@
                     android:layout_height="@dimen/detail_item_size"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
-                    android:layout_marginLeft="@dimen/list_side_space"
-                    android:layout_marginRight="@dimen/list_side_medium_space"
+                    android:paddingLeft="@dimen/list_side_space"
+                    android:paddingRight="@dimen/list_side_medium_space"
                     android:scaleType="center"
                     app:srcCompat="@drawable/vector_event_owner"
                     tools:src="@drawable/vector_event_owner" />
@@ -165,7 +165,7 @@
                     android:layout_height="@dimen/detail_item_size"
                     android:gravity="center_vertical"
                     android:layout_toRightOf="@+id/event_owner_icon"
-                    android:layout_toLeftOf="@+id/event_owner_web_icon"
+                    android:layout_toLeftOf="@+id/event_owner_more_icon"
                     android:singleLine="true"
                     android:ellipsize="end"
                     android:text="@{event.ownerDisplayName}"
@@ -174,19 +174,16 @@
                     tools:text="droibit" />
 
             <ImageView
-                    android:id="@+id/event_owner_web_icon"
+                    android:id="@+id/event_owner_more_icon"
                     android:layout_width="@dimen/detail_item_size"
                     android:layout_height="@dimen/detail_item_size"
                     android:layout_gravity="center_vertical"
                     android:layout_alignParentRight="true"
-                    android:layout_marginLeft="@dimen/list_side_space"
                     android:layout_marginRight="@dimen/list_side_space"
                     android:scaleType="center"
                     android:clickable="true"
-                    app:srcCompat="@drawable/vector_event_web"
-                    tools:src="@drawable/vector_event_web" />
-
-            <!-- TODO: 主催者のイベントリストを表示 -->
+                    app:srcCompat="@drawable/vector_secondary_action"
+                    tools:src="@drawable/vector_secondary_action" />
 
         </RelativeLayout>
 
