@@ -53,7 +53,7 @@ data class Event(
         @JvmField @Json(name="event_id")           val id: Int,
         @JvmField @Json(name="title")              val title: String,
         @JvmField @Json(name="catch")              val catchcopy: String = "",
-        @JvmField @Transient                       val description: String? = null,
+        @JvmField @Json(name="description")        val description: String = "",
         @JvmField @Json(name="event_url")          val url: String,
         @JvmField @Json(name="hash_tag")           val hashTag: String = "",
         @JvmField @Json(name="started_at")         val startedAt: Date,
